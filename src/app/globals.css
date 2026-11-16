@@ -1,0 +1,205 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+
+  /* Toshkent Farmatsevtika Instituti (pharmi.uz) Design Tokens */
+  --c-brand: 36 53 111;          /* #24356F */
+  --c-brand-deep: 16 31 82;      /* #101F52 */
+  --c-brand-soft: 52 74 148;     /* #344A94 */
+  --c-brand-tint: 230 234 245;   /* #E6EAF5 */
+  --c-accent: 18 113 90;         /* #12715A */
+  --c-accent-tint: 227 241 236;  /* #E3F1EC */
+  --c-ink: 27 31 42;             /* #1B1F2A */
+  --c-muted: 92 100 120;         /* #5C6478 */
+  --c-faint: 138 145 163;        /* #8A91A3 */
+  --c-surface: 255 255 255;      /* #FFFFFF */
+  --c-ground: 243 245 251;       /* #F3F5FB */
+  --c-rule: 221 226 239;         /* #DDE2EF */
+
+  --glass: rgb(255 255 255 / 0.76);
+  --glass-rule: rgb(255 255 255 / 0.92);
+  --glass-blur: 14px;
+
+  --shadow-card: 0 1px 2px rgb(36 53 111 / 0.05), 0 10px 24px -14px rgb(36 53 111 / 0.24);
+  --shadow-raised: 0 4px 12px rgb(36 53 111 / 0.08), 0 20px 40px -18px rgb(36 53 111 / 0.30);
+  --shadow-header: 0 1px 0 rgb(36 53 111 / 0.06), 0 8px 24px -18px rgb(36 53 111 / 0.35);
+
+  --font-display: "Manrope", "Plus Jakarta Sans", ui-sans-serif, sans-serif;
+  --font-body: "Plus Jakarta Sans", "Inter", ui-sans-serif, sans-serif;
+  --font-mono: "IBM Plex Mono", "JetBrains Mono", ui-monospace, monospace;
+}
+
+body {
+  background-color: #ffffff;
+  color: rgb(var(--c-ink));
+  font-family: var(--font-body);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ========================================================================= */
+/* WHITE MINIMALIST CANVAS & REFINED GLASSMORPHISM (PHARMI.UZ INSPIRED)      */
+/* ========================================================================= */
+
+.pharmi-canvas {
+  background-color: #ffffff;
+  background-image:
+    radial-gradient(circle at 12% 8%, rgba(230, 234, 245, 0.75) 0%, transparent 42%),
+    radial-gradient(circle at 88% 18%, rgba(227, 241, 236, 0.65) 0%, transparent 38%),
+    radial-gradient(circle at 50% 92%, rgba(230, 234, 245, 0.55) 0%, transparent 48%);
+  background-attachment: fixed;
+}
+
+.glass-header {
+  background: rgba(255, 255, 255, 0.84);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(221, 226, 239, 0.9);
+  box-shadow: var(--shadow-header);
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(221, 226, 239, 0.95);
+  box-shadow: var(--shadow-card), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(221, 226, 239, 0.95);
+  box-shadow: var(--shadow-card), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.97);
+  border-color: rgba(36, 53, 111, 0.28);
+  box-shadow: var(--shadow-raised), inset 0 1px 0 rgba(255, 255, 255, 1);
+  transform: translateY(-2px);
+}
+
+.glass-subcard {
+  background: rgba(243, 245, 251, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(221, 226, 239, 0.9);
+}
+
+.glass-modal {
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(221, 226, 239, 1);
+  box-shadow: 0 24px 64px -16px rgba(16, 31, 82, 0.26), inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+/* Pharmi Primary & Secondary Buttons */
+.btn-pharmi {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.75rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.btn-pharmi-primary {
+  background-color: #24356F;
+  color: #ffffff;
+  border: 1px solid #24356F;
+  box-shadow: 0 4px 12px -4px rgba(36, 53, 111, 0.45);
+}
+
+.btn-pharmi-primary:hover {
+  background-color: #101F52;
+  border-color: #101F52;
+  transform: translateY(-1px);
+}
+
+.btn-pharmi-ghost {
+  background-color: rgba(255, 255, 255, 0.85);
+  color: #24356F;
+  border: 1px solid #DDE2EF;
+}
+
+.btn-pharmi-ghost:hover {
+  background-color: #E6EAF5;
+  border-color: rgba(36, 53, 111, 0.3);
+}
+
+/* Clean Minimalist Registry Table */
+.pharmi-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.pharmi-table thead th {
+  background-color: #F3F5FB;
+  color: #5C6478;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid #DDE2EF;
+}
+
+.pharmi-table tbody tr {
+  border-bottom: 1px solid #EEF1F8;
+  transition: background-color 0.15s ease;
+}
+
+.pharmi-table tbody tr:hover {
+  background-color: rgba(230, 234, 245, 0.45);
+}
+
+/* Typography Utilities */
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+.font-mono-sci,
+.font-mono-tech,
+.font-outlier {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Minimalist Light Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F3F5FB;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD3E6;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8A91A3;
+}
+
+:focus-visible {
+  outline: 2px solid #24356F;
+  outline-offset: 2px;
+}

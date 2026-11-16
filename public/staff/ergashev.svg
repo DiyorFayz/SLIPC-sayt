@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-ergashev" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#451a03"/>
+      <stop offset="100%" stop-color="#1c1917"/>
+    </linearGradient>
+    <linearGradient id="skin" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fde047"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="labcoat" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f1f5f9"/>
+    </linearGradient>
+  </defs>
+  <rect width="240" height="240" fill="url(#bg-ergashev)"/>
+  <circle cx="120" cy="120" r="105" fill="none" stroke="#FFB81C" stroke-width="2" stroke-dasharray="4 4" opacity="0.4"/>
+  <!-- Body/Coat -->
+  <path d="M40 240 C45 190, 80 170, 120 170 C160 170, 195 190, 200 240 Z" fill="url(#labcoat)"/>
+  <path d="M100 170 L120 215 L140 170 Z" fill="#d97706"/>
+  <path d="M112 170 L120 190 L128 170 Z" fill="#ffffff"/>
+  <!-- Neck -->
+  <rect x="108" y="145" width="24" height="25" fill="#f59e0b" rx="4"/>
+  <!-- Head -->
+  <ellipse cx="120" cy="115" rx="36" ry="42" fill="url(#skin)"/>
+  <!-- Hair -->
+  <path d="M84 100 C82 66, 110 60, 120 60 C140 60, 156 70, 156 100 C148 94, 138 90, 120 90 C102 90, 92 95, 84 100 Z" fill="#334155"/>
+  <!-- Eyes -->
+  <circle cx="106" cy="112" r="3" fill="#0f172a"/>
+  <circle cx="134" cy="112" r="3" fill="#0f172a"/>
+  <!-- Eyebrows -->
+  <path d="M100 104 Q106 101 112 104" stroke="#334155" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M128 104 Q134 101 140 104" stroke="#334155" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- Smile -->
+  <path d="M112 136 Q120 142 128 136" stroke="#92400e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- Badge ID -->
+  <rect x="68" y="210" width="24" height="30" rx="3" fill="#1e293b" stroke="#FFB81C" stroke-width="1.5"/>
+  <line x1="72" y1="216" x2="88" y2="216" stroke="#fbbf24" stroke-width="2"/>
+  <line x1="72" y1="222" x2="84" y2="222" stroke="#94a3b8" stroke-width="1.5"/>
+</svg>
+

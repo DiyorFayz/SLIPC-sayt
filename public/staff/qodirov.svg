@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-qodirov" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#083344"/>
+      <stop offset="100%" stop-color="#0c4a6e"/>
+    </linearGradient>
+    <linearGradient id="skin" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fed7aa"/>
+      <stop offset="100%" stop-color="#fdba74"/>
+    </linearGradient>
+    <linearGradient id="labcoat" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#e2e8f0"/>
+    </linearGradient>
+  </defs>
+  <rect width="240" height="240" fill="url(#bg-qodirov)"/>
+  <circle cx="120" cy="120" r="105" fill="none" stroke="#00B5E2" stroke-width="2" stroke-dasharray="4 4" opacity="0.4"/>
+  <!-- Body/Coat -->
+  <path d="M40 240 C45 190, 80 170, 120 170 C160 170, 195 190, 200 240 Z" fill="url(#labcoat)"/>
+  <path d="M100 170 L120 215 L140 170 Z" fill="#00B5E2"/>
+  <path d="M112 170 L120 190 L128 170 Z" fill="#ffffff"/>
+  <!-- Neck -->
+  <rect x="108" y="145" width="24" height="25" fill="#fdba74" rx="4"/>
+  <!-- Head -->
+  <ellipse cx="120" cy="115" rx="36" ry="42" fill="url(#skin)"/>
+  <!-- Hair (neat modern hair) -->
+  <path d="M84 105 C80 68, 110 62, 120 62 C146 62, 156 70, 156 102 C150 94, 138 90, 120 90 C100 90, 92 98, 84 105 Z" fill="#1e293b"/>
+  <!-- Glasses -->
+  <circle cx="106" cy="112" r="11" fill="none" stroke="#0284c7" stroke-width="2.5"/>
+  <circle cx="134" cy="112" r="11" fill="none" stroke="#0284c7" stroke-width="2.5"/>
+  <line x1="117" y1="112" x2="123" y2="112" stroke="#0284c7" stroke-width="2"/>
+  <line x1="88" y1="110" x2="95" y2="110" stroke="#0284c7" stroke-width="2"/>
+  <line x1="145" y1="110" x2="152" y2="110" stroke="#0284c7" stroke-width="2"/>
+  <!-- Eyes -->
+  <circle cx="106" cy="112" r="2.5" fill="#0f172a"/>
+  <circle cx="134" cy="112" r="2.5" fill="#0f172a"/>
+  <!-- Smile -->
+  <path d="M112 138 Q120 144 128 138" stroke="#9a3412" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- Badge ID -->
+  <rect x="68" y="210" width="24" height="30" rx="3" fill="#083344" stroke="#00B5E2" stroke-width="1.5"/>
+  <line x1="72" y1="216" x2="88" y2="216" stroke="#38bdf8" stroke-width="2"/>
+  <line x1="72" y1="222" x2="84" y2="222" stroke="#67e8f9" stroke-width="1.5"/>
+</svg>
+
