@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-an" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="skin" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffedd5"/>
+      <stop offset="100%" stop-color="#fed7aa"/>
+    </linearGradient>
+    <linearGradient id="labcoat" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f1f5f9"/>
+    </linearGradient>
+  </defs>
+  <rect width="240" height="240" fill="url(#bg-an)"/>
+  <circle cx="120" cy="120" r="105" fill="none" stroke="#38bdf8" stroke-width="2" stroke-dasharray="4 4" opacity="0.4"/>
+  <!-- Hair back -->
+  <path d="M78 120 C70 170, 80 200, 85 220 L155 220 C160 200, 170 170, 162 120 Z" fill="#09090b"/>
+  <!-- Body/Coat -->
+  <path d="M42 240 C46 195, 80 170, 120 170 C160 170, 194 195, 198 240 Z" fill="url(#labcoat)"/>
+  <path d="M102 170 L120 215 L138 170 Z" fill="#38bdf8"/>
+  <path d="M112 170 L120 190 L128 170 Z" fill="#ffffff"/>
+  <!-- Neck -->
+  <rect x="109" y="145" width="22" height="25" fill="#fed7aa" rx="4"/>
+  <!-- Head -->
+  <ellipse cx="120" cy="116" rx="34" ry="40" fill="url(#skin)"/>
+  <!-- Hair front -->
+  <path d="M82 110 C80 65, 115 62, 120 62 C145 62, 158 70, 158 110 C154 90, 138 82, 120 84 C100 84, 88 95, 82 110 Z" fill="#09090b"/>
+  
+  <!-- Eyeglasses -->
+  <rect x="94" y="106" width="22" height="15" rx="3" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+  <rect x="124" y="106" width="22" height="15" rx="3" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+  <line x1="116" y1="113" x2="124" y2="113" stroke="#38bdf8" stroke-width="2"/>
+  <line x1="88" y1="111" x2="94" y2="111" stroke="#38bdf8" stroke-width="2"/>
+  <line x1="146" y1="111" x2="152" y2="111" stroke="#38bdf8" stroke-width="2"/>
+  <!-- Eyes -->
+  <circle cx="105" cy="113" r="2.5" fill="#1c1917"/>
+  <circle cx="135" cy="113" r="2.5" fill="#1c1917"/>
+  <!-- Smile -->
+  <path d="M112 138 Q120 144 128 138" stroke="#be123c" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- Badge ID -->
+  <rect x="68" y="210" width="32" height="30" rx="3" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+  <text x="84" y="228" font-family="monospace" font-size="8" font-weight="bold" fill="#f8fafc" text-anchor="middle">LT · IV</text>
+</svg>

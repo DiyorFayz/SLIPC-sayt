@@ -3,90 +3,116 @@
 import React from 'react';
 import { Language } from '@/types/laboratory';
 import { TRANSLATIONS } from '@/data/translations';
-import { ShieldCheck } from 'lucide-react';
+import { ArrowDown, FileCheck2, ChevronRight } from 'lucide-react';
 
 interface HeroSectionProps {
   currentLang: Language;
+  onOpenPassport?: () => void;
 }
 
-export const HeroSection: React.FC<HeroSectionProps> = ({ currentLang }) => {
+export const HeroSection: React.FC<HeroSectionProps> = ({ currentLang, onOpenPassport }) => {
   const t = TRANSLATIONS[currentLang];
 
-  return (
-    <section className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-8 pt-6 sm:pt-8 pb-2">
-      <div className="glass-panel rounded-2xl overflow-hidden">
-        {/* Top Pharmaceutical Brand Accent Bar */}
-        <div className="h-1 w-full bg-gradient-to-r from-[#24356F] via-[#344A94] to-[#12715A]" />
+  const handleScrollToDepartments = () => {
+    const el = document.getElementById('departments-section');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
-        <div className="p-6 sm:p-8 lg:p-10">
-          {/* Minimalist Institutional Tag */}
-          <div className="flex flex-wrap items-center justify-between gap-2 pb-5 mb-6 border-b border-[#DDE2EF]/80">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E6EAF5]/80 text-[#24356F] text-xs font-semibold tracking-wide">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#12715A]" />
+  const ctaExploreText = {
+    uz: "Ilmiy Bo'limlar & Xonalar",
+    ru: "Научные отделы и комнаты",
+    en: "Scientific Units & Labs"
+  }[currentLang];
+
+  const ctaPassportText = {
+    uz: "Laboratoriya Pasporti (ISO/GLP)",
+    ru: "Паспорт лаборатории (ISO/GLP)",
+    en: "Laboratory Passport (ISO/GLP)"
+  }[currentLang];
+
+  return (
+    <section className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-8 pt-5 sm:pt-6 pb-2">
+      {/* EMBL / Broad Style Container: rounded-lg, 1px solid #E2E8F0, subtle dot grid */}
+      <div className="relative rounded-lg border border-[#E2E8F0] bg-white academic-dot-grid overflow-hidden shadow-xs">
+        {/* Top Accent Strip in Navy (#0F2942) and Bio-Green (#108A54) */}
+        <div className="h-1 w-full bg-gradient-to-r from-[#0F2942] via-[#1E3D5F] to-[#108A54]" />
+
+        <div className="p-4 sm:p-8 lg:p-10 relative z-10">
+          {/* Institutional Academic Badge */}
+          <div className="flex flex-wrap items-center justify-between gap-2.5 pb-4 mb-5 sm:mb-6 border-b border-[#E2E8F0]">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#108A54]/10 border border-[#108A54]/30 text-[#108A54] text-xs font-bold tracking-wide font-body">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#108A54] shrink-0" />
               <span>Toshkent Farmatsevtika Instituti</span>
             </div>
-            <span className="text-[11px] font-mono text-[#5C6478] bg-[#F3F5FB] px-2.5 py-1 rounded-full border border-[#DDE2EF]">
-              41.3111° N, 69.2797° E
+            <span className="font-mono text-[10px] sm:text-[11px] font-semibold text-[#475569] tracking-wider uppercase">
+              SLIPC &bull; Academic Research Facility
             </span>
           </div>
 
-          {/* Main Title, Mission & Brand Logo */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-            <div className="max-w-3xl">
-              <h1 className="text-2xl sm:text-4xl lg:text-[2.6rem] font-extrabold tracking-tight text-[#1B1F2A] font-display leading-[1.15]">
+          {/* Main Title, Mission, CTA Buttons & Brand Logo */}
+          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 sm:gap-8">
+            <div className="max-w-3xl flex-1">
+              <h1 className="text-xl sm:text-3xl lg:text-[2.65rem] font-extrabold tracking-tight text-[#0F2942] font-display leading-[1.16]">
                 {t.heroHeadline}
               </h1>
 
-              <p className="mt-3.5 text-sm sm:text-base text-[#5C6478] leading-relaxed font-body max-w-2xl">
+              <p className="mt-3 text-xs sm:text-base text-[#475569] leading-relaxed font-body max-w-2xl">
                 {t.heroMission}
               </p>
+
+              {/* 3) CTA Buttons */}
+              <div className="mt-5 sm:mt-6 flex flex-wrap items-center gap-3 pt-1">
+                <button
+                  type="button"
+                  onClick={handleScrollToDepartments}
+                  className="px-5 py-2.5 min-h-[44px] rounded-lg bg-[#0F2942] hover:bg-[#081726] active:scale-95 text-white text-xs sm:text-sm font-semibold inline-flex items-center gap-2 transition-all shadow-xs cursor-pointer touch-manipulation"
+                >
+                  <span>{ctaExploreText}</span>
+                  <ArrowDown className="w-4 h-4 text-[#108A54]" />
+                </button>
+
+                {onOpenPassport && (
+                  <button
+                    type="button"
+                    onClick={onOpenPassport}
+                    className="px-4 py-2.5 min-h-[44px] rounded-lg bg-white hover:bg-[#F8FAFC] active:scale-95 text-[#0F2942] border border-[#E2E8F0] hover:border-[#CBD5E1] text-xs sm:text-sm font-semibold inline-flex items-center gap-2 transition-all cursor-pointer shadow-2xs touch-manipulation"
+                  >
+                    <FileCheck2 className="w-4 h-4 text-[#108A54]" />
+                    <span>{ctaPassportText}</span>
+                  </button>
+                )}
+              </div>
             </div>
 
-            <div className="shrink-0 self-start sm:self-center">
-              <div className="p-1.5 rounded-2xl bg-white/90 border border-[#DDE2EF] shadow-pharmi-card">
+            {/* Logo: Clean rounded-lg with 1px border */}
+            <div className="shrink-0 self-center lg:self-center">
+              <div className="p-2 sm:p-2.5 rounded-lg bg-white border border-[#E2E8F0] shadow-2xs">
                 <img
-                  src="/logo.jpg"
+                  src="/logo.webp"
                   alt="SLIPC Laboratoriyasi"
-                  className="w-24 h-24 sm:w-28 sm:h-28 rounded-xl object-contain bg-[#0A1128]"
+                  className="w-28 h-28 sm:w-44 sm:h-44 md:w-48 md:h-48 rounded-md object-contain bg-white"
                 />
               </div>
             </div>
           </div>
 
-          {/* Official Accreditation Badges Row (Replaces previous 4 metrics cards) */}
-          <div className="mt-6 pt-5 border-t border-[#DDE2EF]/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div className="flex items-center gap-2.5 text-xs text-[#5C6478] font-body">
-              <div className="p-1 rounded-md bg-[#E3F1EC] text-[#12715A]">
-                <ShieldCheck className="w-4 h-4" />
-              </div>
-              <span className="font-semibold text-[#1B1F2A]">
-                {currentLang === 'uz'
-                  ? "Davlat Akkreditatsiyasi va Xalqaro Standartlar:"
-                  : currentLang === 'ru'
-                  ? "Государственная аккредитация и стандарты качества:"
-                  : "National Accreditation & International Quality Standards:"}
-              </span>
-              <span className="hidden md:inline text-[#5C6478]">
-                ISO/IEC 17025 • GLP (GxP)
-              </span>
+          {/* 3) Official Accreditation Badges: Removed from white card boxes, directly placed on grid */}
+          <div className="mt-8 pt-5 border-t border-[#E2E8F0] flex flex-wrap items-center justify-start gap-6 sm:gap-8">
+            <div className="transition-transform hover:scale-105">
+              <img
+                src="/images/badges/iso-17025-certified-badge.webp"
+                alt="ISO/IEC 17025 Certified"
+                className="h-10 sm:h-12 w-auto object-contain drop-shadow-2xs"
+              />
             </div>
-
-            {/* Badges placed on the right */}
-            <div className="flex items-center gap-3 sm:gap-4 sm:ml-auto">
-              <div className="h-12 sm:h-13 px-3 py-1.5 bg-white rounded-xl border border-[#DDE2EF] shadow-2xs flex items-center justify-center hover:border-[#24356F]/30 hover:shadow-xs transition-all">
-                <img
-                  src="/images/badges/iso-17025-certified-badge.png"
-                  alt="ISO/IEC 17025 Certified"
-                  className="h-8 sm:h-8.5 w-auto object-contain"
-                />
-              </div>
-              <div className="h-12 sm:h-13 px-3 py-1.5 bg-white rounded-xl border border-[#DDE2EF] shadow-2xs flex items-center justify-center hover:border-[#24356F]/30 hover:shadow-xs transition-all">
-                <img
-                  src="/images/badges/glp-certified-badge.png"
-                  alt="Good Laboratory Practice (GLP) Certified"
-                  className="h-8.5 sm:h-9 w-auto object-contain"
-                />
-              </div>
+            <div className="transition-transform hover:scale-105">
+              <img
+                src="/images/badges/glp-certified-badge.webp"
+                alt="Good Laboratory Practice (GLP) Certified"
+                className="h-12 sm:h-14 w-auto object-contain drop-shadow-2xs"
+              />
             </div>
           </div>
         </div>

@@ -90,26 +90,26 @@ export const RoomDetailModal: React.FC<RoomDetailModalProps> = ({
               room.researchPillars && room.researchPillars.length > 0
                 ? 'sm:max-w-5xl'
                 : 'sm:max-w-4xl'
-            } glass-modal sm:rounded-2xl overflow-hidden flex flex-col max-h-[92vh] z-10 transition-all duration-300`}
+            } glass-modal rounded-t-2xl sm:rounded-lg overflow-hidden flex flex-col max-h-[92dvh] z-10 transition-all duration-300`}
           >
             {/* Top Pharmaceutical Accent Line */}
-            <div className="h-1 w-full bg-gradient-to-r from-[#24356F] via-[#344A94] to-[#12715A] shrink-0" />
+            <div className="h-1 w-full bg-gradient-to-r from-[#0F2942] via-[#1E3D5F] to-[#108A54] shrink-0" />
 
             {/* Modal Header */}
-            <div className="p-5 sm:p-6 bg-white/80 border-b border-[#DDE2EF] flex flex-col sm:flex-row justify-between items-start gap-4">
-              <div className="flex items-start gap-4 flex-1">
-                <div className="p-1 rounded-xl bg-white border border-[#DDE2EF] shadow-sm shrink-0 hidden sm:block">
+            <div className="p-4 sm:p-6 bg-white/95 border-b border-[#E2E8F0] flex flex-col sm:flex-row justify-between items-start gap-4">
+              <div className="flex items-start gap-3.5 sm:gap-4 flex-1">
+                <div className="p-1 rounded-lg bg-white border border-[#E2E8F0] shadow-sm shrink-0 hidden sm:block">
                   <img
-                    src="/logo.jpg"
+                    src="/logo.webp"
                     alt="SLIPC"
-                    className="w-12 h-12 rounded-lg object-contain bg-[#0A1128]"
+                    className="w-12 h-12 rounded-md object-contain bg-white"
                   />
                 </div>
                 <div className="flex-1">
-                  <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-[#1B1F2A] font-display">
+                  <h2 className="text-lg sm:text-2xl font-bold tracking-tight text-[#0F2942] font-display">
                     {room.title[currentLang]}
                   </h2>
-                  <p className="text-sm text-[#5C6478] mt-1 font-body">
+                  <p className="text-xs sm:text-sm text-[#475569] mt-0.5 font-body">
                     {room.subTitle[currentLang]}
                   </p>
                 </div>
@@ -117,7 +117,7 @@ export const RoomDetailModal: React.FC<RoomDetailModalProps> = ({
 
               <button
                 onClick={onClose}
-                className="p-2 rounded-xl border border-[#DDE2EF] bg-white text-[#5C6478] hover:text-[#24356F] hover:bg-[#F3F5FB] transition-colors shrink-0 cursor-pointer"
+                className="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 rounded-lg border border-[#E2E8F0] bg-white text-[#475569] hover:text-[#0F2942] hover:bg-[#F8FAFC] transition-colors shrink-0 cursor-pointer touch-manipulation self-end sm:self-auto"
                 aria-label={t.closeModal}
               >
                 <X className="w-5 h-5" />
@@ -126,7 +126,7 @@ export const RoomDetailModal: React.FC<RoomDetailModalProps> = ({
 
             {/* Modal Body */}
             {(room.researchPillars && room.researchPillars.length > 0) || room.vivariumDetails ? (
-              <div className="flex-1 overflow-y-auto p-5 sm:p-7 bg-[#F8FAFC]">
+              <div className="flex-1 overflow-y-auto p-4 sm:p-7 bg-[#F4F6F9] ios-momentum-scroll overscroll-contain">
                 {/* Department Intro / Highlight Banner */}
                 {room.fullFocus && room.fullFocus[currentLang] && (
                   <div className="mb-6 p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#24356F]/6 via-[#12715A]/6 to-[#E6EAF5]/40 border border-[#DDE2EF] flex items-start gap-3.5 shadow-2xs">

@@ -94,7 +94,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ currentLang }) => {
       color: "#0072CE"
     },
     {
-      name: "Fayzullayev Diyorbek To'xtasinovich",
+      name: "Fayzullayev D.T.",
       image: "/staff/fayzullayev.svg",
       title: {
         uz: "Kichik ilmiy xodim",
@@ -157,25 +157,25 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ currentLang }) => {
 
         {/* Laboratory Origin & History Subsection */}
         <div className="mb-12 max-w-4xl">
-          <div className="rounded-2xl p-6 border border-[#24356F]/20 bg-gradient-to-br from-white via-[#F8FAFC] to-[#E6EAF5]/50 shadow-xs hover:border-[#24356F]/40 transition-all duration-300">
+          <div className="rounded-lg p-6 border border-[#E2E8F0] bg-white shadow-xs hover:border-[#0F2942]/30 transition-all duration-300">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1.5">
-                  <span className="font-mono text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#E6EAF5] text-[#24356F] border border-[#CCD6ED] uppercase">
+                  <span className="font-mono text-[10px] font-bold px-2.5 py-0.5 rounded-md bg-[#0F2942]/10 text-[#0F2942] border border-[#0F2942]/20 uppercase">
                     1987 — 2025 &bull; 38 Yil
                   </span>
-                  <span className="font-mono text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  <span className="font-mono text-[10px] font-bold px-2 py-0.5 rounded-md bg-[#108A54]/10 text-[#108A54] border border-[#108A54]/20">
                     IF: 36.3
                   </span>
                 </div>
-                <h3 className="text-lg font-bold font-display text-[#1B1F2A]">
+                <h3 className="text-lg font-bold font-display text-[#0F2942]">
                   {currentLang === 'uz'
                     ? "Laboratoriyaning kelib chiqish tarixi"
                     : currentLang === 'ru'
                       ? "История происхождения лаборатории"
                       : "Origins & History of the Laboratory"}
                 </h3>
-                <p className="text-xs sm:text-sm text-[#5C6478] font-body mt-1 leading-relaxed max-w-xl">
+                <p className="text-xs sm:text-sm text-[#475569] font-body mt-1 leading-relaxed max-w-xl">
                   {currentLang === 'uz'
                     ? "1987-yilda tashkil etilgan ilk laboratoriyadan bugungi kungacha bosib o'tilgan 38 yillik ilmiy taraqqiyot yo'li, 1000 dan ortiq yangi moddalar sintezi, 40 ta dori vositasi va nufuzli Scopus Q1 nashrlari."
                     : currentLang === 'ru'
@@ -187,9 +187,9 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ currentLang }) => {
               <button
                 type="button"
                 onClick={() => setIsHistoryOpen(true)}
-                className="self-start md:self-center px-4 py-2.5 rounded-xl bg-[#24356F] hover:bg-[#1B2854] text-white text-xs font-semibold flex items-center gap-2 transition-all shadow-xs shrink-0 cursor-pointer group"
+                className="self-start md:self-center px-4 py-2.5 rounded-lg bg-[#0F2942] hover:bg-[#081726] text-white text-xs font-semibold flex items-center gap-2 transition-all shadow-xs shrink-0 cursor-pointer group"
               >
-                <Sparkles className="w-4 h-4 text-[#38D399]" />
+                <Sparkles className="w-4 h-4 text-[#108A54]" />
                 <span>
                   {currentLang === 'uz'
                     ? "Tarix sahifasini ochish"
@@ -202,22 +202,22 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ currentLang }) => {
             </div>
 
             {/* 4 Quick Highlights Pills */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-4 mt-4 border-t border-[#DDE2EF]/70 text-xs">
-              <div className="p-2.5 rounded-xl bg-white/80 border border-[#DDE2EF]">
-                <span className="text-[10px] font-mono text-[#8A91A3] block uppercase">1987-yil</span>
-                <span className="font-bold text-[#1B1F2A] block text-xs mt-0.5">Prof. M.A. Azizov</span>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-4 mt-4 border-t border-[#E2E8F0] text-xs">
+              <div className="p-2.5 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0]">
+                <span className="text-[10px] font-mono text-[#64748B] block uppercase">1987-yil</span>
+                <span className="font-bold text-[#0F2942] block text-xs mt-0.5">Prof. M.A. Azizov</span>
               </div>
-              <div className="p-2.5 rounded-xl bg-white/80 border border-[#DDE2EF]">
-                <span className="text-[10px] font-mono text-[#8A91A3] block uppercase">1991–2000 MITL</span>
-                <span className="font-bold text-[#1B1F2A] block text-xs mt-0.5">25 Patent, 300+ Maqola</span>
+              <div className="p-2.5 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0]">
+                <span className="text-[10px] font-mono text-[#64748B] block uppercase">1991–2000 MITL</span>
+                <span className="font-bold text-[#0F2942] block text-xs mt-0.5">25 Patent, 300+ Maqola</span>
               </div>
-              <div className="p-2.5 rounded-xl bg-white/80 border border-[#DDE2EF]">
-                <span className="text-[10px] font-mono text-[#8A91A3] block uppercase">Jami Natija</span>
-                <span className="font-bold text-[#12715A] block text-xs mt-0.5">1000+ Modda, ~40 Dori</span>
+              <div className="p-2.5 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0]">
+                <span className="text-[10px] font-mono text-[#64748B] block uppercase">Jami Natija</span>
+                <span className="font-bold text-[#108A54] block text-xs mt-0.5">1000+ Modda, ~40 Dori</span>
               </div>
-              <div className="p-2.5 rounded-xl bg-white/80 border border-[#DDE2EF]">
-                <span className="text-[10px] font-mono text-[#8A91A3] block uppercase">2025 Natija</span>
-                <span className="font-bold text-[#24356F] block text-xs mt-0.5">IF 36.3 (Q1 Jurnal)</span>
+              <div className="p-2.5 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0]">
+                <span className="text-[10px] font-mono text-[#64748B] block uppercase">2025 Natija</span>
+                <span className="font-bold text-[#0F2942] block text-xs mt-0.5">IF 36.3 (Q1 Jurnal)</span>
               </div>
             </div>
           </div>

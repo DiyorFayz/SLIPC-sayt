@@ -137,9 +137,9 @@ export const EducationModal: React.FC<EducationModalProps> = ({
               <div className="flex items-start gap-4">
                 <div className="p-1 rounded-xl bg-white border border-[#DDE2EF] shadow-sm shrink-0">
                   <img
-                    src="/logo.jpg"
+                    src="/logo.webp"
                     alt="SLIPC"
-                    className="w-12 h-12 rounded-lg object-contain bg-[#0A1128]"
+                    className="w-12 h-12 rounded-lg object-contain bg-white"
                   />
                 </div>
                 <div>

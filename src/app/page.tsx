@@ -8,6 +8,7 @@ import { LAB_ROOMS, LAB_SOPS } from '@/data/laboratoryData';
 import { Header } from '@/components/Header';
 import { HeroSection } from '@/components/HeroSection';
 import { HandoverBanner } from '@/components/HandoverBanner';
+import { DepartmentsSlider } from '@/components/DepartmentsSlider';
 import { RoomsGrid } from '@/components/RoomsGrid';
 import { Footer } from '@/components/Footer';
 
@@ -64,11 +65,11 @@ export default function Home() {
   };
 
   return (
-    <div className="relative min-h-screen flex flex-col pharmi-canvas text-[#1B1F2A] selection:bg-[#24356F] selection:text-white overflow-x-hidden">
-      {/* Subtle Ambient Frosted Shapes for White Glassmorphism Depth */}
+    <div className="relative min-h-screen flex flex-col pharmi-canvas text-[#0F172A] selection:bg-[#0F2942] selection:text-white overflow-x-hidden">
+      {/* Subtle Ambient Academic Mesh for Depth */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden z-0" aria-hidden="true">
-        <div className="absolute -top-32 -left-24 w-[480px] h-[480px] rounded-full bg-[#24356F]/[0.05] blur-3xl" />
-        <div className="absolute top-1/3 -right-32 w-[420px] h-[420px] rounded-full bg-[#12715A]/[0.05] blur-3xl" />
+        <div className="absolute -top-32 -left-24 w-[480px] h-[480px] rounded-full bg-[#0F2942]/[0.04] blur-3xl" />
+        <div className="absolute top-1/3 -right-32 w-[420px] h-[420px] rounded-full bg-[#108A54]/[0.04] blur-3xl" />
       </div>
 
       {/* 1. Academic Header with Language Switcher, Quick Search & Navigation Modal Triggers */}
@@ -86,38 +87,22 @@ export default function Home() {
       {/* Main Single-Screen / Compact Hub Area */}
       <main className="relative z-10 flex-1 flex flex-col">
         {/* 2. Compact Hero Banner with Lab Title, 2-line Mission, and Monospace Metrics */}
-        <HeroSection currentLang={currentLang} />
+        <HeroSection
+          currentLang={currentLang}
+          onOpenPassport={() => setIsPassportOpen(true)}
+        />
 
-        {/* 3. Interactive Link Hub Grid (Triggers Only) */}
-        <section className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-8 py-6 sm:py-8">
+        {/* 3. Interactive Large Slide Showcase */}
+        <section id="departments-section" className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-8 py-6 sm:py-8">
           {/* Accreditation Handover Showcase Banner */}
           <HandoverBanner currentLang={currentLang} />
 
-          {/* Section Header: 4 Laboratory Departments */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 pt-2">
-            <div>
-              <h2 className="text-xl sm:text-2xl font-bold font-display text-[#1B1F2A] tracking-tight">
-                {t.roomsShowcaseTitle}
-              </h2>
-              <p className="text-xs sm:text-sm text-[#5C6478] font-body mt-0.5">
-                {t.roomsShowcaseSubtitle}
-              </p>
-            </div>
-            <span className="font-mono text-xs font-semibold px-3 py-1 rounded-full bg-[#E6EAF5] text-[#24356F] border border-[#CCD6ED] self-start sm:self-center shrink-0">
-              {t.roomsCount}
-            </span>
-          </div>
-
-          {/* 4 Laboratory Department Cards */}
-          <RoomsGrid
+          {/* Large Department Slider Showcase matching user screenshot */}
+          <DepartmentsSlider
             rooms={LAB_ROOMS}
             currentLang={currentLang}
             onOpenDetails={handleSelectRoom}
-            onOpenEquipment={() => setIsEquipmentOpen(true)}
-            onOpenPublications={() => setIsPublicationsOpen(true)}
-            onOpenProjects={() => setIsProjectsOpen(true)}
             onOpenPassport={() => setIsPassportOpen(true)}
-            showGeneralSections={false}
           />
         </section>
       </main>

@@ -55,35 +55,35 @@ export const CapabilityPassportModal: React.FC<CapabilityPassportModalProps> = (
             exit={{ opacity: 0, y: 24, scale: 0.98 }}
             transition={{ type: 'spring', duration: 0.32, bounce: 0 }}
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full sm:max-w-4xl glass-modal sm:rounded-2xl overflow-hidden flex flex-col max-h-[92vh] z-10"
+            className="relative w-full sm:max-w-4xl glass-modal rounded-t-2xl sm:rounded-lg overflow-hidden flex flex-col max-h-[92dvh] z-10"
           >
             {/* Top Brand Accent Bar */}
-            <div className="h-1 w-full bg-gradient-to-r from-[#24356F] via-[#344A94] to-[#12715A] shrink-0" />
+            <div className="h-1 w-full bg-gradient-to-r from-[#0F2942] via-[#1E3D5F] to-[#108A54] shrink-0" />
 
             {/* Header */}
-            <div className="p-5 sm:p-6 bg-white/80 border-b border-[#DDE2EF] flex flex-col sm:flex-row justify-between items-start gap-4">
-              <div className="flex items-start gap-4">
-                <div className="p-1 rounded-xl bg-white border border-[#DDE2EF] shadow-sm shrink-0">
+            <div className="p-4 sm:p-6 bg-white/95 border-b border-[#E2E8F0] flex flex-col sm:flex-row justify-between items-start gap-4">
+              <div className="flex items-start gap-3.5 sm:gap-4">
+                <div className="p-1 rounded-lg bg-white border border-[#E2E8F0] shadow-sm shrink-0">
                   <img
-                    src="/logo.jpg"
+                    src="/logo.webp"
                     alt="SLIPC"
-                    className="w-12 h-12 rounded-lg object-contain bg-[#0A1128]"
+                    className="w-12 h-12 rounded-md object-contain bg-white"
                   />
                 </div>
                 <div>
                   <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                    <span className="font-mono text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-[#E3F1EC] text-[#12715A] inline-flex items-center gap-1.5 uppercase">
+                    <span className="font-mono text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-[#108A54]/10 text-[#108A54] border border-[#108A54]/20 inline-flex items-center gap-1.5 uppercase">
                       <Globe2 className="w-3.5 h-3.5" />
                       EU HORIZON PIC: 912048192
                     </span>
-                    <span className="text-xs font-mono text-[#5C6478]">
+                    <span className="text-xs font-mono text-[#475569]">
                       ISO/IEC 17025 &bull; BSL-2
                     </span>
                   </div>
-                  <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-[#1B1F2A] font-display">
+                  <h2 className="text-lg sm:text-2xl font-bold tracking-tight text-[#0F2942] font-display">
                     Horizon Europe Capability Statement
                   </h2>
-                  <p className="text-xs sm:text-sm text-[#5C6478] mt-1 font-body">
+                  <p className="text-xs sm:text-sm text-[#475569] mt-0.5 font-body">
                     Xalqaro tadqiqot konsortsiumlari va grant dasturlari uchun rasmiy laboratoriya pasporti
                   </p>
                 </div>
@@ -91,7 +91,7 @@ export const CapabilityPassportModal: React.FC<CapabilityPassportModalProps> = (
 
               <button
                 onClick={onClose}
-                className="p-2 rounded-xl border border-[#DDE2EF] bg-white text-[#5C6478] hover:text-[#24356F] hover:bg-[#F3F5FB] transition-colors shrink-0 cursor-pointer"
+                className="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 rounded-lg border border-[#E2E8F0] bg-white text-[#475569] hover:text-[#0F2942] hover:bg-[#F8FAFC] transition-colors shrink-0 cursor-pointer touch-manipulation self-end sm:self-auto"
                 aria-label={t.closeModal}
               >
                 <X className="w-5 h-5" />
@@ -99,7 +99,7 @@ export const CapabilityPassportModal: React.FC<CapabilityPassportModalProps> = (
             </div>
 
             {/* Body */}
-            <div className="flex-1 overflow-y-auto p-5 sm:p-7 space-y-6 bg-[#F3F5FB]/40">
+            <div className="flex-1 overflow-y-auto p-4 sm:p-7 space-y-6 bg-[#F4F6F9] ios-momentum-scroll overscroll-contain">
               {/* Entity Overview */}
               <div className="p-5 rounded-2xl bg-white/95 border border-[#DDE2EF] shadow-sm">
                 <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-[#24356F] mb-3.5 flex items-center gap-2">

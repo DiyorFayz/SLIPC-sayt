@@ -18,6 +18,8 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { HistoryModal } from '@/components/HistoryModal';
+import { STAFF_MEMBERS } from '@/data/staffData';
+import { CometCard } from '@/components/ui/comet-card';
 
 interface AboutModalProps {
   isOpen: boolean;
@@ -75,93 +77,7 @@ export const AboutModal: React.FC<AboutModalProps> = ({
     { title: t.aboutPillar4Title, desc: t.aboutPillar4Desc, code: "PC-PHYTO" },
   ];
 
-  const staffMembers = [
-    {
-      name: "Professor Avez Sharipov, DSc",
-      image: "/staff/sharipov.jpg",
-      title: {
-        uz: "SLIPC laboratoriya mudiri, professor",
-        ru: "Заведующий лабораторией SLIPC, профессор",
-        en: "Head of SLIPC Laboratory, Professor"
-      },
-      room: {
-        uz: "In Vivo Farmakologiya",
-        ru: "In Vivo Фармакология",
-        en: "In Vivo Pharmacology"
-      },
-      roomCode: "LAB-PH-102",
-      orcid: "0000-0001-9231-778X",
-      email: "a.sharipov@slipc-lab.uz",
-    },
-    {
-      name: "Tulyaganov Bobir Sobirovich",
-      image: "/staff/tulyaganov.svg",
-      title: {
-        uz: "Katta ilmiy xodim, PhD",
-        ru: "Старший научный сотрудник, PhD",
-        en: "Senior Research Scientist, PhD"
-      },
-      room: {
-        uz: "HPLC Xromatografiya",
-        ru: "ВЭЖХ Хроматография",
-        en: "HPLC Chromatography"
-      },
-      roomCode: "LAB-HP-201",
-      orcid: "0000-0002-3419-8821",
-      email: "b.tulyaganov@slipc-lab.uz",
-    },
-    {
-      name: "Gulyamov Shohid Sharofutdin o'g'li",
-      image: "/staff/gulyamov.svg",
-      title: {
-        uz: "Katta ilmiy xodim, PhD",
-        ru: "Старший научный сотрудник, PhD",
-        en: "Senior Research Scientist, PhD"
-      },
-      room: {
-        uz: "In Vitro & Hujayra",
-        ru: "In Vitro & Клетки",
-        en: "In Vitro & Cell Biology"
-      },
-      roomCode: "LAB-IV-101",
-      orcid: "0000-0003-4512-7104",
-      email: "sh.gulyamov@slipc-lab.uz",
-    },
-    {
-      name: "Fayzullayev Diyorbek To'xtasinovich",
-      image: "/staff/fayzullayev.svg",
-      title: {
-        uz: "Kichik ilmiy xodim",
-        ru: "Младший научный сотрудник",
-        en: "Junior Research Scientist"
-      },
-      room: {
-        uz: "Fitokimyo & Farm Tex",
-        ru: "Фитохимия & Фармтех",
-        en: "Phytochemistry & Pharm Tech"
-      },
-      roomCode: "LAB-PC-301",
-      orcid: "0000-0001-8874-3392",
-      email: "d.fayzullayev@slipc-lab.uz",
-    },
-    {
-      name: "Sulaymonova Nigina Jamshid qizi",
-      image: "/staff/sulaymonova.svg",
-      title: {
-        uz: "Kichik ilmiy xodim",
-        ru: "Младший научный сотрудник",
-        en: "Junior Research Scientist"
-      },
-      room: {
-        uz: "Biokimyo & Enzimologiya",
-        ru: "Биохимия & Энзимология",
-        en: "Biochemistry & Enzymology"
-      },
-      roomCode: "LAB-BC-202",
-      orcid: "0000-0002-1980-6218",
-      email: "n.sulaymonova@slipc-lab.uz",
-    }
-  ];
+  const staffMembers = STAFF_MEMBERS;
 
   const sectionStaffHeader = {
     uz: {
@@ -201,26 +117,26 @@ export const AboutModal: React.FC<AboutModalProps> = ({
             exit={{ opacity: 0, y: 24, scale: 0.98 }}
             transition={{ type: 'spring', duration: 0.32, bounce: 0 }}
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full sm:max-w-4xl glass-modal sm:rounded-2xl overflow-hidden flex flex-col max-h-[92vh] z-10"
+            className="relative w-full sm:max-w-4xl glass-modal rounded-t-2xl sm:rounded-lg overflow-hidden flex flex-col max-h-[92dvh] z-10"
           >
             {/* Top Brand Accent Bar */}
-            <div className="h-1 w-full bg-gradient-to-r from-[#24356F] via-[#344A94] to-[#12715A] shrink-0" />
+            <div className="h-1 w-full bg-gradient-to-r from-[#0F2942] via-[#1E3D5F] to-[#108A54] shrink-0" />
 
             {/* Header */}
-            <div className="p-5 sm:p-6 bg-white/80 border-b border-[#DDE2EF] flex flex-col sm:flex-row justify-between items-start gap-4">
-              <div className="flex items-center gap-4">
-                <div className="p-1 rounded-xl bg-white border border-[#DDE2EF] shadow-sm shrink-0">
+            <div className="p-4 sm:p-6 bg-white/95 border-b border-[#E2E8F0] flex flex-col sm:flex-row justify-between items-start gap-4">
+              <div className="flex items-center gap-3.5 sm:gap-4">
+                <div className="p-1 rounded-lg bg-white border border-[#E2E8F0] shadow-sm shrink-0">
                   <img
-                    src="/logo.jpg"
+                    src="/logo.webp"
                     alt="SLIPC"
-                    className="w-14 h-14 rounded-lg object-contain bg-[#0A1128]"
+                    className="w-12 h-12 sm:w-14 sm:h-14 rounded-md object-contain bg-white"
                   />
                 </div>
                 <div>
-                  <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-[#1B1F2A] font-display">
+                  <h2 className="text-lg sm:text-2xl font-bold tracking-tight text-[#0F2942] font-display">
                     {t.sectionAboutTitle}
                   </h2>
-                  <p className="text-xs sm:text-sm text-[#5C6478] mt-1 font-body">
+                  <p className="text-xs sm:text-sm text-[#475569] mt-0.5 font-body">
                     {t.sectionAboutSubtitle}
                   </p>
                 </div>
@@ -228,7 +144,7 @@ export const AboutModal: React.FC<AboutModalProps> = ({
 
               <button
                 onClick={onClose}
-                className="p-2 rounded-xl border border-[#DDE2EF] bg-white text-[#5C6478] hover:text-[#24356F] hover:bg-[#F3F5FB] transition-colors shrink-0 cursor-pointer"
+                className="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 rounded-lg border border-[#E2E8F0] bg-white text-[#475569] hover:text-[#0F2942] hover:bg-[#F8FAFC] transition-colors shrink-0 cursor-pointer touch-manipulation self-end sm:self-auto"
                 aria-label={t.closeModal}
               >
                 <X className="w-5 h-5" />
@@ -236,7 +152,7 @@ export const AboutModal: React.FC<AboutModalProps> = ({
             </div>
 
             {/* Body */}
-            <div className="flex-1 overflow-y-auto p-5 sm:p-7 space-y-7 bg-[#F3F5FB]/40">
+            <div className="flex-1 overflow-y-auto p-4 sm:p-7 space-y-6 sm:space-y-7 bg-[#F4F6F9] ios-momentum-scroll overscroll-contain">
               {/* Laboratory Description */}
               <div className="p-5 sm:p-6 rounded-2xl bg-white/95 border border-[#DDE2EF] shadow-sm">
                 <p className="text-sm text-[#1B1F2A]/90 leading-relaxed font-body whitespace-pre-line">
@@ -327,32 +243,34 @@ export const AboutModal: React.FC<AboutModalProps> = ({
                     <div className="flex flex-col lg:flex-row gap-6 items-center lg:items-start">
                       {/* Thumbnail */}
                       <div className="w-full sm:w-64 lg:w-72 shrink-0">
-                        <div
-                          onClick={() => setZoomedCert({
-                            src: '/certificate.jpg',
-                            title: t.licenseCertName,
-                            standard: t.licenseStandard,
-                            regNumber: `№ ${t.licenseRegNumber}`,
-                            downloadUrl: '/certificate.jpg',
-                            downloadName: 'SLIPC-Akkreditatsiya-Guvohnoma.jpg',
-                          })}
-                          className="group relative cursor-pointer rounded-xl overflow-hidden border-2 border-[#DDE2EF] bg-slate-900 shadow-md hover:shadow-xl hover:border-[#12715A] transition-all duration-300"
-                          title={t.licenseViewFull}
-                        >
-                          <img
-                            src="/certificate.jpg"
-                            alt={t.licenseCertName}
-                            loading="lazy"
-                            decoding="async"
-                            className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-[#0A1128]/85 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col items-center justify-end p-4 text-white">
-                            <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/20 backdrop-blur-md text-xs font-medium text-white border border-white/30 shadow-sm">
-                              <Maximize2 className="w-3.5 h-3.5" />
-                              <span>{t.licenseViewFull}</span>
-                            </span>
+                        <CometCard rotateDepth={15}>
+                          <div
+                            onClick={() => setZoomedCert({
+                              src: '/certificate.jpg',
+                              title: t.licenseCertName,
+                              standard: t.licenseStandard,
+                              regNumber: `№ ${t.licenseRegNumber}`,
+                              downloadUrl: '/certificate.jpg',
+                              downloadName: 'SLIPC-Akkreditatsiya-Guvohnoma.jpg',
+                            })}
+                            className="group relative cursor-pointer rounded-xl overflow-hidden border-2 border-[#DDE2EF] bg-slate-900 shadow-md hover:shadow-xl hover:border-[#12715A] transition-all duration-300"
+                            title={t.licenseViewFull}
+                          >
+                            <img
+                              src="/certificate.jpg"
+                              alt={t.licenseCertName}
+                              loading="lazy"
+                              decoding="async"
+                              className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#0A1128]/85 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col items-center justify-end p-4 text-white">
+                              <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/20 backdrop-blur-md text-xs font-medium text-white border border-white/30 shadow-sm">
+                                <Maximize2 className="w-3.5 h-3.5" />
+                                <span>{t.licenseViewFull}</span>
+                              </span>
+                            </div>
                           </div>
-                        </div>
+                        </CometCard>
 
                         <div className="mt-2.5">
                           <button
@@ -486,32 +404,34 @@ export const AboutModal: React.FC<AboutModalProps> = ({
                           </button>
                         </div>
 
-                        <div
-                          onClick={() => setZoomedCert({
-                            src: glpPage === 1 ? '/glp-certificate-p1.jpg' : '/glp-certificate-p2.jpg',
-                            title: `${t.glpCertName} (${glpPage === 1 ? t.glpPage1Label : t.glpPage2Label})`,
-                            standard: t.glpStandard,
-                            regNumber: t.glpRegNumber,
-                            downloadUrl: glpPage === 1 ? '/glp-certificate-p1.jpg' : '/glp-certificate-p2.jpg',
-                            downloadName: `SLIPC-GLP-Sertifikat-Sahifa-${glpPage}.jpg`,
-                          })}
-                          className="group relative cursor-pointer rounded-xl overflow-hidden border-2 border-[#DDE2EF] bg-slate-900 shadow-md hover:shadow-xl hover:border-[#12715A] transition-all duration-300"
-                          title={t.licenseViewFull}
-                        >
-                          <img
-                            src={glpPage === 1 ? '/glp-certificate-p1.jpg' : '/glp-certificate-p2.jpg'}
-                            alt={t.glpCertName}
-                            loading="lazy"
-                            decoding="async"
-                            className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-[#0A1128]/85 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col items-center justify-end p-4 text-white">
-                            <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/20 backdrop-blur-md text-xs font-medium text-white border border-white/30 shadow-sm">
-                              <Maximize2 className="w-3.5 h-3.5" />
-                              <span>{t.licenseViewFull}</span>
-                            </span>
+                        <CometCard rotateDepth={15}>
+                          <div
+                            onClick={() => setZoomedCert({
+                              src: glpPage === 1 ? '/glp-certificate-p1.jpg' : '/glp-certificate-p2.jpg',
+                              title: `${t.glpCertName} (${glpPage === 1 ? t.glpPage1Label : t.glpPage2Label})`,
+                              standard: t.glpStandard,
+                              regNumber: t.glpRegNumber,
+                              downloadUrl: glpPage === 1 ? '/glp-certificate-p1.jpg' : '/glp-certificate-p2.jpg',
+                              downloadName: `SLIPC-GLP-Sertifikat-Sahifa-${glpPage}.jpg`,
+                            })}
+                            className="group relative cursor-pointer rounded-xl overflow-hidden border-2 border-[#DDE2EF] bg-slate-900 shadow-md hover:shadow-xl hover:border-[#12715A] transition-all duration-300"
+                            title={t.licenseViewFull}
+                          >
+                            <img
+                              src={glpPage === 1 ? '/glp-certificate-p1.jpg' : '/glp-certificate-p2.jpg'}
+                              alt={t.glpCertName}
+                              loading="lazy"
+                              decoding="async"
+                              className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#0A1128]/85 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col items-center justify-end p-4 text-white">
+                              <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/20 backdrop-blur-md text-xs font-medium text-white border border-white/30 shadow-sm">
+                                <Maximize2 className="w-3.5 h-3.5" />
+                                <span>{t.licenseViewFull}</span>
+                              </span>
+                            </div>
                           </div>
-                        </div>
+                        </CometCard>
 
                         <div className="mt-2.5">
                           <button

@@ -194,3 +194,19 @@ export interface ResearchProject {
   doiUrl: string;
 }
 
+export type StaffCategory = 'all' | 'leadership' | 'researchers' | 'technicians' | 'quality';
+
+export interface StaffMember {
+  name: string;
+  image: string;
+  category: 'leadership' | 'researchers' | 'technicians' | 'quality';
+  title: Record<Language, string>;
+  room: Record<Language, string>;
+  roomCode: string;
+  orcid?: string;
+  email: string;
+  focus: Record<Language, string>;
+  color: string;
+}
+
+

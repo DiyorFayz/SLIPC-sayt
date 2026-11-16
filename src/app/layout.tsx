@@ -1,5 +1,13 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: 'cover',
+  themeColor: '#0F2942',
+};
 
 export const metadata: Metadata = {
   title: "SLIPC Innovatsion farmatsevtik birikmalar ilmiy laboratoriyasi",
@@ -21,8 +29,8 @@ export const metadata: Metadata = {
     "Liofilizatsiya",
   ],
   icons: {
-    icon: '/logo.jpg',
-    apple: '/logo.jpg',
+    icon: '/logo.webp',
+    apple: '/logo.webp',
   },
   authors: [{ name: "SLIPC Ilmiy Kengashi (Scientific Board of SLIPC)" }],
 };
@@ -33,7 +41,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="uz" className="scroll-smooth">
+    <html lang="uz" className="scroll-smooth antialiased">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -42,7 +50,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="min-h-screen bg-white text-[#1B1F2A] antialiased selection:bg-[#24356F] selection:text-white">
+      <body className="min-h-[100dvh] bg-[#F4F6F9] text-[#0F172A] antialiased selection:bg-[#0F2942] selection:text-white overflow-x-hidden">
         {children}
       </body>
     </html>

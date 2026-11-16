@@ -357,7 +357,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     sectionStaffTag: "ILMIY KADRLAR VA OLIMLAR",
     sectionStaffTitle: "Ilmiy Xodimlar",
     sectionStaffSubtitle: "Laboratoriyaning yetakchi ilmiy xodimlari, tadqiqot guruhlari rahbarlari va mutaxassislar tarkibi",
-    staffBadgeCount: "6 ta Ilmiy Rahbar (DSc, PhD)",
+    staffBadgeCount: "18 ta Mutaxassis va Xodimlar tarkibi",
     staffResearchFocusLabel: "Tadqiqot sohasi:",
     staffOrcidLabel: "ORCID:",
 
@@ -562,7 +562,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     sectionStaffTag: "НАУЧНЫЕ КАДРЫ И УЧЕНЫЕ",
     sectionStaffTitle: "Научные сотрудники",
     sectionStaffSubtitle: "Ведущие научные сотрудники лаборатории, руководители исследовательских групп и ученые",
-    staffBadgeCount: "6 Научных руководителей (DSc, PhD)",
+    staffBadgeCount: "18 Специалистов и научных сотрудников",
     staffResearchFocusLabel: "Область исследований:",
     staffOrcidLabel: "ORCID:",
 
@@ -767,7 +767,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     sectionStaffTag: "SCIENTIFIC STAFF & FACULTY",
     sectionStaffTitle: "Staff & Faculty",
     sectionStaffSubtitle: "Principal investigators, lead research scientists, and specialized laboratory personnel",
-    staffBadgeCount: "6 Principal Investigators (DSc, PhD)",
+    staffBadgeCount: "18 Scientific Faculty & Lab Personnel",
     staffResearchFocusLabel: "Research focus:",
     staffOrcidLabel: "ORCID:",
 

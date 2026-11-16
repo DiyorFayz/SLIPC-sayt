@@ -5,136 +5,157 @@
 :root {
   color-scheme: light;
 
-  /* Toshkent Farmatsevtika Instituti (pharmi.uz) Design Tokens */
-  --c-brand: 36 53 111;          /* #24356F */
-  --c-brand-deep: 16 31 82;      /* #101F52 */
-  --c-brand-soft: 52 74 148;     /* #344A94 */
-  --c-brand-tint: 230 234 245;   /* #E6EAF5 */
-  --c-accent: 18 113 90;         /* #12715A */
-  --c-accent-tint: 227 241 236;  /* #E3F1EC */
-  --c-ink: 27 31 42;             /* #1B1F2A */
-  --c-muted: 92 100 120;         /* #5C6478 */
-  --c-faint: 138 145 163;        /* #8A91A3 */
-  --c-surface: 255 255 255;      /* #FFFFFF */
-  --c-ground: 243 245 251;       /* #F3F5FB */
-  --c-rule: 221 226 239;         /* #DDE2EF */
+  /* EMBL & Broad Institute Academic Laboratory Design Tokens */
+  --c-brand: 15 41 66;          /* #0F2942 Deep Navy */
+  --c-brand-deep: 8 23 38;      /* #081726 */
+  --c-brand-soft: 30 61 95;     /* #1E3D5F */
+  --c-brand-tint: 232 238 245;  /* #E8EEF5 */
+  --c-accent: 16 138 84;        /* #108A54 Bio-green */
+  --c-accent-tint: 235 247 241; /* #EBF7F1 */
+  --c-ink: 15 23 42;            /* #0F172A */
+  --c-muted: 71 85 105;         /* #475569 */
+  --c-faint: 148 163 184;       /* #94A3B8 */
+  --c-surface: 255 255 255;     /* #FFFFFF */
+  --c-ground: 244 246 249;      /* #F4F6F9 */
+  --c-rule: 226 232 240;        /* #E2E8F0 */
 
-  --glass: rgb(255 255 255 / 0.76);
-  --glass-rule: rgb(255 255 255 / 0.92);
-  --glass-blur: 14px;
+  --glass: rgb(255 255 255 / 0.95);
+  --glass-rule: #E2E8F0;
+  --glass-blur: 10px;
 
-  --shadow-card: 0 1px 2px rgb(36 53 111 / 0.05), 0 10px 24px -14px rgb(36 53 111 / 0.24);
-  --shadow-raised: 0 4px 12px rgb(36 53 111 / 0.08), 0 20px 40px -18px rgb(36 53 111 / 0.30);
-  --shadow-header: 0 1px 0 rgb(36 53 111 / 0.06), 0 8px 24px -18px rgb(36 53 111 / 0.35);
+  --shadow-card: 0 1px 3px rgba(15, 41, 66, 0.04), 0 1px 2px rgba(15, 41, 66, 0.02);
+  --shadow-raised: 0 4px 8px -1px rgba(15, 41, 66, 0.07), 0 2px 4px -2px rgba(15, 41, 66, 0.05);
+  --shadow-header: 0 1px 0 #E2E8F0;
 
   --font-display: "Manrope", "Plus Jakarta Sans", ui-sans-serif, sans-serif;
   --font-body: "Plus Jakarta Sans", "Inter", ui-sans-serif, sans-serif;
   --font-mono: "IBM Plex Mono", "JetBrains Mono", ui-monospace, monospace;
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  touch-action: manipulation;
+  overflow-x: hidden;
+}
+
 body {
-  background-color: #ffffff;
+  background-color: #F4F6F9;
   color: rgb(var(--c-ink));
   font-family: var(--font-body);
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  min-height: 100dvh;
 }
 
-/* ========================================================================= */
-/* WHITE MINIMALIST CANVAS & REFINED GLASSMORPHISM (PHARMI.UZ INSPIRED)      */
-/* ========================================================================= */
+/* iOS Safari Prevent Input Auto-Zoom on Focus */
+@media screen and (max-width: 768px) {
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
 
+/* Cross-Platform Smooth Momentum Scrolling */
+.ios-momentum-scroll {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+}
+
+/* Academic Technical Dot Grid */
+.academic-dot-grid {
+  background-image: radial-gradient(rgba(15, 41, 66, 0.09) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Clean Academic Canvas */
 .pharmi-canvas {
-  background-color: #ffffff;
+  background-color: #F4F6F9;
   background-image:
-    radial-gradient(circle at 12% 8%, rgba(230, 234, 245, 0.75) 0%, transparent 42%),
-    radial-gradient(circle at 88% 18%, rgba(227, 241, 236, 0.65) 0%, transparent 38%),
-    radial-gradient(circle at 50% 92%, rgba(230, 234, 245, 0.55) 0%, transparent 48%);
+    radial-gradient(circle at 12% 8%, rgba(232, 238, 245, 0.6) 0%, transparent 40%),
+    radial-gradient(circle at 88% 18%, rgba(235, 247, 241, 0.5) 0%, transparent 36%);
   background-attachment: fixed;
 }
 
 .glass-header {
-  background: rgba(255, 255, 255, 0.84);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(221, 226, 239, 0.9);
-  box-shadow: var(--shadow-header);
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid #E2E8F0;
+  box-shadow: 0 1px 2px rgba(15, 41, 66, 0.03);
 }
 
+/* EMBL / Broad Style Structured Panels & Cards: rounded-lg & 1px solid #E2E8F0 */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.78);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(221, 226, 239, 0.95);
-  box-shadow: var(--shadow-card), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  background: #FFFFFF;
+  border-radius: 0.5rem; /* rounded-lg */
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 1px 3px rgba(15, 41, 66, 0.03);
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.82);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(221, 226, 239, 0.95);
-  box-shadow: var(--shadow-card), inset 0 1px 0 rgba(255, 255, 255, 0.95);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  background: #FFFFFF;
+  border-radius: 0.5rem; /* rounded-lg */
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 1px 3px rgba(15, 41, 66, 0.03);
+  transition: all 0.2s ease-in-out;
 }
 
 .glass-card:hover {
-  background: rgba(255, 255, 255, 0.97);
-  border-color: rgba(36, 53, 111, 0.28);
-  box-shadow: var(--shadow-raised), inset 0 1px 0 rgba(255, 255, 255, 1);
+  border-color: #CBD5E1;
+  box-shadow: 0 4px 12px -2px rgba(15, 41, 66, 0.08);
   transform: translateY(-2px);
 }
 
 .glass-subcard {
-  background: rgba(243, 245, 251, 0.72);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(221, 226, 239, 0.9);
+  background: #F8FAFC;
+  border-radius: 0.5rem;
+  border: 1px solid #E2E8F0;
 }
 
 .glass-modal {
-  background: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(221, 226, 239, 1);
-  box-shadow: 0 24px 64px -16px rgba(16, 31, 82, 0.26), inset 0 1px 0 rgba(255, 255, 255, 1);
+  background: #FFFFFF;
+  border-radius: 0.5rem; /* rounded-lg */
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 20px 40px -12px rgba(15, 41, 66, 0.16);
 }
 
-/* Pharmi Primary & Secondary Buttons */
+/* Academic Primary & Secondary Buttons */
 .btn-pharmi {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 0.75rem;
+  border-radius: 0.5rem; /* rounded-lg */
   font-family: var(--font-body);
   font-weight: 600;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.18s ease-in-out;
   cursor: pointer;
 }
 
 .btn-pharmi-primary {
-  background-color: #24356F;
+  background-color: #0F2942;
   color: #ffffff;
-  border: 1px solid #24356F;
-  box-shadow: 0 4px 12px -4px rgba(36, 53, 111, 0.45);
+  border: 1px solid #0F2942;
+  box-shadow: 0 1px 2px rgba(15, 41, 66, 0.08);
 }
 
 .btn-pharmi-primary:hover {
-  background-color: #101F52;
-  border-color: #101F52;
+  background-color: #081726;
+  border-color: #081726;
   transform: translateY(-1px);
 }
 
 .btn-pharmi-ghost {
-  background-color: rgba(255, 255, 255, 0.85);
-  color: #24356F;
-  border: 1px solid #DDE2EF;
+  background-color: #F8FAFC;
+  color: #0F2942;
+  border: 1px solid #E2E8F0;
 }
 
 .btn-pharmi-ghost:hover {
-  background-color: #E6EAF5;
-  border-color: rgba(36, 53, 111, 0.3);
+  background-color: #F1F5F9;
+  border-color: #CBD5E1;
 }
 
 /* Clean Minimalist Registry Table */
@@ -200,6 +221,6 @@ body {
 }
 
 :focus-visible {
-  outline: 2px solid #24356F;
+  outline: 2px solid #0F2942;
   outline-offset: 2px;
 }
