@@ -7,8 +7,6 @@ import {
   Mail,
   Users,
   ShieldCheck,
-  Eye,
-  Maximize2,
   ExternalLink,
   Building2,
   X,
@@ -16,6 +14,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HistoryModal } from '@/components/HistoryModal';
+import { CometCard } from '@/components/ui/comet-card';
 
 interface AboutSectionProps {
   currentLang: Language;
@@ -23,14 +22,6 @@ interface AboutSectionProps {
 
 export const AboutSection: React.FC<AboutSectionProps> = ({ currentLang }) => {
   const t = TRANSLATIONS[currentLang];
-  const [zoomedCert, setZoomedCert] = useState<{
-    src: string;
-    title: string;
-    standard: string;
-    regNumber: string;
-    downloadUrl: string;
-    downloadName: string;
-  } | null>(null);
   const [glpPage, setGlpPage] = useState<1 | 2>(1);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
 
@@ -231,50 +222,17 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ currentLang }) => {
               <div className="flex flex-col lg:flex-row gap-6 items-center lg:items-start">
                 {/* Certificate Preview Frame */}
                 <div className="w-full sm:w-64 lg:w-72 shrink-0">
-                  <div
-                    onClick={() => setZoomedCert({
-                      src: '/certificate.jpg',
-                      title: t.licenseCertName,
-                      standard: t.licenseStandard,
-                      regNumber: `№ ${t.licenseRegNumber}`,
-                      downloadUrl: '/certificate.jpg',
-                      downloadName: 'SLIPC-Akkreditatsiya-Guvohnoma.jpg',
-                    })}
-                    className="group relative cursor-pointer rounded-sm overflow-hidden border-2 border-slate-200 bg-slate-900 shadow-sm hover:shadow-md hover:border-emerald-600 transition-all"
-                    title={t.licenseViewFull}
-                  >
-                    <img
-                      src="/certificate.jpg"
-                      alt={t.licenseCertName}
-                      loading="lazy"
-                      decoding="async"
-                      className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    <div className="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
-                      <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-white/20 backdrop-blur-sm text-xs font-medium">
-                        <Maximize2 className="w-3.5 h-3.5" />
-                        <span>{t.licenseViewFull}</span>
-                      </span>
+                  <CometCard rotateDepth={15}>
+                    <div className="relative rounded-sm overflow-hidden border-2 border-slate-200 bg-white shadow-sm hover:shadow-md hover:border-emerald-600 transition-all">
+                      <img
+                        src="/certificate.jpg"
+                        alt={t.licenseCertName}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-auto object-cover block"
+                      />
                     </div>
-                  </div>
-
-                  <div className="mt-3">
-                    <button
-                      type="button"
-                      onClick={() => setZoomedCert({
-                        src: '/certificate.jpg',
-                        title: t.licenseCertName,
-                        standard: t.licenseStandard,
-                        regNumber: `№ ${t.licenseRegNumber}`,
-                        downloadUrl: '/certificate.jpg',
-                        downloadName: 'SLIPC-Akkreditatsiya-Guvohnoma.jpg',
-                      })}
-                      className="w-full py-1.5 px-3 rounded-sm border border-slate-200 bg-white hover:bg-slate-100 text-slate-700 text-xs font-medium flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
-                    >
-                      <Eye className="w-3.5 h-3.5 text-slate-600" />
-                      <span>{t.licenseViewFull}</span>
-                    </button>
-                  </div>
+                  </CometCard>
                 </div>
 
                 {/* Certificate Details */}
@@ -389,50 +347,17 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ currentLang }) => {
                     </button>
                   </div>
 
-                  <div
-                    onClick={() => setZoomedCert({
-                      src: glpPage === 1 ? '/glp-certificate-p1.jpg' : '/glp-certificate-p2.jpg',
-                      title: `${t.glpCertName} (${glpPage === 1 ? t.glpPage1Label : t.glpPage2Label})`,
-                      standard: t.glpStandard,
-                      regNumber: t.glpRegNumber,
-                      downloadUrl: glpPage === 1 ? '/glp-certificate-p1.jpg' : '/glp-certificate-p2.jpg',
-                      downloadName: `SLIPC-GLP-Sertifikat-Sahifa-${glpPage}.jpg`,
-                    })}
-                    className="group relative cursor-pointer rounded-sm overflow-hidden border-2 border-slate-200 bg-slate-900 shadow-sm hover:shadow-md hover:border-emerald-600 transition-all"
-                    title={t.licenseViewFull}
-                  >
-                    <img
-                      src={glpPage === 1 ? '/glp-certificate-p1.jpg' : '/glp-certificate-p2.jpg'}
-                      alt={t.glpCertName}
-                      loading="lazy"
-                      decoding="async"
-                      className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    <div className="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
-                      <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-white/20 backdrop-blur-sm text-xs font-medium">
-                        <Maximize2 className="w-3.5 h-3.5" />
-                        <span>{t.licenseViewFull}</span>
-                      </span>
+                  <CometCard rotateDepth={15}>
+                    <div className="relative rounded-sm overflow-hidden border-2 border-slate-200 bg-white shadow-sm hover:shadow-md hover:border-emerald-600 transition-all">
+                      <img
+                        src={glpPage === 1 ? '/glp-certificate-p1.jpg' : '/glp-certificate-p2.jpg'}
+                        alt={t.glpCertName}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-auto object-cover block"
+                      />
                     </div>
-                  </div>
-
-                  <div className="mt-3">
-                    <button
-                      type="button"
-                      onClick={() => setZoomedCert({
-                        src: glpPage === 1 ? '/glp-certificate-p1.jpg' : '/glp-certificate-p2.jpg',
-                        title: `${t.glpCertName} (${glpPage === 1 ? t.glpPage1Label : t.glpPage2Label})`,
-                        standard: t.glpStandard,
-                        regNumber: t.glpRegNumber,
-                        downloadUrl: glpPage === 1 ? '/glp-certificate-p1.jpg' : '/glp-certificate-p2.jpg',
-                        downloadName: `SLIPC-GLP-Sertifikat-Sahifa-${glpPage}.jpg`,
-                      })}
-                      className="w-full py-1.5 px-3 rounded-sm border border-slate-200 bg-white hover:bg-slate-100 text-slate-700 text-xs font-medium flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
-                    >
-                      <Eye className="w-3.5 h-3.5 text-slate-600" />
-                      <span>{t.licenseViewFull}</span>
-                    </button>
-                  </div>
+                  </CometCard>
                 </div>
 
                 {/* Certificate Details */}
@@ -576,56 +501,6 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ currentLang }) => {
           ))}
         </div>
       </div>
-
-      {/* Fullscreen Certificate Zoom Lightbox */}
-      <AnimatePresence>
-        {zoomedCert && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setZoomedCert(null)}
-            className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex flex-col items-center justify-center p-4 sm:p-6"
-          >
-            <div className="relative max-w-4xl w-full max-h-[95vh] flex flex-col items-center">
-              <button
-                type="button"
-                onClick={() => setZoomedCert(null)}
-                className="absolute -top-11 right-0 p-2 rounded-full bg-white/20 hover:bg-white/40 text-white transition-colors cursor-pointer"
-                aria-label="Yopish"
-              >
-                <X className="w-5 h-5" />
-              </button>
-
-              <motion.div
-                initial={{ scale: 0.95, y: 10 }}
-                animate={{ scale: 1, y: 0 }}
-                exit={{ scale: 0.95, y: 10 }}
-                onClick={(e) => e.stopPropagation()}
-                className="rounded-lg overflow-hidden shadow-2xl border-2 border-white/30 bg-white"
-              >
-                <img
-                  src={zoomedCert.src}
-                  alt={zoomedCert.title}
-                  decoding="async"
-                  className="max-h-[80vh] w-auto object-contain block"
-                />
-              </motion.div>
-
-              <div
-                onClick={(e) => e.stopPropagation()}
-                className="mt-3 flex items-center justify-center w-full max-w-xl text-white text-xs px-2 gap-2"
-              >
-                <div className="font-mono flex items-center gap-2">
-                  <span className="font-bold text-emerald-400">{zoomedCert.standard}</span>
-                  <span>&bull;</span>
-                  <span className="text-white/80">{zoomedCert.regNumber}</span>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       {/* History Modal */}
       <HistoryModal
