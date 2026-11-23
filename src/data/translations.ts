@@ -220,7 +220,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
 
     // Hero Section
     heroHeadline: "IFBIL Innovatsion farmatsevtik birikmalar ilmiy laboratoriyasi",
-    heroMission: "Hujayra (in vitro), butun organizm (in vivo), biokimyoviy fermentativ hamda instrumental xromatografik (HPLC/YUSSX) sathlarda kompleks farmakologik va bioanalitik tadqiqotlar olib boruvchi akademik ilmiy markaz.",
+    heroMission: "Toshkent farmatsevtika instituti qoshidagi akademik ilmiy markaz",
     heroQuickLinksTitle: "Markaziy Ilmiy Havolalar va Tezkor Yo'nalishlar:",
     heroRoomsPassportSub: "5 ta ilmiy bo'lim pasporti",
     heroEquipmentSub: "Agilent, Shimadzu, Buchi",
@@ -425,7 +425,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
 
     // Hero Section
     heroHeadline: "SLIPC - Научная лаборатория инновационных фармацевтических соединений",
-    heroMission: "Академический исследовательский центр комплексных фармакологических и биоаналитических исследований на клеточном (in vitro), организменном (in vivo), биохимическом и хроматографическом (ВЭЖХ/HPLC) уровнях.",
+    heroMission: "Академический научный центр при Ташкентском фармацевтическом институте",
     heroQuickLinksTitle: "Центральные научные направления и быстрые ссылки:",
     heroRoomsPassportSub: "5 паспортов научных отделов",
     heroEquipmentSub: "Agilent, Shimadzu, Buchi",
@@ -630,7 +630,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
 
     // Hero Section
     heroHeadline: "SLIPC - Scientific Laboratory of Innovative Pharmaceutical Compounds",
-    heroMission: "An academic research institute conducting interdisciplinary pharmacological and bioanalytical research spanning cellular (in vitro), whole-organism (in vivo), biochemical, and chromatographic (HPLC) dimensions.",
+    heroMission: "Academic research center under the Tashkent Pharmaceutical Institute",
     heroQuickLinksTitle: "Central Scientific Portals & Quick Navigation:",
     heroRoomsPassportSub: "5 Department Passports",
     heroEquipmentSub: "Agilent, Shimadzu, Buchi",

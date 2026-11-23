@@ -9,6 +9,7 @@ interface CometCardProps {
   containerClassName?: string;
   rotateDepth?: number;
   glareEffect?: boolean;
+  isCircle?: boolean;
 }
 
 export function CometCard({
@@ -17,6 +18,7 @@ export function CometCard({
   containerClassName = '',
   rotateDepth = 14,
   glareEffect = true,
+  isCircle = false,
 }: CometCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -87,13 +89,13 @@ export function CometCard({
           rotateY,
           transformStyle: 'preserve-3d',
         }}
-        className={`relative rounded-2xl transition-shadow duration-300 transform-gpu ${
+        className={`relative ${isCircle ? 'rounded-full' : 'rounded-2xl'} transition-shadow duration-300 transform-gpu ${
           isHovered ? 'shadow-2xl shadow-[#24356F]/20' : 'shadow-md shadow-slate-900/5'
         } ${className}`}
       >
         {/* Dynamic Comet Border Light Gradient */}
         <div
-          className="absolute -inset-[1px] rounded-2xl pointer-events-none opacity-60 transition-opacity duration-300"
+          className={`absolute -inset-[1px] ${isCircle ? 'rounded-full' : 'rounded-2xl'} pointer-events-none opacity-60 transition-opacity duration-300`}
           style={{
             background:
               'linear-gradient(135deg, rgba(36,53,111,0.4) 0%, rgba(18,113,90,0.3) 50%, rgba(56,189,248,0.3) 100%)',
@@ -103,14 +105,14 @@ export function CometCard({
         {/* Inner 3D Content Container */}
         <div
           style={{ transform: 'translateZ(20px)', transformStyle: 'preserve-3d' }}
-          className="relative rounded-2xl overflow-hidden"
+          className={`relative ${isCircle ? 'rounded-full' : 'rounded-2xl'} overflow-hidden`}
         >
           {children}
 
           {/* Interactive Glare Reflection Effect */}
           {glareEffect && isHovered && (
             <motion.div
-              className="absolute inset-0 pointer-events-none rounded-2xl z-20"
+              className={`absolute inset-0 pointer-events-none ${isCircle ? 'rounded-full' : 'rounded-2xl'} z-20`}
               style={{
                 background: `radial-gradient(circle 180px at ${glareX} ${glareY}, rgba(255,255,255,0.35), transparent 70%)`,
               }}
