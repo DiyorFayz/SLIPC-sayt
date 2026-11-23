@@ -4,6 +4,7 @@ import React from 'react';
 import { Language } from '@/types/laboratory';
 import { TRANSLATIONS } from '@/data/translations';
 import { ArrowDown, FileCheck2, ChevronRight } from 'lucide-react';
+import { CometCard } from '@/components/ui/comet-card';
 
 interface HeroSectionProps {
   currentLang: Language;
@@ -86,15 +87,17 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentLang, onOpenPas
               </div>
             </div>
 
-            {/* Logo: Clean rounded-lg with 1px border */}
+            {/* Logo: Clean rounded-xl with interactive 3D CometCard motion */}
             <div className="shrink-0 self-center lg:self-center">
-              <div className="p-2 sm:p-2.5 rounded-lg bg-white border border-[#E2E8F0] shadow-2xs">
-                <img
-                  src="/logo.webp"
-                  alt="SLIPC Laboratoriyasi"
-                  className="w-28 h-28 sm:w-44 sm:h-44 md:w-48 md:h-48 rounded-md object-contain bg-white"
-                />
-              </div>
+              <CometCard rotateDepth={15}>
+                <div className="p-2 sm:p-2.5 rounded-xl bg-white border border-[#E2E8F0] shadow-2xs hover:shadow-lg hover:border-[#108A54]/40 transition-all duration-300">
+                  <img
+                    src="/logo.webp"
+                    alt="IFBIL / SLIPC Laboratoriyasi"
+                    className="w-28 h-28 sm:w-44 sm:h-44 md:w-48 md:h-48 rounded-lg object-contain bg-white"
+                  />
+                </div>
+              </CometCard>
             </div>
           </div>
 

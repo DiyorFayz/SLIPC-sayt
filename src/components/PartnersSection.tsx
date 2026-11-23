@@ -24,7 +24,7 @@ const PARTNERS: PartnerItem[] = [
       ru: 'TEMUR MED PHARM',
       en: 'TEMUR MED PHARM',
     },
-    logo: '/images/partners/temur-med-pharm.svg',
+    logo: '/images/partners/temur-med-pharm.webp',
     logoAlt: 'TEMUR MED PHARM Logo',
   },
   {
