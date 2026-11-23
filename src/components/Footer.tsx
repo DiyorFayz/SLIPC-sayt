@@ -3,7 +3,8 @@
 import React from 'react';
 import { Language } from '@/types/laboratory';
 import { TRANSLATIONS } from '@/data/translations';
-import { Mail, Phone, MapPin, ExternalLink, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, ExternalLink } from 'lucide-react';
+import { TelegramIcon } from '@/components/ui/TelegramIcon';
 
 interface FooterProps {
   currentLang: Language;
@@ -122,10 +123,10 @@ export const Footer: React.FC<FooterProps> = ({
                 href="https://t.me/atsharipov"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#229ED9]/20 hover:bg-[#229ED9]/35 text-[#38D399] hover:text-white font-medium transition-all border border-[#229ED9]/40"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/10 hover:bg-[#24A1DE]/25 text-white hover:text-white font-medium transition-all border border-white/20 hover:border-[#24A1DE]/60"
               >
-                <Send className="w-3.5 h-3.5 text-[#38D399]" />
-                <span>Telegram: @atsharipov</span>
+                <TelegramIcon className="w-4 h-4 shrink-0" />
+                <span className="font-mono text-xs text-white">@atsharipov</span>
               </a>
             </div>
 

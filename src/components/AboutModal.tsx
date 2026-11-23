@@ -14,8 +14,8 @@ import {
   Building2,
   FileText,
   Sparkles,
-  Send,
 } from 'lucide-react';
+import { TelegramIcon } from '@/components/ui/TelegramIcon';
 import { HistoryModal } from '@/components/HistoryModal';
 import { STAFF_MEMBERS } from '@/data/staffData';
 import { CometCard } from '@/components/ui/comet-card';
@@ -147,6 +147,34 @@ export const AboutModal: React.FC<AboutModalProps> = ({
                 <p className="text-sm text-[#1B1F2A]/90 leading-relaxed font-body whitespace-pre-line">
                   {t.aboutMissionText}
                 </p>
+              </div>
+
+              {/* 4 Pillars: Asosiy ilmiy yo'nalishlarimiz */}
+              <div className="pt-2">
+                <div className="text-xs font-mono font-bold uppercase tracking-wider text-[#24356F] mb-3 flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-[#12715A]" />
+                  <span>{t.aboutPillarsTitle}</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {pillars.map((pillar, idx) => (
+                    <div
+                      key={idx}
+                      className="glass-card rounded-xl p-4 flex flex-col justify-between"
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <h4 className="text-sm font-bold font-display text-[#1B1F2A]">
+                          {pillar.title}
+                        </h4>
+                        <span className="font-mono text-[10px] font-bold px-2 py-0.5 rounded-md bg-[#E6EAF5] text-[#24356F]">
+                          {pillar.code}
+                        </span>
+                      </div>
+                      <p className="text-xs text-[#5C6478] font-body leading-relaxed">
+                        {pillar.desc}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
 
               {/* Laboratory Origin & History Subsection */}
@@ -439,8 +467,8 @@ export const AboutModal: React.FC<AboutModalProps> = ({
                             <span><strong className="text-[#1B1F2A]">{currentLang === 'uz' ? 'Aloqa' : currentLang === 'ru' ? 'Контакты' : 'Contact'}:</strong> {t.glpContact}</span>
                           </div>
                           <div className="flex items-center gap-1.5 text-[11px]">
-                            <Send className="w-3.5 h-3.5 text-[#229ED9] shrink-0" />
-                            <span><strong className="text-[#1B1F2A]">Telegram:</strong> <a href="https://t.me/atsharipov" target="_blank" rel="noopener noreferrer" className="text-[#229ED9] hover:underline font-mono">@atsharipov</a></span>
+                            <TelegramIcon className="w-3.5 h-3.5 shrink-0" />
+                            <span><strong className="text-[#1B1F2A]">Telegram:</strong> <a href="https://t.me/atsharipov" target="_blank" rel="noopener noreferrer" className="text-[#24A1DE] hover:underline font-mono">@atsharipov</a></span>
                           </div>
                         </div>
                       </div>
@@ -513,34 +541,6 @@ export const AboutModal: React.FC<AboutModalProps> = ({
                           </a>
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* 4 Pillars */}
-              <div>
-                <div className="text-xs font-mono font-bold uppercase tracking-wider text-[#24356F] mb-3 flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#12715A]" />
-                  <span>{t.aboutPillarsTitle}</span>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {pillars.map((pillar, idx) => (
-                    <div
-                      key={idx}
-                      className="glass-card rounded-xl p-4 flex flex-col justify-between"
-                    >
-                      <div className="flex items-center justify-between mb-2">
-                        <h4 className="text-sm font-bold font-display text-[#1B1F2A]">
-                          {pillar.title}
-                        </h4>
-                        <span className="font-mono text-[10px] font-bold px-2 py-0.5 rounded-md bg-[#E6EAF5] text-[#24356F]">
-                          {pillar.code}
-                        </span>
-                      </div>
-                      <p className="text-xs text-[#5C6478] font-body leading-relaxed">
-                        {pillar.desc}
-                      </p>
                     </div>
                   ))}
                 </div>

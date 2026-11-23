@@ -11,11 +11,11 @@ import {
   Building2,
   X,
   Sparkles,
-  Send,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HistoryModal } from '@/components/HistoryModal';
 import { CometCard } from '@/components/ui/comet-card';
+import { TelegramIcon } from '@/components/ui/TelegramIcon';
 
 interface AboutSectionProps {
   currentLang: Language;
@@ -145,6 +145,27 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ currentLang }) => {
           <p className="text-slate-700 leading-relaxed font-sans whitespace-pre-line">
             {t.aboutMissionText}
           </p>
+        </div>
+
+        {/* Asosiy ilmiy yo'nalishlarimiz (Pillars) */}
+        <div className="mb-12 max-w-4xl">
+          <div className="mb-4">
+            <h3 className="text-lg font-bold font-display text-[#0F2942]">
+              {t.aboutPillarsTitle}
+            </h3>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {pillars.map((pillar, idx) => (
+              <div key={idx} className="p-4 rounded-lg bg-white border border-[#E2E8F0] shadow-2xs">
+                <h4 className="text-sm font-semibold text-[#0F2942] mb-1.5 font-display">
+                  {pillar.title}
+                </h4>
+                <p className="text-xs text-slate-500 leading-relaxed font-body">
+                  {pillar.desc}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Laboratory Origin & History Subsection */}
@@ -429,8 +450,8 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ currentLang }) => {
                       <span><strong className="text-slate-800">{currentLang === 'uz' ? 'Aloqa' : currentLang === 'ru' ? 'Контакты' : 'Contact'}:</strong> {t.glpContact}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Send className="w-3.5 h-3.5 text-[#229ED9] shrink-0" />
-                      <span><strong className="text-slate-800">Telegram:</strong> <a href="https://t.me/atsharipov" target="_blank" rel="noopener noreferrer" className="text-[#229ED9] hover:underline font-mono">@atsharipov</a></span>
+                      <TelegramIcon className="w-3.5 h-3.5 shrink-0" />
+                      <span><strong className="text-slate-800">Telegram:</strong> <a href="https://t.me/atsharipov" target="_blank" rel="noopener noreferrer" className="text-[#24A1DE] hover:underline font-mono">@atsharipov</a></span>
                     </div>
                   </div>
                 </div>
@@ -490,20 +511,6 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ currentLang }) => {
               </div>
             ))}
           </div>
-        </div>
-
-        {/* Pillars */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {pillars.map((pillar, idx) => (
-            <div key={idx}>
-              <h4 className="text-base font-semibold text-slate-900 mb-2">
-                {pillar.title}
-              </h4>
-              <p className="text-sm text-slate-500 leading-relaxed">
-                {pillar.desc}
-              </p>
-            </div>
-          ))}
         </div>
       </div>
 
