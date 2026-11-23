@@ -84,14 +84,26 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentLang, onOpenPas
               </div>
             </div>
 
-            {/* Logo: Clean rounded-xl with interactive 3D CometCard motion */}
-            <div className="shrink-0 self-center lg:self-center">
+            {/* Logos: ToshFarmI and IFBIL/SLIPC side-by-side with interactive 3D CometCard motion */}
+            <div className="shrink-0 self-center lg:self-center flex items-center gap-3 sm:gap-4">
+              {/* Toshkent Farmatsevtika Instituti Circular Logo */}
+              <CometCard rotateDepth={15}>
+                <div className="p-2 sm:p-2.5 rounded-full bg-white border border-[#E2E8F0] shadow-2xs hover:shadow-lg hover:border-[#108A54]/40 transition-all duration-300">
+                  <img
+                    src="/logo-toshfarmi.webp"
+                    alt="Toshkent Farmatsevtika Instituti"
+                    className="w-24 h-24 sm:w-36 sm:h-36 md:w-40 md:h-40 rounded-full object-contain bg-white"
+                  />
+                </div>
+              </CometCard>
+
+              {/* IFBIL / SLIPC Laboratory Logo */}
               <CometCard rotateDepth={15}>
                 <div className="p-2 sm:p-2.5 rounded-xl bg-white border border-[#E2E8F0] shadow-2xs hover:shadow-lg hover:border-[#108A54]/40 transition-all duration-300">
                   <img
                     src={currentLang === 'uz' ? '/logo-ifbil.webp' : '/logo-slipc.webp'}
                     alt={currentLang === 'uz' ? 'IFBIL Laboratoriyasi' : 'SLIPC Laboratory'}
-                    className="w-28 h-28 sm:w-44 sm:h-44 md:w-48 md:h-48 rounded-lg object-contain bg-white"
+                    className="w-24 h-24 sm:w-36 sm:h-36 md:w-40 md:h-40 rounded-lg object-contain bg-white"
                   />
                 </div>
               </CometCard>
