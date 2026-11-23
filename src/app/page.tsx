@@ -9,6 +9,7 @@ import { Header } from '@/components/Header';
 import { HeroSection } from '@/components/HeroSection';
 import { HandoverBanner } from '@/components/HandoverBanner';
 import { DepartmentsSlider } from '@/components/DepartmentsSlider';
+import { PartnersSection } from '@/components/PartnersSection';
 import { RoomsGrid } from '@/components/RoomsGrid';
 import { Footer } from '@/components/Footer';
 
@@ -104,6 +105,9 @@ export default function Home() {
             onOpenDetails={handleSelectRoom}
             onOpenPassport={() => setIsPassportOpen(true)}
           />
+
+          {/* 3.1. Strategic Partners Showcase (Hamkorlarimiz) */}
+          <PartnersSection currentLang={currentLang} />
         </section>
       </main>
 

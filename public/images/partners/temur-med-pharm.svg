@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" width="400" height="120" fill="none">
+  <!-- Gradient definitions -->
+  <defs>
+    <linearGradient id="tmp-grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F2942" />
+      <stop offset="100%" stop-color="#1E3A8A" />
+    </linearGradient>
+    <linearGradient id="tmp-grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#108A54" />
+      <stop offset="100%" stop-color="#34D399" />
+    </linearGradient>
+  </defs>
+
+  <!-- Icon Symbol: Dynamic Hexagonal Cross Shield -->
+  <g transform="translate(10, 10)">
+    <!-- Outer stylized hexagon ring -->
+    <path d="M50 8 L85 28 L85 72 L50 92 L15 72 L15 28 Z" stroke="url(#tmp-grad1)" stroke-width="4.5" stroke-linejoin="round" fill="none" opacity="0.9" />
+    
+    <!-- Inner Cross / Plus Symbol -->
+    <rect x="44" y="28" width="12" height="44" rx="3.5" fill="url(#tmp-grad2)" />
+    <rect x="28" y="44" width="44" height="12" rx="3.5" fill="url(#tmp-grad2)" />
+    
+    <!-- Center Molecule Core -->
+    <circle cx="50" cy="50" r="4.5" fill="#ffffff" />
+    
+    <!-- Accent Dots / Bio-active points -->
+    <circle cx="50" cy="18" r="3" fill="#108A54" />
+    <circle cx="78" cy="34" r="3" fill="#0F2942" />
+    <circle cx="78" cy="66" r="3" fill="#108A54" />
+    <circle cx="50" cy="82" r="3" fill="#0F2942" />
+    <circle cx="22" cy="66" r="3" fill="#108A54" />
+    <circle cx="22" cy="34" r="3" fill="#0F2942" />
+  </g>
+
+  <!-- Typography -->
+  <g transform="translate(118, 0)">
+    <!-- Main Brand Name -->
+    <text x="0" y="55" font-family="'Inter', 'Montserrat', 'Segoe UI', system-ui, sans-serif" font-size="28" font-weight="900" fill="#0F2942" letter-spacing="1.5">
+      TEMUR
+    </text>
+    <text x="110" y="55" font-family="'Inter', 'Montserrat', 'Segoe UI', system-ui, sans-serif" font-size="28" font-weight="800" fill="#108A54" letter-spacing="1">
+      MED
+    </text>
+    <text x="180" y="55" font-family="'Inter', 'Montserrat', 'Segoe UI', system-ui, sans-serif" font-size="28" font-weight="700" fill="#2563EB" letter-spacing="1">
+      PHARM
+    </text>
+    
+    <!-- Secondary Subtitle -->
+    <text x="2" y="80" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="600" fill="#64748B" letter-spacing="3.8">
+      PHARMACEUTICAL COMPANY
+    </text>
+    
+    <!-- Baseline Accent Line -->
+    <rect x="2" y="90" width="260" height="2" rx="1" fill="url(#tmp-grad2)" opacity="0.75" />
+  </g>
+</svg>
