@@ -59,20 +59,20 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentLang }) => {
             </div>
           </div>
 
-          {/* 3) Official Accreditation Badges: Removed from white card boxes, directly placed on grid */}
-          <div className="mt-8 pt-5 border-t border-[#E2E8F0] flex flex-wrap items-center justify-start gap-6 sm:gap-8">
+          {/* 3) Official Accreditation Badges: Enlarged 2x */}
+          <div className="mt-8 pt-6 border-t border-[#E2E8F0] flex flex-wrap items-center justify-start gap-8 sm:gap-12">
             <div className="transition-transform hover:scale-105">
               <img
                 src="/images/badges/iso-17025-certified-badge.webp"
                 alt="ISO/IEC 17025 Certified"
-                className="h-10 sm:h-12 w-auto object-contain drop-shadow-2xs"
+                className="h-20 sm:h-24 w-auto object-contain drop-shadow-sm"
               />
             </div>
             <div className="transition-transform hover:scale-105">
               <img
                 src="/images/badges/glp-certified-badge.webp"
                 alt="Good Laboratory Practice (GLP) Certified"
-                className="h-12 sm:h-14 w-auto object-contain drop-shadow-2xs"
+                className="h-24 sm:h-28 w-auto object-contain drop-shadow-sm"
               />
             </div>
           </div>

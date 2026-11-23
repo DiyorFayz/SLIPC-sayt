@@ -219,7 +219,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     searchButtonText: "Qidiruv...",
 
     // Hero Section
-    heroHeadline: "IFBIL Innovatsion farmatsevtik birikmalar ilmiy laboratoriyasi",
+    heroHeadline: "IFBIL - Innovatsion farmatsevtik birikmalar ilmiy laboratoriyasi",
     heroMission: "Toshkent farmatsevtika instituti qoshidagi akademik ilmiy markaz",
     heroQuickLinksTitle: "Markaziy Ilmiy Havolalar va Tezkor Yo'nalishlar:",
     heroRoomsPassportSub: "5 ta ilmiy bo'lim pasporti",
