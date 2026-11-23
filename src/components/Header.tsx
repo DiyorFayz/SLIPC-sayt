@@ -46,7 +46,11 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="flex items-center gap-2 truncate">
             <span className="w-2 h-2 rounded-full bg-[#108A54] shrink-0" />
             <span className="truncate font-body">
-              Toshkent Farmatsevtika Instituti &bull; SLIPC Ilmiy Laboratoriyasi
+              {currentLang === 'uz'
+                ? 'Toshkent Farmatsevtika Instituti • IFBIL Ilmiy Laboratoriyasi'
+                : currentLang === 'ru'
+                ? 'Ташкентский фармацевтический институт • Научная лаборатория SLIPC'
+                : 'Tashkent Pharmaceutical Institute • SLIPC Scientific Laboratory'}
             </span>
           </div>
         </div>
@@ -59,17 +63,17 @@ export const Header: React.FC<HeaderProps> = ({
           <a href="#" className="flex items-center gap-3 shrink-0 group">
             <div className="p-1 rounded-lg bg-white border border-[#E2E8F0] shadow-2xs group-hover:border-[#0F2942]/40 transition-colors overflow-hidden">
               <img
-                src="/logo.webp"
-                alt="SLIPC"
+                src={currentLang === 'uz' ? '/logo-ifbil.webp' : '/logo-slipc.webp'}
+                alt={currentLang === 'uz' ? 'IFBIL' : 'SLIPC'}
                 className="w-10 h-10 rounded-md object-contain bg-white"
               />
             </div>
             <div>
               <span className="text-lg sm:text-xl font-display font-extrabold tracking-tight text-[#0F2942] leading-none block">
-                SLIPC
+                {currentLang === 'uz' ? 'IFBIL' : 'SLIPC'}
               </span>
               <span className="text-[10px] font-mono font-semibold text-[#108A54] tracking-widest uppercase block mt-1">
-                LABORATORIYASI
+                {currentLang === 'uz' ? 'LABORATORIYASI' : currentLang === 'ru' ? 'ЛАБОРАТОРИЯ' : 'LABORATORY'}
               </span>
             </div>
           </a>

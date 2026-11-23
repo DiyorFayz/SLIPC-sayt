@@ -42,14 +42,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentLang, onOpenPas
 
         <div className="p-4 sm:p-8 lg:p-10 relative z-10">
           {/* Institutional Academic Badge */}
-          <div className="flex flex-wrap items-center justify-between gap-2.5 pb-4 mb-5 sm:mb-6 border-b border-[#E2E8F0]">
+          <div className="flex items-center pb-4 mb-5 sm:mb-6 border-b border-[#E2E8F0]">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#108A54]/10 border border-[#108A54]/30 text-[#108A54] text-xs font-bold tracking-wide font-body">
               <span className="w-1.5 h-1.5 rounded-full bg-[#108A54] shrink-0" />
               <span>Toshkent Farmatsevtika Instituti</span>
             </div>
-            <span className="font-mono text-[10px] sm:text-[11px] font-semibold text-[#475569] tracking-wider uppercase">
-              SLIPC &bull; Academic Research Facility
-            </span>
           </div>
 
           {/* Main Title, Mission, CTA Buttons & Brand Logo */}
@@ -92,8 +89,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentLang, onOpenPas
               <CometCard rotateDepth={15}>
                 <div className="p-2 sm:p-2.5 rounded-xl bg-white border border-[#E2E8F0] shadow-2xs hover:shadow-lg hover:border-[#108A54]/40 transition-all duration-300">
                   <img
-                    src="/logo.webp"
-                    alt="IFBIL / SLIPC Laboratoriyasi"
+                    src={currentLang === 'uz' ? '/logo-ifbil.webp' : '/logo-slipc.webp'}
+                    alt={currentLang === 'uz' ? 'IFBIL Laboratoriyasi' : 'SLIPC Laboratory'}
                     className="w-28 h-28 sm:w-44 sm:h-44 md:w-48 md:h-48 rounded-lg object-contain bg-white"
                   />
                 </div>

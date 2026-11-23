@@ -116,8 +116,8 @@ export const AboutModal: React.FC<AboutModalProps> = ({
               <div className="flex items-center gap-3.5 sm:gap-4">
                 <div className="p-1 rounded-lg bg-white border border-[#E2E8F0] shadow-sm shrink-0">
                   <img
-                    src="/logo.webp"
-                    alt="SLIPC"
+                    src={currentLang === 'uz' ? '/logo-ifbil.webp' : '/logo-slipc.webp'}
+                    alt={currentLang === 'uz' ? 'IFBIL' : 'SLIPC'}
                     className="w-12 h-12 sm:w-14 sm:h-14 rounded-md object-contain bg-white"
                   />
                 </div>

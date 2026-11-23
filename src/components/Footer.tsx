@@ -58,14 +58,18 @@ export const Footer: React.FC<FooterProps> = ({
           <div className="flex items-start gap-5 lg:w-96 shrink-0">
             <div className="p-2 rounded-xl bg-white border border-white/20 shadow-md shrink-0">
               <img
-                src="/logo.webp"
-                alt="SLIPC"
+                src={currentLang === 'uz' ? '/logo-ifbil.webp' : '/logo-slipc.webp'}
+                alt={currentLang === 'uz' ? 'IFBIL' : 'SLIPC'}
                 className="w-16 h-16 sm:w-20 sm:h-20 rounded-lg object-contain bg-white"
               />
             </div>
             <div>
               <h2 className="font-display font-extrabold text-xl sm:text-2xl tracking-tight text-white leading-tight">
-                SLIPC LABORATORIYASI
+                {currentLang === 'uz'
+                  ? 'IFBIL LABORATORIYASI'
+                  : currentLang === 'ru'
+                  ? 'ЛАБОРАТОРИЯ SLIPC'
+                  : 'SLIPC LABORATORY'}
               </h2>
               <p className="text-sm sm:text-base text-slate-300 font-body mt-1">
                 Toshkent Farmatsevtika Instituti

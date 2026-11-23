@@ -219,7 +219,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     searchButtonText: "Qidiruv...",
 
     // Hero Section
-    heroHeadline: "SLIPC Innovatsion farmatsevtik birikmalar ilmiy laboratoriyasi",
+    heroHeadline: "IFBIL Innovatsion farmatsevtik birikmalar ilmiy laboratoriyasi",
     heroMission: "Hujayra (in vitro), butun organizm (in vivo), biokimyoviy fermentativ hamda instrumental xromatografik (HPLC/YUSSX) sathlarda kompleks farmakologik va bioanalitik tadqiqotlar olib boruvchi akademik ilmiy markaz.",
     heroQuickLinksTitle: "Markaziy Ilmiy Havolalar va Tezkor Yo'nalishlar:",
     heroRoomsPassportSub: "5 ta ilmiy bo'lim pasporti",

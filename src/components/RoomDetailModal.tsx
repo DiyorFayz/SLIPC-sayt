@@ -100,8 +100,8 @@ export const RoomDetailModal: React.FC<RoomDetailModalProps> = ({
               <div className="flex items-start gap-3.5 sm:gap-4 flex-1">
                 <div className="p-1 rounded-lg bg-white border border-[#E2E8F0] shadow-sm shrink-0 hidden sm:block">
                   <img
-                    src="/logo.webp"
-                    alt="SLIPC"
+                    src={currentLang === 'uz' ? '/logo-ifbil.webp' : '/logo-slipc.webp'}
+                    alt={currentLang === 'uz' ? 'IFBIL' : 'SLIPC'}
                     className="w-12 h-12 rounded-md object-contain bg-white"
                   />
                 </div>
