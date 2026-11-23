@@ -59,21 +59,43 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ currentLang }) => {
             </div>
           </div>
 
-          {/* 3) Official Accreditation Badges: Enlarged 2x */}
-          <div className="mt-8 pt-6 border-t border-[#E2E8F0] flex flex-wrap items-center justify-start gap-8 sm:gap-12">
-            <div className="transition-transform hover:scale-105">
-              <img
-                src="/images/badges/iso-17025-certified-badge.webp"
-                alt="ISO/IEC 17025 Certified"
-                className="h-20 sm:h-24 w-auto object-contain drop-shadow-sm"
-              />
+          {/* 3) Official Accreditation Badges & Slogan */}
+          <div className="mt-8 pt-6 border-t border-[#E2E8F0] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 sm:gap-8">
+            <div className="flex flex-wrap items-center gap-6 sm:gap-10">
+              <div className="transition-transform hover:scale-105">
+                <img
+                  src="/images/badges/iso-17025-certified-badge.webp"
+                  alt="ISO/IEC 17025 Certified"
+                  className="h-20 sm:h-24 w-auto object-contain drop-shadow-sm"
+                />
+              </div>
+              <div className="transition-transform hover:scale-105">
+                <img
+                  src="/images/badges/glp-certified-badge.webp"
+                  alt="Good Laboratory Practice (GLP) Certified"
+                  className="h-24 sm:h-28 w-auto object-contain drop-shadow-sm"
+                />
+              </div>
             </div>
-            <div className="transition-transform hover:scale-105">
-              <img
-                src="/images/badges/glp-certified-badge.webp"
-                alt="Good Laboratory Practice (GLP) Certified"
-                className="h-24 sm:h-28 w-auto object-contain drop-shadow-sm"
-              />
+
+            {/* Slogan to the right of ISO & GLP badges */}
+            <div className="sm:ml-auto">
+              <div className="pl-4 sm:pl-6 border-l-2 border-[#108A54]/50">
+                <p className="text-lg sm:text-2xl lg:text-[1.65rem] font-extrabold font-display italic tracking-tight text-[#0F2942] leading-tight">
+                  {currentLang === 'uz'
+                    ? 'IFBIL- ilmga sadoqat bilan!'
+                    : currentLang === 'ru'
+                    ? 'SLIPC - с преданностью науке!'
+                    : 'SLIPC - Dedicated to Science!'}
+                </p>
+                <span className="text-[11px] font-mono text-[#108A54] font-bold uppercase tracking-widest block mt-1">
+                  {currentLang === 'uz'
+                    ? 'Innovatsiya • Sifat • Ishonch'
+                    : currentLang === 'ru'
+                    ? 'Инновации • Качество • Надежность'
+                    : 'Innovation • Quality • Trust'}
+                </span>
+              </div>
             </div>
           </div>
         </div>
