@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { LabRoom, Language } from '@/types/laboratory';
 import { TRANSLATIONS } from '@/data/translations';
 import {
@@ -248,7 +249,7 @@ export const DepartmentsSlider: React.FC<DepartmentsSliderProps> = ({
   onOpenDetails,
   onOpenPassport,
 }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [[currentIndex, direction], setSlide] = useState<[number, number]>([0, 0]);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
@@ -257,12 +258,16 @@ export const DepartmentsSlider: React.FC<DepartmentsSliderProps> = ({
   const currentSlide = SLIDES[currentIndex];
 
   const handleNext = useCallback(() => {
-    setCurrentIndex((prev) => (prev + 1) % totalSlides);
+    setSlide(([prev]) => [(prev + 1) % totalSlides, 1]);
   }, [totalSlides]);
 
   const handlePrev = useCallback(() => {
-    setCurrentIndex((prev) => (prev - 1 + totalSlides) % totalSlides);
+    setSlide(([prev]) => [(prev - 1 + totalSlides) % totalSlides, -1]);
   }, [totalSlides]);
+
+  const handleDotClick = (idx: number) => {
+    setSlide(([prev]) => [idx, idx > prev ? 1 : -1]);
+  };
 
   // Touch Swipe Handlers for iOS and Android
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -302,6 +307,35 @@ export const DepartmentsSlider: React.FC<DepartmentsSliderProps> = ({
     en: "Department Passport",
   }[currentLang];
 
+  // Elastic Direction-Aware Motion Variants (Borib-kelib harakatlanadigan spring physics)
+  const slideVariants = {
+    enter: (dir: number) => ({
+      x: dir > 0 ? 140 : dir < 0 ? -140 : 0,
+      opacity: 0,
+      scale: 0.98,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      scale: 1,
+      transition: {
+        x: { type: 'spring', stiffness: 280, damping: 25, mass: 0.9 },
+        opacity: { duration: 0.28 },
+        scale: { duration: 0.3 },
+      },
+    },
+    exit: (dir: number) => ({
+      x: dir > 0 ? -140 : dir < 0 ? 140 : 0,
+      opacity: 0,
+      scale: 0.98,
+      transition: {
+        x: { type: 'spring', stiffness: 280, damping: 25, mass: 0.9 },
+        opacity: { duration: 0.2 },
+        scale: { duration: 0.2 },
+      },
+    }),
+  };
+
   return (
     <div
       className="space-y-4 touch-pan-y"
@@ -322,111 +356,149 @@ export const DepartmentsSlider: React.FC<DepartmentsSliderProps> = ({
 
       {/* Main Large Slide Container (Cross-platform responsive) */}
       <div className="relative rounded-xl sm:rounded-2xl border border-[#E2E8F0] overflow-hidden bg-[#0F2942] shadow-sm select-none">
-        <div className="flex flex-col lg:grid lg:grid-cols-12 min-h-[460px] sm:min-h-[500px]">
-          {/* Left Column: Dark Navy Research Content (Col-span 7) */}
-          <div className="lg:col-span-7 p-5 sm:p-8 lg:p-10 flex flex-col justify-between relative z-20 order-2 lg:order-1">
-            {/* Top Row: Slide Counter */}
-            <div>
-              <div className="flex items-center gap-2.5 mb-3 sm:mb-5">
-                <span className="font-mono text-xs sm:text-sm font-bold tracking-widest text-[#38D399]">
-                  {String(currentIndex + 1).padStart(2, '0')} / {String(totalSlides).padStart(2, '0')}
-                </span>
-                <span className="w-1 h-1 rounded-full bg-white/30" />
-                <span className="font-mono text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-slate-300">
-                  {currentSlide.badge[currentLang]}
-                </span>
-              </div>
+        {/* Floating Side Navigation Arrows for Instant Click */}
+        <motion.button
+          type="button"
+          whileHover={{ scale: 1.15, x: -3 }}
+          whileTap={{ scale: 0.9, x: -6 }}
+          onClick={handlePrev}
+          aria-label="Previous slide"
+          className="hidden md:flex absolute left-3 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-[#081726]/85 hover:bg-[#081726] border border-white/20 text-white items-center justify-center shadow-xl backdrop-blur-sm cursor-pointer transition-colors"
+        >
+          <ChevronLeft className="w-6 h-6" />
+        </motion.button>
+        <motion.button
+          type="button"
+          whileHover={{ scale: 1.15, x: 3 }}
+          whileTap={{ scale: 0.9, x: 6 }}
+          onClick={handleNext}
+          aria-label="Next slide"
+          className="hidden md:flex absolute right-3 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-[#081726]/85 hover:bg-[#081726] border border-white/20 text-white items-center justify-center shadow-xl backdrop-blur-sm cursor-pointer transition-colors"
+        >
+          <ChevronRight className="w-6 h-6" />
+        </motion.button>
 
-              {/* Title */}
-              <h3 className="text-lg sm:text-2xl lg:text-[1.85rem] font-bold font-display text-white tracking-tight leading-snug">
-                {currentSlide.title[currentLang]}
-              </h3>
-
-              {/* Description */}
-              <p className="mt-2.5 sm:mt-3 text-xs sm:text-sm text-slate-300 font-body leading-relaxed max-w-xl">
-                {currentSlide.description[currentLang]}
-              </p>
-
-              {/* 4 Research Pillars / Bullets in 2 Columns */}
-              <div className="mt-5 sm:mt-6 pt-4 sm:pt-5 border-t border-white/10 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
-                {currentSlide.bullets[currentLang].map((bullet, idx) => (
-                  <div key={idx} className="flex items-start gap-2.5">
-                    <span className="w-2 h-2 rounded-full bg-[#108A54] mt-1 shrink-0 shadow-xs" />
-                    <span className="text-xs sm:text-[13px] text-slate-200 font-body leading-snug font-medium">
-                      {bullet}
+        {/* Animated Directional Slide Container */}
+        <div className="relative overflow-hidden min-h-[460px] sm:min-h-[500px]">
+          <AnimatePresence mode="wait" custom={direction}>
+            <motion.div
+              key={currentIndex}
+              custom={direction}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              className="flex flex-col lg:grid lg:grid-cols-12 min-h-[460px] sm:min-h-[500px] w-full"
+            >
+              {/* Left Column: Dark Navy Research Content (Col-span 7) */}
+              <div className="lg:col-span-7 p-5 sm:p-8 lg:p-10 flex flex-col justify-between relative z-20 order-2 lg:order-1">
+                {/* Top Row: Slide Counter */}
+                <div>
+                  <div className="flex items-center gap-2.5 mb-3 sm:mb-5">
+                    <span className="font-mono text-xs sm:text-sm font-bold tracking-widest text-[#38D399]">
+                      {String(currentIndex + 1).padStart(2, '0')} / {String(totalSlides).padStart(2, '0')}
+                    </span>
+                    <span className="w-1 h-1 rounded-full bg-white/30" />
+                    <span className="font-mono text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-slate-300">
+                      {currentSlide.badge[currentLang]}
                     </span>
                   </div>
-                ))}
-              </div>
-            </div>
 
-            {/* Bottom Controls Row: Action Button + Carousel Arrows & Indicators */}
-            <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <button
-                  type="button"
-                  onClick={() => currentRoom && onOpenDetails(currentRoom)}
-                  className="px-4 sm:px-5 py-2.5 min-h-[42px] sm:min-h-[44px] rounded-lg bg-[#108A54] hover:bg-[#0C6B41] active:scale-95 text-white text-xs sm:text-sm font-semibold inline-flex items-center gap-2 transition-all shadow-xs cursor-pointer group touch-manipulation"
-                >
-                  <span>{openPassportText}</span>
-                  <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </button>
-              </div>
+                  {/* Title */}
+                  <h3 className="text-lg sm:text-2xl lg:text-[1.85rem] font-bold font-display text-white tracking-tight leading-snug">
+                    {currentSlide.title[currentLang]}
+                  </h3>
 
-              {/* Carousel Arrows and Indicator Dots */}
-              <div className="flex items-center gap-3">
-                {/* Dots */}
-                <div className="flex items-center gap-1.5">
-                  {SLIDES.map((_, idx) => (
+                  {/* Description */}
+                  <p className="mt-2.5 sm:mt-3 text-xs sm:text-sm text-slate-300 font-body leading-relaxed max-w-xl">
+                    {currentSlide.description[currentLang]}
+                  </p>
+
+                  {/* 4 Research Pillars / Bullets in 2 Columns */}
+                  <div className="mt-5 sm:mt-6 pt-4 sm:pt-5 border-t border-white/10 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
+                    {currentSlide.bullets[currentLang].map((bullet, idx) => (
+                      <div key={idx} className="flex items-start gap-2.5">
+                        <span className="w-2 h-2 rounded-full bg-[#108A54] mt-1 shrink-0 shadow-xs" />
+                        <span className="text-xs sm:text-[13px] text-slate-200 font-body leading-snug font-medium">
+                          {bullet}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Bottom Controls Row: Action Button + Carousel Arrows & Indicators */}
+                <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
+                  <div className="flex items-center gap-3">
                     <button
-                      key={idx}
-                      onClick={() => setCurrentIndex(idx)}
-                      className={`h-1.5 rounded-full transition-all cursor-pointer ${
-                        idx === currentIndex ? 'w-6 bg-[#38D399]' : 'w-1.5 bg-white/30 hover:bg-white/50'
-                      }`}
-                      aria-label={`Slide ${idx + 1}`}
-                    />
-                  ))}
-                </div>
+                      type="button"
+                      onClick={() => currentRoom && onOpenDetails(currentRoom)}
+                      className="px-4 sm:px-5 py-2.5 min-h-[42px] sm:min-h-[44px] rounded-lg bg-[#108A54] hover:bg-[#0C6B41] active:scale-95 text-white text-xs sm:text-sm font-semibold inline-flex items-center gap-2 transition-all shadow-xs cursor-pointer group touch-manipulation"
+                    >
+                      <span>{openPassportText}</span>
+                      <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </button>
+                  </div>
 
-                {/* Arrow Controls */}
-                <div className="flex items-center gap-1.5 ml-2">
-                  <button
-                    type="button"
-                    onClick={handlePrev}
-                    aria-label="Previous slide"
-                    className="w-9 h-9 min-h-[36px] min-w-[36px] sm:w-10 sm:h-10 rounded-lg bg-white/10 hover:bg-white/20 active:bg-white/30 text-white flex items-center justify-center transition-colors cursor-pointer touch-manipulation"
-                  >
-                    <ChevronLeft className="w-5 h-5" />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleNext}
-                    aria-label="Next slide"
-                    className="w-9 h-9 min-h-[36px] min-w-[36px] sm:w-10 sm:h-10 rounded-lg bg-white/10 hover:bg-white/20 active:bg-white/30 text-white flex items-center justify-center transition-colors cursor-pointer touch-manipulation"
-                  >
-                    <ChevronRight className="w-5 h-5" />
-                  </button>
+                  {/* Carousel Arrows and Indicator Dots */}
+                  <div className="flex items-center gap-3">
+                    {/* Dots */}
+                    <div className="flex items-center gap-1.5">
+                      {SLIDES.map((_, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => handleDotClick(idx)}
+                          className={`h-1.5 rounded-full transition-all cursor-pointer ${
+                            idx === currentIndex ? 'w-6 bg-[#38D399]' : 'w-1.5 bg-white/30 hover:bg-white/50'
+                          }`}
+                          aria-label={`Slide ${idx + 1}`}
+                        />
+                      ))}
+                    </div>
+
+                    {/* Arrow Controls with Directional Push Animation */}
+                    <div className="flex items-center gap-1.5 ml-2">
+                      <motion.button
+                        type="button"
+                        whileHover={{ scale: 1.12, backgroundColor: 'rgba(255, 255, 255, 0.25)' }}
+                        whileTap={{ scale: 0.88, x: -5 }}
+                        onClick={handlePrev}
+                        aria-label="Previous slide"
+                        className="w-9 h-9 min-h-[36px] min-w-[36px] sm:w-10 sm:h-10 rounded-lg bg-white/10 text-white flex items-center justify-center transition-colors cursor-pointer touch-manipulation"
+                      >
+                        <ChevronLeft className="w-5 h-5" />
+                      </motion.button>
+                      <motion.button
+                        type="button"
+                        whileHover={{ scale: 1.12, backgroundColor: 'rgba(255, 255, 255, 0.25)' }}
+                        whileTap={{ scale: 0.88, x: 5 }}
+                        onClick={handleNext}
+                        aria-label="Next slide"
+                        className="w-9 h-9 min-h-[36px] min-w-[36px] sm:w-10 sm:h-10 rounded-lg bg-white/10 text-white flex items-center justify-center transition-colors cursor-pointer touch-manipulation"
+                      >
+                        <ChevronRight className="w-5 h-5" />
+                      </motion.button>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
 
-          {/* Right Column: AI Generated WebP Research Image (Col-span 5) */}
-          <div className="lg:col-span-5 relative w-full h-56 sm:h-72 lg:h-auto min-h-[220px] overflow-hidden bg-slate-900 order-1 lg:order-2">
-            <img
-              key={currentSlide.image}
-              src={currentSlide.image}
-              alt={currentSlide.title[currentLang]}
-              loading="lazy"
-              decoding="async"
-              className="w-full h-full object-cover object-center transform transition-transform duration-700 hover:scale-105"
-            />
+              {/* Right Column: AI Generated WebP Research Image (Col-span 5) */}
+              <div className="lg:col-span-5 relative w-full h-56 sm:h-72 lg:h-auto min-h-[220px] overflow-hidden bg-slate-900 order-1 lg:order-2">
+                <img
+                  src={currentSlide.image}
+                  alt={currentSlide.title[currentLang]}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover object-center transform transition-transform duration-700 hover:scale-105"
+                />
 
-            {/* Gradient Overlay for seamless blend */}
-            <div className="hidden lg:block absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#0F2942] to-transparent pointer-events-none" />
-            <div className="lg:hidden absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#0F2942] to-transparent pointer-events-none" />
-          </div>
+                {/* Gradient Overlay for seamless blend */}
+                <div className="hidden lg:block absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#0F2942] to-transparent pointer-events-none" />
+                <div className="lg:hidden absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#0F2942] to-transparent pointer-events-none" />
+              </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
     </div>
