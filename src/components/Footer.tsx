@@ -3,7 +3,7 @@
 import React from 'react';
 import { Language } from '@/types/laboratory';
 import { TRANSLATIONS } from '@/data/translations';
-import { Mail, Phone, MapPin, ExternalLink } from 'lucide-react';
+import { Mail, Phone, MapPin, ExternalLink, Send } from 'lucide-react';
 
 interface FooterProps {
   currentLang: Language;
@@ -116,6 +116,16 @@ export const Footer: React.FC<FooterProps> = ({
               >
                 <Phone className="w-4 h-4 text-[#108A54]" />
                 <span>+998712563738</span>
+              </a>
+              <span className="text-slate-500 hidden sm:inline">&bull;</span>
+              <a
+                href="https://t.me/atsharipov"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#229ED9]/20 hover:bg-[#229ED9]/35 text-[#38D399] hover:text-white font-medium transition-all border border-[#229ED9]/40"
+              >
+                <Send className="w-3.5 h-3.5 text-[#38D399]" />
+                <span>Telegram: @atsharipov</span>
               </a>
             </div>
 

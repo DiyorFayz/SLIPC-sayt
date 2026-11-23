@@ -5,7 +5,7 @@ import { Language, StaffCategory } from '@/types/laboratory';
 import { TRANSLATIONS } from '@/data/translations';
 import { STAFF_MEMBERS } from '@/data/staffData';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Users, Mail, ExternalLink, Award, Search, CheckCircle2 } from 'lucide-react';
+import { X, Users, Mail, ExternalLink, Award, Search, CheckCircle2, Send } from 'lucide-react';
 
 interface StaffModalProps {
   isOpen: boolean;
@@ -282,6 +282,17 @@ export const StaffModal: React.FC<StaffModalProps> = ({
                             <Mail className="w-3.5 h-3.5 text-[#8A91A3] shrink-0" />
                             <span className="truncate">{member.email}</span>
                           </a>
+                          {member.telegram && (
+                            <a
+                              href={member.telegram}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-[#229ED9] hover:underline inline-flex items-center gap-1.5 font-medium"
+                            >
+                              <Send className="w-3.5 h-3.5 text-[#229ED9] shrink-0" />
+                              <span className="truncate">Telegram: @atsharipov</span>
+                            </a>
+                          )}
                         </div>
                       </div>
                     </div>

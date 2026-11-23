@@ -205,6 +205,7 @@ export interface StaffMember {
   roomCode: string;
   orcid?: string;
   email: string;
+  telegram?: string;
   focus: Record<Language, string>;
   color: string;
 }

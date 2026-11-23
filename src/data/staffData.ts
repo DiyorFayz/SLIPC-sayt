@@ -19,6 +19,7 @@ export const STAFF_MEMBERS: StaffMember[] = [
     roomCode: "LAB-PH-102",
     orcid: "0000-0001-9231-778X",
     email: "a.sharipov@slipc-lab.uz",
+    telegram: "https://t.me/atsharipov",
     focus: {
       uz: "Preklinik farmakologiya, toksikologiya, sport farmakologiyasi va adaptogenlar",
       ru: "Доклиническая фармакология, токсикология, спортивная фармакология и адаптогены",

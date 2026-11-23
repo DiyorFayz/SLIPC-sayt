@@ -14,6 +14,7 @@ import {
   Building2,
   FileText,
   Sparkles,
+  Send,
 } from 'lucide-react';
 import { HistoryModal } from '@/components/HistoryModal';
 import { STAFF_MEMBERS } from '@/data/staffData';
@@ -436,6 +437,10 @@ export const AboutModal: React.FC<AboutModalProps> = ({
                           <div className="flex items-center gap-1.5 text-[11px]">
                             <Mail className="w-3.5 h-3.5 text-[#24356F] shrink-0" />
                             <span><strong className="text-[#1B1F2A]">{currentLang === 'uz' ? 'Aloqa' : currentLang === 'ru' ? 'Контакты' : 'Contact'}:</strong> {t.glpContact}</span>
+                          </div>
+                          <div className="flex items-center gap-1.5 text-[11px]">
+                            <Send className="w-3.5 h-3.5 text-[#229ED9] shrink-0" />
+                            <span><strong className="text-[#1B1F2A]">Telegram:</strong> <a href="https://t.me/atsharipov" target="_blank" rel="noopener noreferrer" className="text-[#229ED9] hover:underline font-mono">@atsharipov</a></span>
                           </div>
                         </div>
                       </div>

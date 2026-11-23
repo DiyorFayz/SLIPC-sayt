@@ -11,6 +11,7 @@ import {
   Building2,
   X,
   Sparkles,
+  Send,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HistoryModal } from '@/components/HistoryModal';
@@ -426,6 +427,10 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ currentLang }) => {
                     <div className="flex items-center gap-2">
                       <Mail className="w-3.5 h-3.5 text-blue-600 shrink-0" />
                       <span><strong className="text-slate-800">{currentLang === 'uz' ? 'Aloqa' : currentLang === 'ru' ? 'Контакты' : 'Contact'}:</strong> {t.glpContact}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Send className="w-3.5 h-3.5 text-[#229ED9] shrink-0" />
+                      <span><strong className="text-slate-800">Telegram:</strong> <a href="https://t.me/atsharipov" target="_blank" rel="noopener noreferrer" className="text-[#229ED9] hover:underline font-mono">@atsharipov</a></span>
                     </div>
                   </div>
                 </div>
