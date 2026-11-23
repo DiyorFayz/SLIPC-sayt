@@ -277,18 +277,22 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
             <div className="h-1.5 w-full bg-gradient-to-r from-[#24356F] via-[#0072CE] to-[#12715A] shrink-0" />
 
             {/* Modal Header */}
-            <div className="p-5 sm:p-6 bg-white/95 border-b border-[#DDE2EF] flex items-start justify-between gap-4 shrink-0">
-              <div>
-                <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-[#E6EAF5] text-[#24356F] text-[11px] font-mono font-bold mb-1.5">
-                  <Sparkles className="w-3.5 h-3.5 text-[#12715A]" />
-                  <span dangerouslySetInnerHTML={{ __html: texts.badge }} />
+            <div className="p-4 sm:p-5 bg-white/95 border-b border-[#DDE2EF] flex items-center justify-between gap-4 shrink-0">
+              <div className="flex items-center gap-3">
+                <div className="p-1 rounded-lg bg-white border border-[#E2E8F0] shadow-sm shrink-0">
+                  <img
+                    src={currentLang === 'uz' ? '/logo-ifbil.webp' : '/logo-slipc.webp'}
+                    alt={currentLang === 'uz' ? 'IFBIL' : 'SLIPC'}
+                    className="w-10 h-10 rounded-md object-contain bg-white"
+                  />
                 </div>
-                <h2 className="text-lg sm:text-xl md:text-2xl font-bold font-display text-[#1B1F2A] leading-snug">
-                  {texts.mainTitle}
+                <h2 className="text-lg sm:text-xl font-bold font-display text-[#1B1F2A]">
+                  {currentLang === 'uz'
+                    ? 'Laboratoriya tarixi'
+                    : currentLang === 'ru'
+                    ? 'История лаборатории'
+                    : 'Laboratory History'}
                 </h2>
-                <p className="text-xs sm:text-sm text-[#5C6478] font-body mt-1">
-                  {texts.subtitle}
-                </p>
               </div>
 
               <button
@@ -414,36 +418,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
                 </div>
               </div>
 
-              {/* 4. Founders and Visionaries */}
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <Building2 className="w-5 h-5 text-[#24356F]" />
-                  <h3 className="text-base sm:text-lg font-bold font-display text-[#1B1F2A]">
-                    {texts.foundersTitle}
-                  </h3>
-                </div>
-                <p className="text-xs text-[#5C6478] font-body mb-4">
-                  {texts.foundersSubtitle}
-                </p>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
-                  {founders.map((person, idx) => (
-                    <div
-                      key={idx}
-                      className="p-3 rounded-xl bg-white border border-[#DDE2EF] shadow-2xs flex flex-col justify-between hover:border-[#24356F]/40 transition-colors"
-                    >
-                      <span className="text-xs font-bold font-display text-[#1B1F2A]">
-                        {person.name}
-                      </span>
-                      <span className="text-[10px] text-[#5C6478] font-body mt-0.5 line-clamp-1" title={person.role}>
-                        {person.role}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* 5. 2024-2025 Research Team */}
+              {/* 4. 2024-2025 Research Team */}
               <div>
                 <div className="flex items-center gap-2 mb-1">
                   <Users className="w-5 h-5 text-[#24356F]" />
