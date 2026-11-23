@@ -13,11 +13,9 @@ export const HandoverBanner: React.FC<HandoverBannerProps> = ({ currentLang }) =
     uz: {
       tag: "RASMIY TOPSHIRISH MAROSIMI",
       badge: "O'z DSt ISO/IEC 17025 &bull; GLP",
-      caption: "Toshkent Farmatsevtika instituti rektori prof. K.S.Rizayev (o’ngda) ilmiy laboratoriya mudiri prof. A.T.Sharipovga (chapda) akkreditasiya sertifikatini topshirmoqda.",
-      rightLabel: "O'ngda (topshiruvchi)",
+      caption: "Toshkent Farmatsevtika instituti rektori prof. K.S.Rizayev ilmiy laboratoriya mudiri prof. A.T.Sharipovga akkreditatsiya sertifikatini topshirmoqda.",
       rightName: "Prof. K.S. Rizayev",
       rightTitle: "Toshkent Farmatsevtika instituti rektori",
-      leftLabel: "Chapda (qabul qiluvchi)",
       leftName: "Prof. A.T. Sharipov",
       leftTitle: "“Innovatsion farmatsevtik birikmalar” ilmiy laboratoriyasi mudiri",
       subNote: "O'zbekiston akkreditatsiya markazi DM (O'ZAK) hamda Farmatsevtika tarmog'ini rivojlantirish agentligi tomonidan berilgan rasmiy davlat muvofiqlik sertifikati",
@@ -25,11 +23,9 @@ export const HandoverBanner: React.FC<HandoverBannerProps> = ({ currentLang }) =
     ru: {
       tag: "ОФИЦИАЛЬНАЯ ЦЕРЕМОНИЯ ВРУЧЕНИЯ",
       badge: "O'z DSt ISO/IEC 17025 &bull; GLP",
-      caption: "Ректор Ташкентского фармацевтического института проф. К.С.Ризаев (справа) вручает свидетельство об аккредитации заведующему научной лабораторией проф. А.Т.Шарипову (слева).",
-      rightLabel: "Справа (вручающий)",
+      caption: "Ректор Ташкентского фармацевтического института проф. К.С.Ризаев вручает свидетельство об аккредитации заведующему научной лабораторией проф. А.Т.Шарипову.",
       rightName: "Проф. К.С. Ризаев",
       rightTitle: "Ректор Ташкентского фармацевтического института",
-      leftLabel: "Слева (принимающий)",
       leftName: "Проф. А.Т. Шарипов",
       leftTitle: "Заведующий научной лабораторией «Инновационные фармацевтические соединения»",
       subNote: "Официальный государственный сертификат соответствия ГУ «Центр аккредитации Узбекистана» (O'ZAK) и Агентства по развитию фармацевтической отрасли",
@@ -37,11 +33,9 @@ export const HandoverBanner: React.FC<HandoverBannerProps> = ({ currentLang }) =
     en: {
       tag: "OFFICIAL HANDOVER CEREMONY",
       badge: "O'z DSt ISO/IEC 17025 &bull; GLP",
-      caption: "Rector of the Tashkent Pharmaceutical Institute Prof. K.S.Rizayev (right) presents the accreditation certificate to the Head of the Scientific Laboratory Prof. A.T.Sharipov (left).",
-      rightLabel: "Right (Presenter)",
+      caption: "Rector of the Tashkent Pharmaceutical Institute Prof. K.S.Rizayev presents the accreditation certificate to the Head of the Scientific Laboratory Prof. A.T.Sharipov.",
       rightName: "Prof. K.S. Rizayev",
       rightTitle: "Rector of Tashkent Pharmaceutical Institute",
-      leftLabel: "Left (Recipient)",
       leftName: "Prof. A.T. Sharipov",
       leftTitle: "Head of the “Innovative Pharmaceutical Compounds” Scientific Laboratory",
       subNote: "Official state certificate of accreditation and compliance granted by the Uzbekistan Accreditation Center (O'ZAK) and the Pharmaceutical Agency",
@@ -92,26 +86,20 @@ export const HandoverBanner: React.FC<HandoverBannerProps> = ({ currentLang }) =
 
           {/* Two Key Profiles */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-            <div className="p-3 rounded-md bg-[#F4F6F9] border border-[#E2E8F0]">
-              <span className="text-[10px] font-mono text-[#475569] uppercase block font-semibold">
-                {content.rightLabel}
-              </span>
-              <span className="font-bold text-[#0F2942] text-xs sm:text-sm block mt-0.5 font-display">
+            <div className="p-3.5 rounded-md bg-[#F4F6F9] border border-[#E2E8F0]">
+              <span className="font-bold text-[#0F2942] text-xs sm:text-sm block font-display">
                 {content.rightName}
               </span>
-              <span className="text-[11px] text-[#475569] block mt-0.5 leading-snug">
+              <span className="text-[11px] text-[#475569] block mt-1 leading-snug">
                 {content.rightTitle}
               </span>
             </div>
 
-            <div className="p-3 rounded-md bg-[#F4F6F9] border border-[#E2E8F0]">
-              <span className="text-[10px] font-mono text-[#475569] uppercase block font-semibold">
-                {content.leftLabel}
-              </span>
-              <span className="font-bold text-[#0F2942] text-xs sm:text-sm block mt-0.5 font-display">
+            <div className="p-3.5 rounded-md bg-[#F4F6F9] border border-[#E2E8F0]">
+              <span className="font-bold text-[#0F2942] text-xs sm:text-sm block font-display">
                 {content.leftName}
               </span>
-              <span className="text-[11px] text-[#475569] block mt-0.5 leading-snug">
+              <span className="text-[11px] text-[#475569] block mt-1 leading-snug">
                 {content.leftTitle}
               </span>
             </div>
