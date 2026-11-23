@@ -9,6 +9,7 @@ import { Header } from '@/components/Header';
 import { HeroSection } from '@/components/HeroSection';
 import { HandoverBanner } from '@/components/HandoverBanner';
 import { DepartmentsSlider } from '@/components/DepartmentsSlider';
+import { PatentsSection } from '@/components/PatentsSection';
 import { PartnersSection } from '@/components/PartnersSection';
 import { RoomsGrid } from '@/components/RoomsGrid';
 import { Footer } from '@/components/Footer';
@@ -106,7 +107,10 @@ export default function Home() {
             onOpenPassport={() => setIsPassportOpen(true)}
           />
 
-          {/* 3.1. Strategic Partners Showcase (Hamkorlarimiz) */}
+          {/* 3.1. Official State Patents Showcase (Foydali model in middle, 2 Ixtiro on sides) */}
+          <PatentsSection currentLang={currentLang} />
+
+          {/* 3.2. Strategic Partners Showcase (Hamkorlarimiz) */}
           <PartnersSection currentLang={currentLang} />
         </section>
       </main>
