@@ -25,13 +25,22 @@ export const SOPViewerModal: React.FC<SOPViewerModalProps> = ({
       if (e.key === 'Escape' && isOpen) onClose();
     };
     if (isOpen) {
+      document.body.classList.add('modal-open');
+      document.documentElement.classList.add('modal-open');
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
       window.addEventListener('keydown', handleKeyDown);
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.classList.remove('modal-open');
+      document.documentElement.classList.remove('modal-open');
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
     }
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.classList.remove('modal-open');
+      document.documentElement.classList.remove('modal-open');
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [isOpen, onClose]);
@@ -44,7 +53,7 @@ export const SOPViewerModal: React.FC<SOPViewerModalProps> = ({
       onClick={onClose}
     >
       <div
-        className="w-full max-w-3xl glass-modal rounded-2xl overflow-hidden flex flex-col max-h-[90vh]"
+        className="w-full max-w-3xl glass-modal rounded-2xl overflow-hidden flex flex-col h-[94vh] sm:h-[90vh] max-h-[94vh] overscroll-contain"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Brand Accent Bar */}
@@ -76,7 +85,7 @@ export const SOPViewerModal: React.FC<SOPViewerModalProps> = ({
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-6 text-sm bg-[#F3F5FB]/40">
+        <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain ios-momentum-scroll modal-scroll-area p-6 space-y-6 text-sm bg-[#F3F5FB]/40">
           <div>
             <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-[#24356F] mb-2">
               Maqsad (Purpose)

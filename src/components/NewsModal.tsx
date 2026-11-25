@@ -24,13 +24,22 @@ export const NewsModal: React.FC<NewsModalProps> = ({
       if (e.key === 'Escape' && isOpen) onClose();
     };
     if (isOpen) {
+      document.body.classList.add('modal-open');
+      document.documentElement.classList.add('modal-open');
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
       window.addEventListener('keydown', handleKeyDown);
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.classList.remove('modal-open');
+      document.documentElement.classList.remove('modal-open');
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
     }
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.classList.remove('modal-open');
+      document.documentElement.classList.remove('modal-open');
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [isOpen, onClose]);
@@ -101,7 +110,7 @@ export const NewsModal: React.FC<NewsModalProps> = ({
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 md:p-6 overflow-y-auto">
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 md:p-6 overflow-hidden overscroll-contain">
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -118,7 +127,7 @@ export const NewsModal: React.FC<NewsModalProps> = ({
             exit={{ opacity: 0, y: 24, scale: 0.98 }}
             transition={{ type: 'spring', duration: 0.32, bounce: 0 }}
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full sm:max-w-4xl glass-modal sm:rounded-2xl overflow-hidden flex flex-col max-h-[92vh] z-10"
+            className="relative w-full sm:max-w-4xl glass-modal sm:rounded-2xl overflow-hidden flex flex-col h-[94vh] sm:h-[90vh] max-h-[94vh] overscroll-contain z-10"
           >
             {/* Top Brand Accent Bar */}
             <div className="h-1 w-full bg-gradient-to-r from-[#24356F] via-[#344A94] to-[#12715A] shrink-0" />
@@ -159,7 +168,7 @@ export const NewsModal: React.FC<NewsModalProps> = ({
             </div>
 
             {/* Body */}
-            <div className="flex-1 overflow-y-auto p-5 sm:p-7 space-y-4 bg-[#F3F5FB]/40">
+            <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain ios-momentum-scroll modal-scroll-area p-5 sm:p-7 space-y-4 bg-[#F3F5FB]/40">
               {newsItems.map((item) => (
                 <div
                   key={item.id}

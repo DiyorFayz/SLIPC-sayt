@@ -68,7 +68,7 @@ export const RoomDetailModal: React.FC<RoomDetailModalProps> = ({
   return (
     <AnimatePresence>
       {isOpen && room && (
-        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 md:p-6 overflow-y-auto">
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 md:p-6 overflow-hidden overscroll-contain">
           {/* Soft Frosted Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -126,7 +126,7 @@ export const RoomDetailModal: React.FC<RoomDetailModalProps> = ({
 
             {/* Modal Body */}
             {(room.researchPillars && room.researchPillars.length > 0) || room.vivariumDetails ? (
-              <div className="flex-1 overflow-y-auto p-4 sm:p-7 bg-[#F4F6F9] ios-momentum-scroll overscroll-contain">
+              <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain ios-momentum-scroll modal-scroll-area p-4 sm:p-7 bg-[#F4F6F9] ios-momentum-scroll overscroll-contain">
                 {/* Department Intro / Highlight Banner */}
                 {room.fullFocus && room.fullFocus[currentLang] && (
                   <div className="mb-6 p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#24356F]/6 via-[#12715A]/6 to-[#E6EAF5]/40 border border-[#DDE2EF] flex items-start gap-3.5 shadow-2xs">

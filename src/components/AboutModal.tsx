@@ -89,7 +89,7 @@ export const AboutModal: React.FC<AboutModalProps> = ({
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 md:p-6 overflow-y-auto">
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 md:p-6 overflow-hidden overscroll-contain">
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -141,7 +141,7 @@ export const AboutModal: React.FC<AboutModalProps> = ({
             </div>
 
             {/* Body */}
-            <div className="flex-1 overflow-y-auto p-4 sm:p-7 space-y-6 sm:space-y-7 bg-[#F4F6F9] ios-momentum-scroll overscroll-contain">
+            <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain ios-momentum-scroll modal-scroll-area p-4 sm:p-7 space-y-6 sm:space-y-7 bg-[#F4F6F9] ios-momentum-scroll overscroll-contain">
               {/* Laboratory Description */}
               <div className="p-5 sm:p-6 rounded-2xl bg-white/95 border border-[#DDE2EF] shadow-sm">
                 <p className="text-sm text-[#1B1F2A]/90 leading-relaxed font-body whitespace-pre-line">

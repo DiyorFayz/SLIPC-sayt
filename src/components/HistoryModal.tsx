@@ -271,7 +271,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
             exit={{ opacity: 0, y: 30, scale: 0.97 }}
             transition={{ type: 'spring', duration: 0.35, bounce: 0 }}
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full sm:max-w-4xl glass-modal sm:rounded-2xl overflow-hidden flex flex-col max-h-[92vh] z-[101] bg-white shadow-2xl"
+            className="relative w-full sm:max-w-4xl glass-modal sm:rounded-2xl overflow-hidden flex flex-col h-[94vh] sm:h-[90vh] max-h-[94vh] overscroll-contain z-[101] bg-white shadow-2xl"
           >
             {/* Header Gradient Top Bar */}
             <div className="h-1.5 w-full bg-gradient-to-r from-[#24356F] via-[#0072CE] to-[#12715A] shrink-0" />
@@ -305,7 +305,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
             </div>
 
             {/* Modal Scrollable Body */}
-            <div className="flex-1 overflow-y-auto p-5 sm:p-8 space-y-8 bg-[#F8FAFC]">
+            <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain ios-momentum-scroll modal-scroll-area p-5 sm:p-8 space-y-8 bg-[#F8FAFC]">
               
               {/* Highlight Hero Callout */}
               <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-[#24356F] to-[#1B2854] text-white shadow-md relative overflow-hidden">

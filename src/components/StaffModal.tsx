@@ -28,13 +28,22 @@ export const StaffModal: React.FC<StaffModalProps> = ({
       if (e.key === 'Escape' && isOpen) onClose();
     };
     if (isOpen) {
+      document.body.classList.add('modal-open');
+      document.documentElement.classList.add('modal-open');
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
       window.addEventListener('keydown', handleKeyDown);
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.classList.remove('modal-open');
+      document.documentElement.classList.remove('modal-open');
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
     }
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.classList.remove('modal-open');
+      document.documentElement.classList.remove('modal-open');
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [isOpen, onClose]);
@@ -84,7 +93,7 @@ export const StaffModal: React.FC<StaffModalProps> = ({
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 md:p-6 overflow-y-auto">
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 md:p-6 overflow-hidden overscroll-contain">
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -207,7 +216,7 @@ export const StaffModal: React.FC<StaffModalProps> = ({
             </div>
 
             {/* Body */}
-            <div className="flex-1 overflow-y-auto p-5 sm:p-6 bg-[#F3F5FB]/40">
+            <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain ios-momentum-scroll modal-scroll-area p-5 sm:p-6 bg-[#F3F5FB]/40">
               {filteredStaff.length === 0 ? (
                 <div className="text-center py-12 text-[#5C6478]">
                   <p className="text-sm">

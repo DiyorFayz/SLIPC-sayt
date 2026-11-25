@@ -225,6 +225,20 @@ body {
   outline-offset: 2px;
 }
 
+/* Prevent Background Scroll & Scroll Chaining when Modal is Open */
+html.modal-open,
+body.modal-open {
+  overflow: hidden !important;
+  overscroll-behavior: none !important;
+  touch-action: none !important;
+}
+
+.modal-scroll-area {
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+}
+
 /* High-Fidelity & Crisp Rendering for Logos, Badges, and Assets */
 img {
   -webkit-font-smoothing: antialiased;
