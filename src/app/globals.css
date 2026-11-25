@@ -224,3 +224,20 @@ body {
   outline: 2px solid #0F2942;
   outline-offset: 2px;
 }
+
+/* High-Fidelity & Crisp Rendering for Logos, Badges, and Assets */
+img {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img[src*="logo"],
+img[src*="badge"],
+img[src*="patent"],
+img[src*="certificate"] {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}

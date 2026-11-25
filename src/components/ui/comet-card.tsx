@@ -88,6 +88,9 @@ export function CometCard({
           rotateX,
           rotateY,
           transformStyle: 'preserve-3d',
+          willChange: 'transform',
+          backfaceVisibility: 'hidden',
+          WebkitBackfaceVisibility: 'hidden',
         }}
         className={`relative ${isCircle ? 'rounded-full' : 'rounded-2xl'} transition-shadow duration-300 transform-gpu ${
           isHovered ? 'shadow-2xl shadow-[#24356F]/20' : 'shadow-md shadow-slate-900/5'
@@ -104,7 +107,12 @@ export function CometCard({
 
         {/* Inner 3D Content Container */}
         <div
-          style={{ transform: 'translateZ(20px)', transformStyle: 'preserve-3d' }}
+          style={{
+            transform: 'translateZ(20px)',
+            transformStyle: 'preserve-3d',
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden',
+          }}
           className={`relative ${isCircle ? 'rounded-full' : 'rounded-2xl'} overflow-hidden`}
         >
           {children}
