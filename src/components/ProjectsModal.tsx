@@ -327,94 +327,118 @@ export const ProjectsModal: React.FC<ProjectsModalProps> = ({
                         <div
                           key={project.id}
                           id={`project-${project.id}`}
-                          className="glass-card rounded-2xl p-4 sm:p-5 border border-[#DDE2EF] hover:border-[#24356F]/40 transition-all shadow-xs bg-white/95"
+                          className="glass-card rounded-2xl p-4 sm:p-5 border border-[#DDE2EF] hover:border-[#108A54]/50 transition-all shadow-xs hover:shadow-md bg-white/95 group"
                         >
-                          {/* Card Header: Number, Year, Database Badges */}
-                          <div className="flex flex-wrap items-center justify-between gap-2 mb-2.5">
-                            <div className="flex items-center gap-2">
-                              <span className="font-mono text-xs font-extrabold px-2 py-0.5 rounded-md bg-[#24356F] text-white">
-                                #{project.id}
-                              </span>
-                              <span
-                                className={`font-mono text-xs font-bold px-2.5 py-0.5 rounded-full border ${yearStyle.bg} ${yearStyle.text} ${yearStyle.border}`}
-                              >
-                                {project.year}{t.projectsYearSuffix}
-                              </span>
-                              <span className="font-mono text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-[#E3F1EC] text-[#12715A] border border-[#A7D7C5]">
-                                {localizedDatabase}
-                              </span>
-                            </div>
-
-                            {project.doiUrl && (
-                              <a
-                                href={project.doiUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-[#24356F] hover:text-[#12715A] p-1 rounded hover:bg-[#F3F5FB] transition-colors"
-                                title={project.doi}
-                              >
-                                <span>DOI</span>
-                                <ExternalLink className="w-3.5 h-3.5" />
-                              </a>
+                          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-5">
+                            {/* Journal Cover Image */}
+                            {project.coverImage && (
+                              <div className="shrink-0 w-28 sm:w-32 self-center sm:self-start">
+                                <div className="rounded-xl overflow-hidden border border-[#DDE2EF] bg-slate-50 shadow-xs group-hover:border-[#108A54]/40 group-hover:shadow-sm transition-all duration-300">
+                                  <div className="aspect-[3/4] relative flex items-center justify-center p-1.5 bg-white">
+                                    <img
+                                      src={project.coverImage}
+                                      alt={project.journal}
+                                      className="w-full h-full object-contain rounded-md group-hover:scale-105 transition-transform duration-300"
+                                      loading="lazy"
+                                    />
+                                  </div>
+                                </div>
+                                <span className="text-[10px] font-mono text-[#8A91A3] text-center block mt-1 truncate px-1" title={project.journal}>
+                                  {project.journal.split('.')[0]}
+                                </span>
+                              </div>
                             )}
-                          </div>
 
-                          {/* Localized Article Title */}
-                          <h4 className="text-sm sm:text-base font-bold font-display text-[#1B1F2A] leading-snug">
-                            {localizedTitle}
-                          </h4>
+                            {/* Main Card Content */}
+                            <div className="flex-1 min-w-0 w-full">
+                              {/* Card Header: Number, Year, Database Badges */}
+                              <div className="flex flex-wrap items-center justify-between gap-2 mb-2.5">
+                                <div className="flex items-center gap-2">
+                                  <span className="font-mono text-xs font-extrabold px-2 py-0.5 rounded-md bg-[#24356F] text-white">
+                                    #{project.id}
+                                  </span>
+                                  <span
+                                    className={`font-mono text-xs font-bold px-2.5 py-0.5 rounded-full border ${yearStyle.bg} ${yearStyle.text} ${yearStyle.border}`}
+                                  >
+                                    {project.year}{t.projectsYearSuffix}
+                                  </span>
+                                  <span className="font-mono text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-[#E3F1EC] text-[#12715A] border border-[#A7D7C5]">
+                                    {localizedDatabase}
+                                  </span>
+                                </div>
 
-                          {/* Original English Title (shown when language is uz or ru) */}
-                          {currentLang !== 'en' && (
-                            <p className="text-[11px] text-[#5C6478] italic font-body mt-1 leading-tight">
-                              <span className="not-italic font-semibold text-[#8A91A3] mr-1">
-                                [{t.projectsOriginalTitleLabel}]:
-                              </span>
-                              {project.originalTitle}
-                            </p>
-                          )}
+                                {project.doiUrl && (
+                                  <a
+                                    href={project.doiUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-[#24356F] hover:text-[#12715A] p-1 rounded hover:bg-[#F3F5FB] transition-colors"
+                                    title={project.doi}
+                                  >
+                                    <span>DOI</span>
+                                    <ExternalLink className="w-3.5 h-3.5" />
+                                  </a>
+                                )}
+                              </div>
 
-                          {/* Authors */}
-                          <div className="flex items-start gap-2 text-xs text-[#5C6478] mt-2.5 font-body">
-                            <Users className="w-3.5 h-3.5 text-[#24356F] shrink-0 mt-0.5" />
-                            <div>
-                              <span className="font-semibold text-[#1B1F2A]/90 mr-1.5">
-                                {t.projectsAuthorsLabel}:
-                              </span>
-                              <span>{project.authors}</span>
+                              {/* Localized Article Title */}
+                              <h4 className="text-sm sm:text-base font-bold font-display text-[#1B1F2A] leading-snug">
+                                {localizedTitle}
+                              </h4>
+
+                              {/* Original English Title (shown when language is uz or ru) */}
+                              {currentLang !== 'en' && (
+                                <p className="text-[11px] text-[#5C6478] italic font-body mt-1 leading-tight">
+                                  <span className="not-italic font-semibold text-[#8A91A3] mr-1">
+                                    [{t.projectsOriginalTitleLabel}]:
+                                  </span>
+                                  {project.originalTitle}
+                                </p>
+                              )}
+
+                              {/* Authors */}
+                              <div className="flex items-start gap-2 text-xs text-[#5C6478] mt-2.5 font-body">
+                                <Users className="w-3.5 h-3.5 text-[#24356F] shrink-0 mt-0.5" />
+                                <div>
+                                  <span className="font-semibold text-[#1B1F2A]/90 mr-1.5">
+                                    {t.projectsAuthorsLabel}:
+                                  </span>
+                                  <span>{project.authors}</span>
+                                </div>
+                              </div>
+
+                              {/* Journal info */}
+                              <div className="flex items-start gap-2 text-xs text-[#5C6478] font-body pt-2 mt-2 border-t border-[#DDE2EF]/70">
+                                <BookOpen className="w-3.5 h-3.5 text-[#12715A] shrink-0 mt-0.5" />
+                                <div>
+                                  <span className="font-semibold text-[#1B1F2A]/90 mr-1.5">
+                                    {t.projectsJournalLabel}:
+                                  </span>
+                                  <span className="font-medium text-[#24356F]">
+                                    {project.journal}
+                                  </span>
+                                </div>
+                              </div>
+
+                              {/* Direct DOI Button if present */}
+                              {project.doiUrl && (
+                                <div className="mt-3 pt-2.5 border-t border-[#DDE2EF]/60 flex items-center justify-between text-[11px]">
+                                  <span className="font-mono text-[#8A91A3] truncate max-w-xs sm:max-w-md">
+                                    {project.doi}
+                                  </span>
+                                  <a
+                                    href={project.doiUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="btn-pharmi btn-pharmi-ghost text-xs px-3 py-1 inline-flex items-center gap-1.5"
+                                  >
+                                    <span>{t.projectsDoiButton}</span>
+                                    <ExternalLink className="w-3 h-3" />
+                                  </a>
+                                </div>
+                              )}
                             </div>
                           </div>
-
-                          {/* Journal info */}
-                          <div className="flex items-start gap-2 text-xs text-[#5C6478] font-body pt-2 mt-2 border-t border-[#DDE2EF]/70">
-                            <BookOpen className="w-3.5 h-3.5 text-[#12715A] shrink-0 mt-0.5" />
-                            <div>
-                              <span className="font-semibold text-[#1B1F2A]/90 mr-1.5">
-                                {t.projectsJournalLabel}:
-                              </span>
-                              <span className="font-medium text-[#24356F]">
-                                {project.journal}
-                              </span>
-                            </div>
-                          </div>
-
-                          {/* Direct DOI Button if present */}
-                          {project.doiUrl && (
-                            <div className="mt-3 pt-2.5 border-t border-[#DDE2EF]/60 flex items-center justify-between text-[11px]">
-                              <span className="font-mono text-[#8A91A3] truncate max-w-xs sm:max-w-md">
-                                {project.doi}
-                              </span>
-                              <a
-                                href={project.doiUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="btn-pharmi btn-pharmi-ghost text-xs px-3 py-1 inline-flex items-center gap-1.5"
-                              >
-                                <span>{t.projectsDoiButton}</span>
-                                <ExternalLink className="w-3 h-3" />
-                              </a>
-                            </div>
-                          )}
                         </div>
                       );
                     })}

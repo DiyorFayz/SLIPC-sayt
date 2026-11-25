@@ -192,6 +192,7 @@ export interface ResearchProject {
   database: Record<Language, string>;
   doi: string;
   doiUrl: string;
+  coverImage?: string;
 }
 
 export type StaffCategory = 'all' | 'leadership' | 'researchers' | 'technicians' | 'quality';

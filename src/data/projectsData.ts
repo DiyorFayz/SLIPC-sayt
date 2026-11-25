@@ -18,7 +18,8 @@ export const RESEARCH_PROJECTS: ResearchProject[] = [
       "en": "Scopus / Web of Science"
     },
     "doi": "10.2174/0118715206488881261009110240",
-    "doiUrl": "https://doi.org/10.2174/0118715206488881261009110240"
+    "doiUrl": "https://doi.org/10.2174/0118715206488881261009110240",
+    "coverImage": "/images/journals/journal-1.webp"
   },
   {
     "id": 2,
@@ -37,7 +38,8 @@ export const RESEARCH_PROJECTS: ResearchProject[] = [
       "en": "Scopus / Web of Science"
     },
     "doi": "https://doi.org/10.1186/s12982-026-02891-1",
-    "doiUrl": "https://doi.org/10.1186/s12982-026-02891-1"
+    "doiUrl": "https://doi.org/10.1186/s12982-026-02891-1",
+    "coverImage": "/images/journals/journal-2.webp"
   },
   {
     "id": 3,
@@ -56,7 +58,8 @@ export const RESEARCH_PROJECTS: ResearchProject[] = [
       "en": "Scopus / Web of Science"
     },
     "doi": "https://doi.org/10.1007/s40820-026-02175-y",
-    "doiUrl": "https://doi.org/10.1007/s40820-026-02175-y"
+    "doiUrl": "https://doi.org/10.1007/s40820-026-02175-y",
+    "coverImage": "/images/journals/journal-3.webp"
   },
   {
     "id": 4,
@@ -75,7 +78,8 @@ export const RESEARCH_PROJECTS: ResearchProject[] = [
       "en": "Scopus / Web of Science"
     },
     "doi": "https://doi.org/10.2174/0118715206440313260127193145",
-    "doiUrl": "https://doi.org/10.2174/0118715206440313260127193145"
+    "doiUrl": "https://doi.org/10.2174/0118715206440313260127193145",
+    "coverImage": "/images/journals/journal-4.webp"
   },
   {
     "id": 5,
@@ -94,7 +98,8 @@ export const RESEARCH_PROJECTS: ResearchProject[] = [
       "en": "Scopus / Web of Science"
     },
     "doi": "https://doi.org/10.1007/s40820-025-01828-8",
-    "doiUrl": "https://doi.org/10.1007/s40820-025-01828-8"
+    "doiUrl": "https://doi.org/10.1007/s40820-025-01828-8",
+    "coverImage": "/images/journals/journal-5.webp"
   },
   {
     "id": 6,
@@ -113,7 +118,8 @@ export const RESEARCH_PROJECTS: ResearchProject[] = [
       "en": "Scopus / Web of Science"
     },
     "doi": "https://doi.org/10.1021/acsptsci.5c00109",
-    "doiUrl": "https://doi.org/10.1021/acsptsci.5c00109"
+    "doiUrl": "https://doi.org/10.1021/acsptsci.5c00109",
+    "coverImage": "/images/journals/journal-6.webp"
   },
   {
     "id": 7,
@@ -132,7 +138,8 @@ export const RESEARCH_PROJECTS: ResearchProject[] = [
       "en": "Scopus / Web of Science"
     },
     "doi": "10.1016/j.cej.2025.164875",
-    "doiUrl": "https://doi.org/10.1016/j.cej.2025.164875"
+    "doiUrl": "https://doi.org/10.1016/j.cej.2025.164875",
+    "coverImage": "/images/journals/journal-7.webp"
   },
   {
     "id": 8,
@@ -151,7 +158,8 @@ export const RESEARCH_PROJECTS: ResearchProject[] = [
       "en": "Scopus"
     },
     "doi": "https://doi.org/10.1107/S2414314625005656",
-    "doiUrl": "https://doi.org/10.1107/S2414314625005656"
+    "doiUrl": "https://doi.org/10.1107/S2414314625005656",
+    "coverImage": "/images/journals/journal-8.webp"
   },
   {
     "id": 9,
@@ -170,7 +178,8 @@ export const RESEARCH_PROJECTS: ResearchProject[] = [
       "en": "Scopus / Web of Science"
     },
     "doi": "https://doi.org/10.1007/s11101-024-09956-6",
-    "doiUrl": "https://doi.org/10.1007/s11101-024-09956-6"
+    "doiUrl": "https://doi.org/10.1007/s11101-024-09956-6",
+    "coverImage": "/images/journals/journal-9.webp"
   },
   {
     "id": 10,
@@ -189,7 +198,8 @@ export const RESEARCH_PROJECTS: ResearchProject[] = [
       "en": "Scopus / Web of Science"
     },
     "doi": "https://doi.org/10.2174/0122103155347626250109114848",
-    "doiUrl": "https://doi.org/10.2174/0122103155347626250109114848"
+    "doiUrl": "https://doi.org/10.2174/0122103155347626250109114848",
+    "coverImage": "/images/journals/journal-10.webp"
   },
   {
     "id": 11,
@@ -208,7 +218,8 @@ export const RESEARCH_PROJECTS: ResearchProject[] = [
       "en": "Scopus"
     },
     "doi": "https://doi.org/10.1007/978-3-031-52642-8_48-1",
-    "doiUrl": "https://doi.org/10.1007/978-3-031-52642-8_48-1"
+    "doiUrl": "https://doi.org/10.1007/978-3-031-52642-8_48-1",
+    "coverImage": "/images/journals/journal-11.webp"
   },
   {
     "id": 12,
@@ -227,7 +238,8 @@ export const RESEARCH_PROJECTS: ResearchProject[] = [
       "en": "Scopus"
     },
     "doi": "https://doi.org/10.1007/978-3-031-52642-8_47-1",
-    "doiUrl": "https://doi.org/10.1007/978-3-031-52642-8_47-1"
+    "doiUrl": "https://doi.org/10.1007/978-3-031-52642-8_47-1",
+    "coverImage": "/images/journals/journal-12.webp"
   },
   {
     "id": 13,
@@ -246,7 +258,8 @@ export const RESEARCH_PROJECTS: ResearchProject[] = [
       "en": "Scopus"
     },
     "doi": "https://doi.org/10.1201/9781003128779",
-    "doiUrl": "https://doi.org/10.1201/9781003128779"
+    "doiUrl": "https://doi.org/10.1201/9781003128779",
+    "coverImage": "/images/journals/journal-13.webp"
   },
   {
     "id": 14,
@@ -265,7 +278,8 @@ export const RESEARCH_PROJECTS: ResearchProject[] = [
       "en": "Scopus"
     },
     "doi": "https://doi.org/10.1201/9781003128779",
-    "doiUrl": "https://doi.org/10.1201/9781003128779"
+    "doiUrl": "https://doi.org/10.1201/9781003128779",
+    "coverImage": "/images/journals/journal-14.webp"
   },
   {
     "id": 15,
@@ -284,7 +298,8 @@ export const RESEARCH_PROJECTS: ResearchProject[] = [
       "en": "Scopus / Web of Science"
     },
     "doi": "https://doi.org/10.26599/NR.2025.94907596",
-    "doiUrl": "https://doi.org/10.26599/NR.2025.94907596"
+    "doiUrl": "https://doi.org/10.26599/NR.2025.94907596",
+    "coverImage": "/images/journals/journal-15.webp"
   },
   {
     "id": 16,
@@ -303,7 +318,8 @@ export const RESEARCH_PROJECTS: ResearchProject[] = [
       "en": "Scopus / Web of Science"
     },
     "doi": "https://doi.org/10.3390/separations11010034",
-    "doiUrl": "https://doi.org/10.3390/separations11010034"
+    "doiUrl": "https://doi.org/10.3390/separations11010034",
+    "coverImage": "/images/journals/journal-16.webp"
   },
   {
     "id": 17,
@@ -322,7 +338,8 @@ export const RESEARCH_PROJECTS: ResearchProject[] = [
       "en": "Scopus"
     },
     "doi": "https://doi.org/10.1007/978-981-97-4966-9_2",
-    "doiUrl": "https://doi.org/10.1007/978-981-97-4966-9_2"
+    "doiUrl": "https://doi.org/10.1007/978-981-97-4966-9_2",
+    "coverImage": "/images/journals/journal-17.webp"
   },
   {
     "id": 18,
@@ -341,7 +358,8 @@ export const RESEARCH_PROJECTS: ResearchProject[] = [
       "en": "Scopus"
     },
     "doi": "https://doi.org/10.1007/698_2024_1114",
-    "doiUrl": "https://doi.org/10.1007/698_2024_1114"
+    "doiUrl": "https://doi.org/10.1007/698_2024_1114",
+    "coverImage": "/images/journals/journal-18.webp"
   },
   {
     "id": 19,
@@ -360,7 +378,8 @@ export const RESEARCH_PROJECTS: ResearchProject[] = [
       "en": "Scopus / Web of Science"
     },
     "doi": "10.1016/j.jsb.2024.108109",
-    "doiUrl": "https://doi.org/10.1016/j.jsb.2024.108109"
+    "doiUrl": "https://doi.org/10.1016/j.jsb.2024.108109",
+    "coverImage": "/images/journals/journal-19.webp"
   },
   {
     "id": 20,
@@ -379,7 +398,8 @@ export const RESEARCH_PROJECTS: ResearchProject[] = [
       "en": "Scopus / Web of Science"
     },
     "doi": "10.1016/j.ces.2024.120186",
-    "doiUrl": "https://doi.org/10.1016/j.ces.2024.120186"
+    "doiUrl": "https://doi.org/10.1016/j.ces.2024.120186",
+    "coverImage": "/images/journals/journal-20.webp"
   },
   {
     "id": 21,
@@ -398,7 +418,8 @@ export const RESEARCH_PROJECTS: ResearchProject[] = [
       "en": "Scopus / Web of Science"
     },
     "doi": "doi.org/10.3390/biom13020315",
-    "doiUrl": "https://doi.org/10.3390/biom13020315"
+    "doiUrl": "https://doi.org/10.3390/biom13020315",
+    "coverImage": "/images/journals/journal-21.webp"
   },
   {
     "id": 22,
@@ -417,7 +438,8 @@ export const RESEARCH_PROJECTS: ResearchProject[] = [
       "en": "Scopus / Web of Science"
     },
     "doi": "doi.org/10.1021/acs.jafc.2c02655",
-    "doiUrl": "https://doi.org/10.1021/acs.jafc.2c02655"
+    "doiUrl": "https://doi.org/10.1021/acs.jafc.2c02655",
+    "coverImage": "/images/journals/journal-22.webp"
   }
 ];
 
