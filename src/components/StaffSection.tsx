@@ -4,7 +4,7 @@ import React from 'react';
 import { Language } from '@/types/laboratory';
 import { TRANSLATIONS } from '@/data/translations';
 import { STAFF_MEMBERS } from '@/data/staffData';
-import { Mail, ExternalLink } from 'lucide-react';
+import { Mail, ExternalLink, Users } from 'lucide-react';
 
 interface StaffSectionProps {
   currentLang: Language;
@@ -16,14 +16,34 @@ export const StaffSection: React.FC<StaffSectionProps> = ({ currentLang }) => {
   return (
     <section id="staff-section" className="py-20 bg-slate-50 border-b border-slate-200">
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
-        <div className="max-w-2xl mb-14">
-          <p className="text-xs uppercase tracking-widest text-slate-400 mb-3">{t.sectionStaffTag}</p>
-          <h2 className="text-2xl sm:text-4xl font-bold text-slate-900 tracking-tight">
-            {t.sectionStaffTitle}
-          </h2>
-          <p className="text-slate-500 mt-3">
-            {t.sectionStaffSubtitle}
-          </p>
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-14 gap-4">
+          <div className="max-w-2xl">
+            <p className="text-xs uppercase tracking-widest text-slate-400 mb-3">{t.sectionStaffTag}</p>
+            <h2 className="text-2xl sm:text-4xl font-bold text-slate-900 tracking-tight">
+              {t.sectionStaffTitle}
+            </h2>
+            <p className="text-slate-500 mt-3">
+              {t.sectionStaffSubtitle}
+            </p>
+          </div>
+
+          <div>
+            <a
+              href="/staff/portal"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-slate-200 bg-white text-xs font-semibold text-slate-700 hover:text-[#108A54] hover:border-[#108A54]/40 shadow-xs transition-all"
+            >
+              <Users className="w-4 h-4 text-[#108A54]" />
+              <span>
+                {currentLang === 'uz'
+                  ? 'Xodimlar uchun'
+                  : currentLang === 'ru'
+                  ? 'Для сотрудников'
+                  : 'For Staff'}
+              </span>
+            </a>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

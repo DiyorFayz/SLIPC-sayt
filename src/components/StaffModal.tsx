@@ -142,13 +142,32 @@ export const StaffModal: React.FC<StaffModalProps> = ({
                   </div>
                 </div>
 
-                <button
-                  onClick={onClose}
-                  className="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 rounded-lg border border-[#E2E8F0] bg-white text-[#475569] hover:text-[#0F2942] hover:bg-[#F8FAFC] transition-colors shrink-0 cursor-pointer self-end sm:self-auto touch-manipulation"
-                  aria-label={t.closeModal}
-                >
-                  <X className="w-5 h-5" />
-                </button>
+                <div className="flex items-center gap-2.5 self-end sm:self-auto shrink-0">
+                  <a
+                    href="/staff/portal"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl border border-[#108A54]/30 bg-[#108A54]/10 hover:bg-[#108A54]/20 text-xs font-semibold text-[#108A54] shadow-xs transition-all cursor-pointer"
+                    title="Xodimlar shaxsiy kabineti va shartnomalar"
+                  >
+                    <Users className="w-4 h-4 text-[#108A54]" />
+                    <span>
+                      {currentLang === 'uz'
+                        ? 'Xodimlar uchun'
+                        : currentLang === 'ru'
+                        ? 'Для сотрудников'
+                        : 'For Staff'}
+                    </span>
+                  </a>
+
+                  <button
+                    onClick={onClose}
+                    className="min-h-[40px] min-w-[40px] flex items-center justify-center p-2 rounded-xl border border-[#E2E8F0] bg-white text-[#475569] hover:text-[#0F2942] hover:bg-[#F8FAFC] transition-colors shrink-0 cursor-pointer touch-manipulation"
+                    aria-label={t.closeModal}
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
               </div>
 
               {/* Filter Tabs & Search Bar */}
