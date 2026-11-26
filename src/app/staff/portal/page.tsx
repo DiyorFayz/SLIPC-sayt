@@ -30,6 +30,8 @@ import {
   Coins,
   Check,
   Filter,
+  ArrowDownAZ,
+  ArrowUpZA,
 } from 'lucide-react';
 
 const LOCAL_STORAGE_CONTRACTS_KEY = 'slipc_staff_lab_contracts_v1';
@@ -52,6 +54,7 @@ export default function StaffPortalPage() {
   const [contracts, setContracts] = useState<LabContract[]>(INITIAL_LAB_CONTRACTS);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<'all' | ContractStatus>('all');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [actionNotice, setActionNotice] = useState<string | null>(null);
 
   // Edit / Details Modal State
@@ -259,7 +262,7 @@ export default function StaffPortalPage() {
 
   // Filtered & Searched Contracts
   const filteredContracts = useMemo(() => {
-    return contracts.filter((c) => {
+    const list = contracts.filter((c) => {
       const matchesStatus = statusFilter === 'all' || c.status === statusFilter;
       if (!matchesStatus) return false;
 
@@ -275,7 +278,21 @@ export default function StaffPortalPage() {
         c.period.toLowerCase().includes(q)
       );
     });
-  }, [contracts, statusFilter, searchQuery]);
+
+    return [...list].sort((a, b) => {
+      if (sortOrder === 'asc') {
+        return (
+          a.number.localeCompare(b.number, undefined, { numeric: true, sensitivity: 'base' }) ||
+          a.tr - b.tr
+        );
+      } else {
+        return (
+          b.number.localeCompare(a.number, undefined, { numeric: true, sensitivity: 'base' }) ||
+          b.tr - a.tr
+        );
+      }
+    });
+  }, [contracts, statusFilter, searchQuery, sortOrder]);
 
   // Statistics counts
   const stats = useMemo(() => {
@@ -510,10 +527,10 @@ export default function StaffPortalPage() {
           </p>
         </div>
 
-        {/* Filter Tabs & Search Bar */}
-        <div className="bg-white rounded-2xl border border-[#DDE2EF] p-4 sm:p-5 mb-6 shadow-xs flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+        {/* Filter Tabs & Search Bar & Sort */}
+        <div className="bg-white rounded-2xl border border-[#DDE2EF] p-4 sm:p-5 mb-6 shadow-xs flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
           {/* Status Filter Tabs */}
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 lg:pb-0 scrollbar-none">
             <button
               onClick={() => setStatusFilter('all')}
               className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer whitespace-nowrap ${
@@ -562,16 +579,54 @@ export default function StaffPortalPage() {
             </button>
           </div>
 
-          {/* Search Box */}
-          <div className="relative w-full md:w-80">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Raqami, mavzusi yoki buyurtmachi..."
-              className="w-full pl-9 pr-3.5 py-2 text-xs sm:text-sm border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#108A54]/20 focus:border-[#108A54]"
-            />
+          {/* Right side: Sort Buttons + Search Box */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            {/* Sortirovka: Faqat shartnoma raqami bo'yicha A-Z va Z-A */}
+            <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200 self-start sm:self-auto">
+              <span className="text-[11px] font-semibold text-slate-500 px-2 flex items-center gap-1">
+                <span>Raqam:</span>
+              </span>
+
+              <button
+                type="button"
+                onClick={() => setSortOrder('asc')}
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                  sortOrder === 'asc'
+                    ? 'bg-white text-[#0F2942] shadow-xs border border-slate-200 font-extrabold'
+                    : 'text-slate-500 hover:text-slate-900'
+                }`}
+                title="Shartnoma raqami bo'yicha A dan Z gacha saralash"
+              >
+                <ArrowDownAZ className={`w-3.5 h-3.5 ${sortOrder === 'asc' ? 'text-[#108A54]' : 'text-slate-400'}`} />
+                <span>A-Z</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setSortOrder('desc')}
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                  sortOrder === 'desc'
+                    ? 'bg-white text-[#0F2942] shadow-xs border border-slate-200 font-extrabold'
+                    : 'text-slate-500 hover:text-slate-900'
+                }`}
+                title="Shartnoma raqami bo'yicha Z dan A gacha saralash"
+              >
+                <ArrowUpZA className={`w-3.5 h-3.5 ${sortOrder === 'desc' ? 'text-[#108A54]' : 'text-slate-400'}`} />
+                <span>Z-A</span>
+              </button>
+            </div>
+
+            {/* Search Box */}
+            <div className="relative w-full sm:w-72">
+              <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Raqami, mavzusi yoki buyurtmachi..."
+                className="w-full pl-9 pr-3.5 py-2 text-xs sm:text-sm border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#108A54]/20 focus:border-[#108A54]"
+              />
+            </div>
           </div>
         </div>
 
