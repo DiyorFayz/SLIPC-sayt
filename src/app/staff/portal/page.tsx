@@ -620,116 +620,140 @@ export default function StaffPortalPage() {
             <p className="text-sm">Qidiruv bo'yicha hech qanday shartnoma topilmadi.</p>
           </div>
         ) : (
-          <div className="space-y-4">
-            {filteredContracts.map((contract) => (
-              <div
-                key={contract.id}
-                className="bg-white rounded-2xl border border-[#DDE2EF] p-5 sm:p-6 shadow-xs hover:border-slate-300 transition-all flex flex-col justify-between gap-4"
-              >
-                {/* Header row: Number, Period, Amount, and the dedicated Status Selector */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-3">
-                  <div className="flex flex-wrap items-center gap-2.5">
-                    <span className="px-2.5 py-0.5 rounded-full bg-[#0F2942]/10 text-[#0F2942] text-xs font-mono font-bold border border-[#0F2942]/20">
-                      № {contract.tr}
-                    </span>
-                    <span className="font-mono text-sm font-bold text-[#0F2942]">
-                      {contract.number}
-                    </span>
-                    <span className="text-xs text-slate-400 font-mono flex items-center gap-1">
-                      <Clock className="w-3.5 h-3.5 text-slate-400" />
-                      {contract.period}
-                    </span>
+          <div className="space-y-3">
+            {filteredContracts.map((contract) => {
+              // Statusga qarab ranglar: sariq (hali_boshlanmagan), ko'k (jarayonda), yashil (tugallangan)
+              const statusStyles = {
+                hali_boshlanmagan: {
+                  card: 'bg-amber-50/90 border-amber-300 hover:border-amber-400 shadow-xs',
+                  headerBorder: 'border-amber-200/80',
+                  innerBox: 'bg-amber-100/40 border-amber-200',
+                  select: 'bg-amber-100 text-amber-900 border-amber-300 focus:ring-amber-200',
+                  tag: 'bg-amber-200/80 text-amber-900 border-amber-300',
+                },
+                jarayonda: {
+                  card: 'bg-sky-50/90 border-sky-300 hover:border-sky-400 shadow-xs',
+                  headerBorder: 'border-sky-200/80',
+                  innerBox: 'bg-sky-100/40 border-sky-200',
+                  select: 'bg-sky-100 text-sky-900 border-sky-300 focus:ring-sky-200',
+                  tag: 'bg-sky-200/80 text-sky-900 border-sky-300',
+                },
+                tugallangan: {
+                  card: 'bg-emerald-50/90 border-emerald-300 hover:border-emerald-400 shadow-xs',
+                  headerBorder: 'border-emerald-200/80',
+                  innerBox: 'bg-emerald-100/40 border-emerald-200',
+                  select: 'bg-emerald-100 text-emerald-900 border-emerald-300 focus:ring-emerald-200',
+                  tag: 'bg-emerald-200/80 text-emerald-900 border-emerald-300',
+                },
+              }[contract.status];
+
+              return (
+                <div
+                  key={contract.id}
+                  className={`rounded-xl border p-3.5 sm:p-4 transition-all flex flex-col justify-between gap-2.5 ${statusStyles.card}`}
+                >
+                  {/* Header row: Number, Period, Amount, and the dedicated Status Selector */}
+                  <div className={`flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b pb-2 ${statusStyles.headerBorder}`}>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className={`px-2 py-0.5 rounded-full text-xs font-mono font-bold border ${statusStyles.tag}`}>
+                        № {contract.tr}
+                      </span>
+                      <span className="font-mono text-xs sm:text-sm font-bold text-[#0F2942]">
+                        {contract.number}
+                      </span>
+                      <span className="text-xs text-slate-500 font-mono flex items-center gap-1">
+                        <Clock className="w-3.5 h-3.5 text-slate-400" />
+                        {contract.period}
+                      </span>
+                    </div>
+
+                    {/* BO'SH JOY: Shartnoma holatini tanlash joyi (Dropdown Selector) */}
+                    <div className="flex items-center gap-2 self-end sm:self-auto">
+                      <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+                        Holati:
+                      </span>
+                      <select
+                        value={contract.status}
+                        onChange={(e) =>
+                          handleStatusChange(contract.id, e.target.value as ContractStatus)
+                        }
+                        className={`text-xs font-bold px-2.5 py-1 rounded-lg border transition-all cursor-pointer focus:outline-none focus:ring-2 ${statusStyles.select}`}
+                      >
+                        <option value="hali_boshlanmagan">⏳ Hali boshlanmagan</option>
+                        <option value="jarayonda">🔄 Jarayonda</option>
+                        <option value="tugallangan">✅ Tugallangan</option>
+                      </select>
+
+                      {/* Tahrirlash tugmasi */}
+                      <button
+                        onClick={() => handleOpenEdit(contract)}
+                        className="p-1 rounded-lg border border-slate-300/80 bg-white/80 text-slate-600 hover:text-[#0F2942] hover:bg-white transition-colors cursor-pointer"
+                        title="Shartnomani tahrirlash"
+                      >
+                        <Pencil className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
                   </div>
 
-                  {/* BO'SH JOY: Shartnoma holatini tanlash joyi (Dropdown Selector) */}
-                  <div className="flex items-center gap-2">
-                    <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
-                      Holati:
-                    </span>
-                    <select
-                      value={contract.status}
-                      onChange={(e) =>
-                        handleStatusChange(contract.id, e.target.value as ContractStatus)
-                      }
-                      className={`text-xs font-bold px-3 py-1.5 rounded-xl border transition-all cursor-pointer focus:outline-none focus:ring-2 ${
-                        contract.status === 'jarayonda'
-                          ? 'bg-sky-50 text-sky-700 border-sky-300 focus:ring-sky-200'
-                          : contract.status === 'tugallangan'
-                          ? 'bg-emerald-50 text-emerald-700 border-emerald-300 focus:ring-emerald-200'
-                          : 'bg-amber-50 text-amber-700 border-amber-300 focus:ring-amber-200'
-                      }`}
-                    >
-                      <option value="hali_boshlanmagan">⏳ Hali boshlanmagan</option>
-                      <option value="jarayonda">🔄 Jarayonda</option>
-                      <option value="tugallangan">✅ Tugallangan</option>
-                    </select>
+                  {/* Contract Subject / Title */}
+                  <div>
+                    <h3 className="text-sm sm:text-base font-bold text-[#0F2942] leading-snug font-display">
+                      {contract.subject}
+                    </h3>
+                  </div>
 
-                    {/* Tahrirlash tugmasi */}
-                    <button
-                      onClick={() => handleOpenEdit(contract)}
-                      className="p-1.5 rounded-lg border border-slate-200 text-slate-500 hover:text-[#0F2942] hover:bg-slate-50 transition-colors ml-1 cursor-pointer"
-                      title="Shartnomani tahrirlash"
-                    >
-                      <Pencil className="w-4 h-4" />
-                    </button>
+                  {/* Contract Details: Amount, Client, Phone + FULL PERFORMERS (barcha ijrochilar to'liq) */}
+                  <div className={`p-2.5 sm:p-3 rounded-lg border ${statusStyles.innerBox} text-xs font-body space-y-2`}>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                      <div>
+                        <span className="text-[10px] font-mono text-slate-500 uppercase block mb-0.5">
+                          Shartnoma mablag'i:
+                        </span>
+                        <span className="font-bold text-[#108A54] font-mono text-xs sm:text-sm">
+                          {contract.amount}
+                        </span>
+                      </div>
+
+                      <div>
+                        <span className="text-[10px] font-mono text-slate-500 uppercase block mb-0.5">
+                          Buyurtmachi:
+                        </span>
+                        <span className="font-semibold text-slate-800 flex items-center gap-1 text-xs">
+                          <User className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                          <span>{contract.client || "—"}</span>
+                        </span>
+                      </div>
+
+                      <div>
+                        <span className="text-[10px] font-mono text-slate-500 uppercase block mb-0.5">
+                          Telefon raqami:
+                        </span>
+                        <span className="font-semibold text-slate-700 font-mono text-xs flex items-center gap-1">
+                          {contract.phone ? (
+                            <>
+                              <Phone className="w-3 h-3 text-slate-400 shrink-0" />
+                              <span>{contract.phone}</span>
+                            </>
+                          ) : (
+                            <span className="text-slate-400">—</span>
+                          )}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Ijrochilari: TO'LIQ KO'RINADI (hech qanday line-clamp yo'q!) */}
+                    <div className="pt-2 border-t border-black/5">
+                      <span className="text-[10px] font-mono text-slate-500 uppercase font-semibold mr-1.5 inline-block">
+                        Ijrochilari:
+                      </span>
+                      <span className="text-slate-800 font-medium text-xs leading-relaxed">
+                        {contract.performers || "—"}
+                      </span>
+                    </div>
                   </div>
                 </div>
-
-                {/* Contract Subject / Title */}
-                <div>
-                  <h3 className="text-base sm:text-lg font-bold text-[#0F2942] leading-snug font-display">
-                    {contract.subject}
-                  </h3>
-                </div>
-
-                {/* Contract Details Grid: Amount, Client, Performers, Phone */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 bg-slate-50/70 p-3.5 rounded-xl border border-slate-100 text-xs font-body">
-                  <div>
-                    <span className="text-[11px] font-mono text-slate-400 block mb-0.5">
-                      Shartnoma mablag'i:
-                    </span>
-                    <span className="font-bold text-[#108A54] font-mono text-sm">
-                      {contract.amount}
-                    </span>
-                  </div>
-
-                  <div>
-                    <span className="text-[11px] font-mono text-slate-400 block mb-0.5">
-                      Buyurtmachi:
-                    </span>
-                    <span className="font-semibold text-slate-800 flex items-center gap-1">
-                      <User className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                      <span className="line-clamp-1">{contract.client || "—"}</span>
-                    </span>
-                  </div>
-
-                  <div>
-                    <span className="text-[11px] font-mono text-slate-400 block mb-0.5">
-                      Telefon raqami:
-                    </span>
-                    <span className="font-semibold text-slate-700 font-mono flex items-center gap-1">
-                      {contract.phone ? (
-                        <>
-                          <Phone className="w-3 h-3 text-slate-400 shrink-0" />
-                          <span>{contract.phone}</span>
-                        </>
-                      ) : (
-                        <span className="text-slate-400">—</span>
-                      )}
-                    </span>
-                  </div>
-
-                  <div>
-                    <span className="text-[11px] font-mono text-slate-400 block mb-0.5">
-                      Ijrochilari:
-                    </span>
-                    <span className="text-slate-600 line-clamp-1" title={contract.performers}>
-                      {contract.performers || "—"}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </main>
