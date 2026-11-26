@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Language } from '@/types/laboratory';
 import { TRANSLATIONS } from '@/data/translations';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Calendar, Newspaper, ExternalLink } from 'lucide-react';
+import { X, Calendar, Newspaper, ExternalLink, Edit3 } from 'lucide-react';
+import { NewsItem, INITIAL_NEWS_ITEMS, fetchAllNews } from '@/data/newsData';
 
 interface NewsModalProps {
   isOpen: boolean;
@@ -18,94 +19,52 @@ export const NewsModal: React.FC<NewsModalProps> = ({
   currentLang,
 }) => {
   const t = TRANSLATIONS[currentLang];
+  const [newsItems, setNewsItems] = useState<NewsItem[]>(INITIAL_NEWS_ITEMS);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isOpen) onClose();
     };
+
+    const loadData = () => {
+      fetchAllNews().then((items) => {
+        if (items && items.length > 0) {
+          setNewsItems(items);
+        }
+      });
+    };
+
     if (isOpen) {
+      loadData();
       document.body.classList.add('modal-open');
       document.documentElement.classList.add('modal-open');
       document.body.style.overflow = 'hidden';
       document.documentElement.style.overflow = 'hidden';
       window.addEventListener('keydown', handleKeyDown);
+      window.addEventListener('focus', loadData);
     } else {
       document.body.classList.remove('modal-open');
       document.documentElement.classList.remove('modal-open');
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
     }
+
     return () => {
       document.body.classList.remove('modal-open');
       document.documentElement.classList.remove('modal-open');
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
       window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('focus', loadData);
     };
   }, [isOpen, onClose]);
 
-  const newsItems = [
-    {
-      id: "news-1",
-      date: "2024-10-18",
-      category: {
-        uz: "Ilmiy Nashr",
-        ru: "Научная публикация",
-        en: "Scientific Publication"
-      },
-      title: {
-        uz: "Ziziphora pedicellata ekstraktlari bo'yicha tadqiqot nufuzli Q1 jurnalida chop etildi",
-        ru: "Исследование экстрактов Ziziphora pedicellata опубликовано в журнале квартиля Q1",
-        en: "Ziziphora pedicellata cytotoxicity study published in premier Q1 Elsevier journal"
-      },
-      summary: {
-        uz: "Laboratoriyamiz xodimlari tomonidan olib borilgan in vitro sitotoksiklik va apoptoz kaskadlari tahlili Journal of Ethnopharmacology jurnalida e'lon qilindi.",
-        ru: "Результаты анализа цитотоксичности и апоптоза опубликованы в Journal of Ethnopharmacology.",
-        en: "Collaborative research on apoptotic cascades in HepG2 cells published in Journal of Ethnopharmacology."
-      },
-      link: "https://doi.org/10.1016/j.jep.2023.116890"
-    },
-    {
-      id: "news-2",
-      date: "2024-09-05",
-      category: {
-        uz: "Xalqaro Hamkorlik",
-        ru: "Международное сотрудничество",
-        en: "International Consortium"
-      },
-      title: {
-        uz: "Horizon Europe konsortsiumiga rasmiy hamkor sifatida qabul qilindi",
-        ru: "SLIPC вошла в консорциум исследовательской программы Horizon Europe",
-        en: "SLIPC onboarded to European Horizon Europe Research Consortium"
-      },
-      summary: {
-        uz: "Yevropa Ittifoqining dori vositalarini tadqiq etish yo'nalishidagi loyihasida laboratoriyamiz PIC 912048192 raqami bilan tasdiqlandi.",
-        ru: "Лаборатория утверждена партнером европейского консорциума под идентификатором PIC 912048192.",
-        en: "Validated as partner entity under PIC 912048192 for preclinical pharmacology work packages."
-      },
-      link: "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/how-to-participate/participant-register"
-    },
-    {
-      id: "news-3",
-      date: "2024-06-22",
-      category: {
-        uz: "Infratuzilma",
-        ru: "Инфраструктура",
-        en: "Infrastructure"
-      },
-      title: {
-        uz: "Yangi Agilent 1260 Infinity II xromatografik tizimi muvaffaqiyatli metrologik kalibratsiyadan o'tdi",
-        ru: "Система ВЭЖХ Agilent 1260 Infinity II прошла государственную метрологическую калибровку",
-        en: "Agilent 1260 Infinity II HPLC System successfully calibrated and standardized"
-      },
-      summary: {
-        uz: "HPLC xonasidagi yangi DAD-detektorli xromatograf ICH Q2(R1) talablariga mos holatda eksperimental tahlillarga shay holatga keltirildi.",
-        ru: "Хроматограф введен в постоянную эксплуатацию для биоаналитических задач по стандартам ICH Q2(R1).",
-        en: "High-performance liquid chromatography module calibrated for pharmacokinetic bioanalysis."
-      },
-      link: "https://www.agilent.com"
-    }
-  ];
+  const editLabel =
+    currentLang === 'uz'
+      ? 'Tahrirlash'
+      : currentLang === 'ru'
+      ? 'Редактировать'
+      : 'Edit';
 
   return (
     <AnimatePresence>
@@ -158,13 +117,27 @@ export const NewsModal: React.FC<NewsModalProps> = ({
                 </div>
               </div>
 
-              <button
-                onClick={onClose}
-                className="p-2 rounded-xl border border-[#DDE2EF] bg-white text-[#5C6478] hover:text-[#24356F] hover:bg-[#F3F5FB] transition-colors shrink-0 cursor-pointer"
-                aria-label={t.closeModal}
-              >
-                <X className="w-5 h-5" />
-              </button>
+              {/* Action Buttons: Tahrirlash (Edit) + Close */}
+              <div className="flex items-center gap-2.5 self-end sm:self-auto shrink-0">
+                <a
+                  href="/admin/news"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border border-[#DDE2EF] bg-white text-xs font-semibold text-[#24356F] hover:bg-[#F3F5FB] hover:border-[#24356F]/40 shadow-xs transition-all cursor-pointer"
+                  title="Yangiliklarni tahrirlash (Admin panel)"
+                >
+                  <Edit3 className="w-3.5 h-3.5 text-[#12715A]" />
+                  <span>{editLabel}</span>
+                </a>
+
+                <button
+                  onClick={onClose}
+                  className="p-2 rounded-xl border border-[#DDE2EF] bg-white text-[#5C6478] hover:text-[#24356F] hover:bg-[#F3F5FB] transition-colors shrink-0 cursor-pointer"
+                  aria-label={t.closeModal}
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
             </div>
 
             {/* Body */}
@@ -181,29 +154,33 @@ export const NewsModal: React.FC<NewsModalProps> = ({
                         <span>{item.date}</span>
                       </span>
                       <span className="px-2.5 py-0.5 rounded-full bg-[#E3F1EC] text-[#12715A] font-bold uppercase text-[11px]">
-                        {item.category[currentLang]}
+                        {item.category?.[currentLang] || item.category?.uz || ''}
                       </span>
                     </div>
 
                     <h3 className="text-base sm:text-lg font-bold font-display text-[#1B1F2A] leading-snug">
-                      {item.title[currentLang]}
+                      {item.title?.[currentLang] || item.title?.uz || ''}
                     </h3>
 
                     <p className="text-xs sm:text-sm text-[#5C6478] mt-2 leading-relaxed font-body">
-                      {item.summary[currentLang]}
+                      {item.summary?.[currentLang] || item.summary?.uz || ''}
                     </p>
                   </div>
 
                   <div className="mt-4 pt-3 border-t border-[#DDE2EF] flex items-center justify-between">
-                    <a
-                      href={item.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs font-mono font-bold text-[#24356F] hover:text-[#12715A] hover:underline inline-flex items-center gap-1.5"
-                    >
-                      <span>{t.newsReadMore}</span>
-                      <ExternalLink className="w-3.5 h-3.5" />
-                    </a>
+                    {item.link ? (
+                      <a
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs font-mono font-bold text-[#24356F] hover:text-[#12715A] hover:underline inline-flex items-center gap-1.5"
+                      >
+                        <span>{t.newsReadMore}</span>
+                        <ExternalLink className="w-3.5 h-3.5" />
+                      </a>
+                    ) : (
+                      <span className="text-xs text-slate-400">SLIPC Dispatches</span>
+                    )}
                   </div>
                 </div>
               ))}
@@ -216,7 +193,7 @@ export const NewsModal: React.FC<NewsModalProps> = ({
               </span>
               <button
                 onClick={onClose}
-                className="btn-pharmi btn-pharmi-primary text-xs px-5 py-2"
+                className="btn-pharmi btn-pharmi-primary text-xs px-5 py-2 cursor-pointer"
               >
                 {t.closeModal}
               </button>
