@@ -30,8 +30,7 @@ import {
   Coins,
   Check,
   Filter,
-  ArrowDownAZ,
-  ArrowUpZA,
+  ArrowUpDown,
 } from 'lucide-react';
 
 const LOCAL_STORAGE_CONTRACTS_KEY = 'slipc_staff_lab_contracts_v1';
@@ -579,42 +578,27 @@ export default function StaffPortalPage() {
             </button>
           </div>
 
-          {/* Right side: Sort Buttons + Search Box */}
+          {/* Right side: Tartiblash Tugmasi + Search Box */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-            {/* Sortirovka: Faqat shartnoma raqami bo'yicha A-Z va Z-A */}
-            <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200 self-start sm:self-auto">
-              <span className="text-[11px] font-semibold text-slate-500 px-2 flex items-center gap-1">
-                <span>Raqam:</span>
-              </span>
-
-              <button
-                type="button"
-                onClick={() => setSortOrder('asc')}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                  sortOrder === 'asc'
-                    ? 'bg-white text-[#0F2942] shadow-xs border border-slate-200 font-extrabold'
-                    : 'text-slate-500 hover:text-slate-900'
-                }`}
-                title="Shartnoma raqami bo'yicha A dan Z gacha saralash"
-              >
-                <ArrowDownAZ className={`w-3.5 h-3.5 ${sortOrder === 'asc' ? 'text-[#108A54]' : 'text-slate-400'}`} />
-                <span>A-Z</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setSortOrder('desc')}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                  sortOrder === 'desc'
-                    ? 'bg-white text-[#0F2942] shadow-xs border border-slate-200 font-extrabold'
-                    : 'text-slate-500 hover:text-slate-900'
-                }`}
-                title="Shartnoma raqami bo'yicha Z dan A gacha saralash"
-              >
-                <ArrowUpZA className={`w-3.5 h-3.5 ${sortOrder === 'desc' ? 'text-[#108A54]' : 'text-slate-400'}`} />
-                <span>Z-A</span>
-              </button>
-            </div>
+            {/* Tartiblash tugmasi */}
+            <button
+              type="button"
+              onClick={() => {
+                const nextOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+                setSortOrder(nextOrder);
+                setActionNotice(
+                  nextOrder === 'asc'
+                    ? "Shartnomalar o'sish tartibida joylashtirildi"
+                    : "Shartnomalar kamayish tartibida joylashtirildi"
+                );
+                setTimeout(() => setActionNotice(null), 2000);
+              }}
+              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-xs font-semibold text-[#0F2942] shadow-xs transition-all cursor-pointer self-start sm:self-auto"
+              title="Shartnoma raqami bo'yicha tartiblash"
+            >
+              <ArrowUpDown className="w-3.5 h-3.5 text-[#108A54]" />
+              <span>Tartiblash</span>
+            </button>
 
             {/* Search Box */}
             <div className="relative w-full sm:w-72">
