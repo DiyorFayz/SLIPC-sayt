@@ -580,33 +580,14 @@ export default function StaffPortalPage() {
           </div>
         )}
 
-        {/* Clean Header: Shartnomalar & Subtitle + Laboratoriya logosi */}
-        <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-[#0F2942] tracking-tight font-display">
-              Shartnomalar
-            </h1>
-            <p className="text-xs sm:text-sm text-[#475569] mt-1 font-body">
-              SLIPC laboratoriyasida tuzilgan shartnomalar holati
-            </p>
-          </div>
-
-          {/* O'ng tomondagi laboratoriya logosi */}
-          <div className="shrink-0 self-start sm:self-center">
-            <div className="p-1.5 sm:p-2 rounded-2xl bg-white border border-[#DDE2EF] shadow-xs flex items-center gap-2.5 sm:gap-3 hover:shadow-sm transition-shadow">
-              <img
-                src="/logo-slipc.webp"
-                alt="SLIPC Laboratoriya Logosi"
-                className="w-12 h-12 sm:w-14 sm:h-14 object-contain rounded-xl"
-              />
-              <div className="h-8 w-px bg-slate-200" />
-              <img
-                src="/logo-ifbil.webp"
-                alt="IFBIL Logosi"
-                className="w-12 h-12 sm:w-14 sm:h-14 object-contain rounded-xl"
-              />
-            </div>
-          </div>
+        {/* Clean Header: Shartnomalar & Subtitle */}
+        <div className="mb-6">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-[#0F2942] tracking-tight font-display">
+            Shartnomalar
+          </h1>
+          <p className="text-xs sm:text-sm text-[#475569] mt-1 font-body">
+            SLIPC laboratoriyasida tuzilgan shartnomalar holati
+          </p>
         </div>
 
         {/* Filter Tabs & Search Bar & Sort */}
