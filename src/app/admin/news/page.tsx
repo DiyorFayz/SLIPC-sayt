@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import { NewsItem, fetchAllNews, saveNewsItem, deleteNewsItem, INITIAL_NEWS_ITEMS } from '@/data/newsData';
@@ -22,17 +22,23 @@ import {
   Newspaper,
   ShieldCheck,
   Eye,
+  Upload,
+  Image as ImageIcon,
+  X,
+  FileImage,
 } from 'lucide-react';
 
+const ADMIN_STORAGE_KEY = 'slipc_admin_session';
+const MASTER_PASSWORD = 'Diyorfayz2003';
+
 export default function AdminNewsPage() {
-  const [session, setSession] = useState<any>(null);
+  const [session, setSession] = useState<{ user: { email: string } } | null>(null);
   const [loadingAuth, setLoadingAuth] = useState(true);
   const [authError, setAuthError] = useState<string | null>(null);
   const [authSuccess, setAuthSuccess] = useState<string | null>(null);
 
-  // Form states for login / signup
-  const [isSignUp, setIsSignUp] = useState(false);
-  const [email, setEmail] = useState('');
+  // Form states for login
+  const [loginInput, setLoginInput] = useState('');
   const [password, setPassword] = useState('');
   const [submittingAuth, setSubmittingAuth] = useState(false);
 
@@ -48,6 +54,11 @@ export default function AdminNewsPage() {
   const [activeLangTab, setActiveLangTab] = useState<'uz' | 'ru' | 'en'>('uz');
   const [savingItem, setSavingItem] = useState(false);
 
+  // Image upload handling
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [imageUploading, setImageUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   // Form fields for editing
   const [formData, setFormData] = useState<NewsItem>({
     id: '',
@@ -56,14 +67,31 @@ export default function AdminNewsPage() {
     title: { uz: '', ru: '', en: '' },
     summary: { uz: '', ru: '', en: '' },
     link: '',
+    image: '',
   });
 
   // Check auth on load
   useEffect(() => {
     async function checkAuth() {
       try {
-        const { data: { session } } = await supabase.auth.getSession();
-        setSession(session);
+        // 1. Check local admin session
+        if (typeof window !== 'undefined') {
+          const cached = localStorage.getItem(ADMIN_STORAGE_KEY);
+          if (cached) {
+            const parsed = JSON.parse(cached);
+            if (parsed && parsed.email) {
+              setSession({ user: { email: parsed.email } });
+              setLoadingAuth(false);
+              return;
+            }
+          }
+        }
+
+        // 2. Check Supabase session
+        const { data: { session: supaSession } } = await supabase.auth.getSession();
+        if (supaSession?.user) {
+          setSession({ user: { email: supaSession.user.email || 'admin@slipc.uz' } });
+        }
       } catch (err) {
         console.error('Session check failed:', err);
       } finally {
@@ -72,16 +100,6 @@ export default function AdminNewsPage() {
     }
 
     checkAuth();
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, currentSession) => {
-      setSession(currentSession);
-    });
-
-    return () => {
-      subscription.unsubscribe();
-    };
   }, []);
 
   // Fetch news when authenticated
@@ -104,38 +122,48 @@ export default function AdminNewsPage() {
     }
   }
 
-  // Handle Login / SignUp
+  // Handle Login with Master Password & Supabase
   async function handleAuthSubmit(e: React.FormEvent) {
     e.preventDefault();
     setAuthError(null);
     setAuthSuccess(null);
     setSubmittingAuth(true);
 
+    const enteredLogin = loginInput.trim() || 'diyor@slipc.uz';
+    const enteredPassword = password.trim();
+
     try {
-      if (isSignUp) {
-        const { data, error } = await supabase.auth.signUp({
-          email,
-          password,
-        });
-        if (error) throw error;
-        if (data.session) {
-          setSession(data.session);
-          setAuthSuccess("Muvaffaqiyatli ro'yxatdan o'tdingiz!");
-        } else {
-          setAuthSuccess("Hisob yaratildi! Agar tasdiqlash xati yuborilgan bo'lsa, pochtangizni tekshiring yoki tizimga kiring.");
-          setIsSignUp(false);
-        }
-      } else {
-        const { data, error } = await supabase.auth.signInWithPassword({
-          email,
-          password,
-        });
-        if (error) throw error;
-        setSession(data.session);
+      // Check Master Password: Diyorfayz2003
+      if (enteredPassword === MASTER_PASSWORD) {
+        const userObj = { email: enteredLogin };
+        localStorage.setItem(ADMIN_STORAGE_KEY, JSON.stringify(userObj));
+        setSession({ user: userObj });
         setAuthSuccess("Muvaffaqiyatli kirdingiz!");
+        setSubmittingAuth(false);
+        return;
       }
+
+      // Fallback: Check Supabase Auth
+      try {
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email: enteredLogin,
+          password: enteredPassword,
+        });
+
+        if (!error && data.session) {
+          localStorage.setItem(ADMIN_STORAGE_KEY, JSON.stringify({ email: data.session.user.email }));
+          setSession({ user: { email: data.session.user.email || enteredLogin } });
+          setAuthSuccess("Muvaffaqiyatli kirdingiz!");
+          setSubmittingAuth(false);
+          return;
+        }
+      } catch (supaErr) {
+        // Ignored, will trigger bad password message
+      }
+
+      setAuthError("Parol noto'g'ri kiritildi. Iltimos, qaytadan tekshirib yozing.");
     } catch (err: any) {
-      setAuthError(err.message || "Kirishda xatolik yuz berdi. Login yoki parolni tekshiring.");
+      setAuthError(err.message || "Kirishda xatolik yuz berdi.");
     } finally {
       setSubmittingAuth(false);
     }
@@ -143,14 +171,85 @@ export default function AdminNewsPage() {
 
   // Handle Sign Out
   async function handleSignOut() {
-    await supabase.auth.signOut();
+    try {
+      await supabase.auth.signOut();
+    } catch (e) {}
+    localStorage.removeItem(ADMIN_STORAGE_KEY);
     setSession(null);
+  }
+
+  // Image compression utility using HTML5 Canvas (high quality, small file size)
+  function compressImage(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          const maxWidth = 1200;
+          const maxHeight = 800;
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height) {
+            if (width > maxWidth) {
+              height = Math.round((height * maxWidth) / width);
+              width = maxWidth;
+            }
+          } else {
+            if (height > maxHeight) {
+              width = Math.round((width * maxHeight) / height);
+              height = maxHeight;
+            }
+          }
+
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          if (!ctx) {
+            resolve(e.target?.result as string);
+            return;
+          }
+
+          ctx.drawImage(img, 0, 0, width, height);
+          const dataUrl = canvas.toDataURL('image/webp', 0.85);
+          resolve(dataUrl);
+        };
+        img.onerror = () => reject(new Error("Rasmni o'qishda xatolik"));
+        img.src = e.target?.result as string;
+      };
+      reader.onerror = () => reject(new Error("Faylni o'qishda xatolik"));
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // Handle Image File Selection
+  async function handleImageFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      alert("Iltimos, faqat rasm faylini tanlang (JPG, PNG, WebP).");
+      return;
+    }
+
+    setImageUploading(true);
+    try {
+      const compressedDataUrl = await compressImage(file);
+      setImagePreview(compressedDataUrl);
+      setFormData((prev) => ({ ...prev, image: compressedDataUrl }));
+    } catch (err) {
+      alert("Rasmni yuklashda xatolik yuz berdi.");
+    } finally {
+      setImageUploading(false);
+    }
   }
 
   // Open modal for new item
   function handleAddNew() {
     const today = new Date().toISOString().split('T')[0];
     setEditingItem(null);
+    setImagePreview(null);
     setFormData({
       id: `news-${Date.now()}`,
       date: today,
@@ -162,6 +261,7 @@ export default function AdminNewsPage() {
       title: { uz: '', ru: '', en: '' },
       summary: { uz: '', ru: '', en: '' },
       link: 'https://',
+      image: '',
     });
     setActiveLangTab('uz');
     setIsEditModalOpen(true);
@@ -170,21 +270,23 @@ export default function AdminNewsPage() {
   // Open modal for editing
   function handleEdit(item: NewsItem) {
     setEditingItem(item);
+    setImagePreview(item.image || null);
     setFormData({
       id: item.id,
       date: item.date,
       category: { ...item.category },
       title: { ...item.title },
       summary: { ...item.summary },
-      link: item.link,
+      link: item.link || '',
+      image: item.image || '',
     });
     setActiveLangTab('uz');
     setIsEditModalOpen(true);
   }
 
   // Delete item
-  async function handleDelete(id: string, titleUz: string) {
-    if (!confirm(`"${titleUz}" yangiligini o'chirishni tasdiqlaysizmi?`)) {
+  async function handleDelete(id: string, titleUz?: string) {
+    if (!confirm(`"${titleUz || 'Ushbu'}" yangiligini o'chirishni tasdiqlaysizmi?`)) {
       return;
     }
     try {
@@ -208,9 +310,9 @@ export default function AdminNewsPage() {
 
     setSavingItem(true);
     try {
-      // Auto-fill fallback for ru and en if left blank
       const itemToSave: NewsItem = {
         ...formData,
+        image: imagePreview || formData.image || '',
         category: {
           uz: formData.category.uz || "Yangilik",
           ru: formData.category.ru || formData.category.uz || "Новости",
@@ -265,13 +367,12 @@ export default function AdminNewsPage() {
   }
 
   // ==========================================
-  // 1. LOGIN / AUTH SCREEN
+  // 1. LOGIN SCREEN (Diyorfayz2003)
   // ==========================================
   if (!session) {
     return (
       <div className="min-h-screen bg-[#F4F6FB] flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          {/* Logo and Academic Header */}
           <div className="flex justify-center mb-4">
             <div className="p-2 rounded-2xl bg-white border border-[#DDE2EF] shadow-md flex items-center gap-3">
               <img
@@ -291,7 +392,7 @@ export default function AdminNewsPage() {
             SLIPC Boshqaruv Paneli
           </h2>
           <p className="mt-1.5 text-center text-xs sm:text-sm text-[#5C6478]">
-            Yangiliklarni tahrirlash uchun ruxsat etilgan hisobingizga kiring
+            Yangiliklar bo'limini tahrirlash uchun parolni kiriting
           </p>
         </div>
 
@@ -314,18 +415,17 @@ export default function AdminNewsPage() {
             <form onSubmit={handleAuthSubmit} className="space-y-4">
               <div>
                 <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">
-                  Email (Login)
+                  Login / Foydalanuvchi nomi
                 </label>
                 <div className="relative rounded-xl border border-slate-200 focus-within:border-[#24356F] focus-within:ring-2 focus-within:ring-[#24356F]/20 transition-all">
                   <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
                     <Mail className="w-4 h-4" />
                   </div>
                   <input
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="admin@slipc.uz"
+                    type="text"
+                    value={loginInput}
+                    onChange={(e) => setLoginInput(e.target.value)}
+                    placeholder="admin yoki emailingiz"
                     className="block w-full pl-10 pr-3.5 py-2.5 text-sm text-slate-800 placeholder-slate-400 bg-transparent rounded-xl focus:outline-none"
                   />
                 </div>
@@ -344,7 +444,7 @@ export default function AdminNewsPage() {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder="••••••••••••"
+                    placeholder="Parolni kiriting..."
                     className="block w-full pl-10 pr-3.5 py-2.5 text-sm text-slate-800 placeholder-slate-400 bg-transparent rounded-xl focus:outline-none"
                   />
                 </div>
@@ -364,7 +464,7 @@ export default function AdminNewsPage() {
                   ) : (
                     <>
                       <Lock className="w-4 h-4" />
-                      <span>{isSignUp ? "Ro'yxatdan o'tish" : "Tizimga kirish"}</span>
+                      <span>Tizimga kirish</span>
                     </>
                   )}
                 </button>
@@ -372,23 +472,9 @@ export default function AdminNewsPage() {
             </form>
 
             <div className="mt-6 pt-5 border-t border-slate-100 flex flex-col gap-3">
-              <button
-                type="button"
-                onClick={() => {
-                  setIsSignUp(!isSignUp);
-                  setAuthError(null);
-                  setAuthSuccess(null);
-                }}
-                className="text-xs text-[#24356F] hover:underline font-medium text-center"
-              >
-                {isSignUp
-                  ? "Oldin ro'yxatdan o'tganmisiz? Kirish sahifasiga qaytish"
-                  : "Yangi admin hisob yaratish (Birinchi marta kirish uchun)"}
-              </button>
-
               <div className="flex items-center justify-center gap-1.5 text-[11px] text-slate-400">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                <span>Supabase xavfsiz autentifikatsiya tizimi</span>
+                <span>Himoyalangan boshqaruv tizimi</span>
               </div>
 
               <div className="text-center mt-2">
@@ -431,7 +517,7 @@ export default function AdminNewsPage() {
                 </span>
               </div>
               <p className="text-[11px] text-slate-500 hidden sm:block">
-                Yangiliklar va xabarnomalar bo'limi
+                Yangiliklar va fotoxabarlar bo'limi
               </p>
             </div>
           </div>
@@ -491,7 +577,7 @@ export default function AdminNewsPage() {
               </span>
             </div>
             <p className="text-xs sm:text-sm text-slate-500 mt-1">
-              Saytning Yangiliklar bo'limidagi barcha xabarlarni qo'shish, o'zgartirish va o'chirish
+              Yangiliklarni rasm bilan qo'shish, matnlarini tahrirlash yoki o'chirish
             </p>
           </div>
 
@@ -531,12 +617,23 @@ export default function AdminNewsPage() {
             </button>
           </div>
         ) : (
-          <div className="space-y-3.5">
+          <div className="space-y-4">
             {newsList.map((item, index) => (
               <div
                 key={item.id || index}
-                className="bg-white rounded-xl border border-[#DDE2EF] p-4 sm:p-5 hover:border-slate-300 transition-all shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4"
+                className="bg-white rounded-xl border border-[#DDE2EF] p-4 sm:p-5 hover:border-slate-300 transition-all shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-5"
               >
+                {/* News Image Preview if available */}
+                {item.image && (
+                  <div className="w-full md:w-36 h-28 shrink-0 rounded-lg overflow-hidden border border-slate-200 bg-slate-50">
+                    <img
+                      src={item.image}
+                      alt={item.title?.uz || 'Rasm'}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
+
                 <div className="flex-1 min-w-0">
                   <div className="flex flex-wrap items-center gap-2.5 mb-1.5">
                     <span className="inline-flex items-center gap-1 text-xs font-mono text-slate-500">
@@ -546,6 +643,12 @@ export default function AdminNewsPage() {
                     <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-bold uppercase tracking-wider border border-emerald-200">
                       {item.category?.uz || 'Yangilik'}
                     </span>
+                    {item.image && (
+                      <span className="inline-flex items-center gap-1 text-[11px] text-slate-400 font-mono">
+                        <FileImage className="w-3 h-3 text-emerald-600" />
+                        <span>Rasm mavjud</span>
+                      </span>
+                    )}
                   </div>
 
                   <h3 className="text-base font-bold text-slate-900 leading-snug font-display line-clamp-2">
@@ -570,7 +673,7 @@ export default function AdminNewsPage() {
                 </div>
 
                 {/* Actions */}
-                <div className="flex items-center gap-2 shrink-0 pt-3 md:pt-0 border-t md:border-t-0 border-slate-100">
+                <div className="flex items-center gap-2 shrink-0 w-full md:w-auto pt-3 md:pt-0 border-t md:border-t-0 border-slate-100 justify-end">
                   <button
                     onClick={() => handleEdit(item)}
                     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-medium text-slate-700 hover:bg-slate-50 hover:text-[#24356F] transition-colors cursor-pointer"
@@ -594,11 +697,11 @@ export default function AdminNewsPage() {
       </main>
 
       {/* ==========================================
-          3. EDIT / CREATE MODAL
+          3. EDIT / CREATE MODAL WITH IMAGE UPLOAD
       ========================================== */}
       {isEditModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-900/50 backdrop-blur-sm overflow-y-auto">
-          <div className="bg-white w-full max-w-2xl rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col my-auto max-h-[90vh]">
+          <div className="bg-white w-full max-w-2xl rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col my-auto max-h-[92vh]">
             {/* Header */}
             <div className="p-5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
               <div className="flex items-center gap-2">
@@ -610,7 +713,7 @@ export default function AdminNewsPage() {
                     {editingItem ? "Yangilikni Tahrirlash" : "Yangi Yangilik Qo'shish"}
                   </h3>
                   <p className="text-xs text-slate-500">
-                    Barcha 3 tildagi ma'lumotlarni kiriting yoki to'ldiring
+                    Rasm yuklang va matnlarni kiriting
                   </p>
                 </div>
               </div>
@@ -618,14 +721,85 @@ export default function AdminNewsPage() {
               <button
                 type="button"
                 onClick={() => setIsEditModalOpen(false)}
-                className="text-slate-400 hover:text-slate-600 p-1 rounded-lg"
+                className="text-slate-400 hover:text-slate-600 p-1.5 rounded-lg cursor-pointer"
               >
-                ✕
+                <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Modal Form */}
-            <form onSubmit={handleSaveNews} className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-4">
+            <form onSubmit={handleSaveNews} className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-5">
+              {/* Image Upload Area */}
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 mb-1.5 flex items-center justify-between">
+                  <span className="flex items-center gap-1.5">
+                    <ImageIcon className="w-4 h-4 text-[#24356F]" />
+                    Yangilik Rasmi
+                  </span>
+                  {imagePreview && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setImagePreview(null);
+                        setFormData((prev) => ({ ...prev, image: '' }));
+                        if (fileInputRef.current) fileInputRef.current.value = '';
+                      }}
+                      className="text-red-600 hover:text-red-700 text-xs font-medium inline-flex items-center gap-1"
+                    >
+                      <Trash2 className="w-3 h-3" />
+                      <span>Rasmni o'chirish</span>
+                    </button>
+                  )}
+                </label>
+
+                {imagePreview ? (
+                  <div className="relative rounded-xl border border-slate-200 overflow-hidden bg-slate-50 flex items-center justify-center max-h-60">
+                    <img
+                      src={imagePreview}
+                      alt="Tanlangan rasm"
+                      className="w-full max-h-60 object-contain"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => fileInputRef.current?.click()}
+                      className="absolute bottom-3 right-3 bg-white/95 hover:bg-white text-slate-700 text-xs font-medium px-3 py-1.5 rounded-lg shadow-sm border border-slate-200 flex items-center gap-1.5"
+                    >
+                      <Upload className="w-3.5 h-3.5" />
+                      <span>Rasmni almashtirish</span>
+                    </button>
+                  </div>
+                ) : (
+                  <div
+                    onClick={() => fileInputRef.current?.click()}
+                    className="border-2 border-dashed border-slate-300 hover:border-[#24356F] rounded-xl p-6 text-center cursor-pointer transition-colors bg-slate-50/50 hover:bg-slate-50"
+                  >
+                    <div className="flex flex-col items-center gap-2">
+                      <div className="p-3 rounded-full bg-slate-100 text-[#24356F]">
+                        {imageUploading ? (
+                          <RefreshCw className="w-6 h-6 animate-spin" />
+                        ) : (
+                          <Upload className="w-6 h-6" />
+                        )}
+                      </div>
+                      <p className="text-xs sm:text-sm font-semibold text-slate-700">
+                        Kompyuterdan rasm yuklash uchun bosing
+                      </p>
+                      <p className="text-[11px] text-slate-400">
+                        PNG, JPG, WebP formatlari (Avtomatik ravishda tiniq va ixcham qilib siqiladi)
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageFileChange}
+                  className="hidden"
+                />
+              </div>
+
               {/* Date & Link */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
@@ -649,7 +823,7 @@ export default function AdminNewsPage() {
                     type="url"
                     value={formData.link}
                     onChange={(e) => setFormData({ ...formData, link: e.target.value })}
-                    placeholder="https://doi.org/..."
+                    placeholder="https://..."
                     className="w-full px-3 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-[#101F52]/20 focus:border-[#101F52] focus:outline-none"
                   />
                 </div>
@@ -744,7 +918,7 @@ export default function AdminNewsPage() {
                 <button
                   type="button"
                   onClick={() => setIsEditModalOpen(false)}
-                  className="px-4 py-2 rounded-xl border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-100 transition-colors"
+                  className="px-4 py-2 rounded-xl border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
                 >
                   Bekor qilish
                 </button>
@@ -752,7 +926,7 @@ export default function AdminNewsPage() {
                 <button
                   type="submit"
                   disabled={savingItem}
-                  className="px-5 py-2 rounded-xl bg-[#101F52] hover:bg-[#1a3285] text-white text-xs font-semibold shadow-sm transition-colors flex items-center gap-2 disabled:opacity-50"
+                  className="px-5 py-2 rounded-xl bg-[#101F52] hover:bg-[#1a3285] text-white text-xs font-semibold shadow-sm transition-colors flex items-center gap-2 disabled:opacity-50 cursor-pointer"
                 >
                   {savingItem ? (
                     <>

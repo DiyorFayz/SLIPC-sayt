@@ -8,6 +8,7 @@ export interface NewsItem {
   title: Record<Language, string>;
   summary: Record<Language, string>;
   link: string;
+  image?: string;
 }
 
 export const INITIAL_NEWS_ITEMS: NewsItem[] = [

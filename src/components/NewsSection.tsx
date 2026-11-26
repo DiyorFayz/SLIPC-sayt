@@ -61,6 +61,15 @@ export const NewsSection: React.FC<NewsSectionProps> = ({ currentLang }) => {
             <article key={item.id} className="py-6 first:pt-0 last:pb-0">
               <div className="flex flex-col sm:flex-row sm:items-start gap-4">
                 <time className="text-sm text-slate-400 shrink-0 sm:w-28 tabular-nums">{item.date}</time>
+                {item.image && (
+                  <div className="w-full sm:w-40 h-28 shrink-0 rounded-xl overflow-hidden border border-slate-200 bg-slate-50">
+                    <img
+                      src={item.image}
+                      alt={item.title?.[currentLang] || item.title?.uz || 'Rasm'}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
                 <div className="flex-1">
                   <h3 className="text-base font-semibold text-slate-900 leading-snug mb-1">
                     {item.title?.[currentLang] || item.title?.uz || ''}

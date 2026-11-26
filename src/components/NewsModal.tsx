@@ -162,6 +162,16 @@ export const NewsModal: React.FC<NewsModalProps> = ({
                       {item.title?.[currentLang] || item.title?.uz || ''}
                     </h3>
 
+                    {item.image && (
+                      <div className="my-3 rounded-xl overflow-hidden border border-[#DDE2EF] bg-slate-100 max-h-72">
+                        <img
+                          src={item.image}
+                          alt={item.title?.[currentLang] || item.title?.uz || 'Yangilik rasmi'}
+                          className="w-full h-48 sm:h-60 object-cover hover:scale-[1.01] transition-transform duration-300"
+                        />
+                      </div>
+                    )}
+
                     <p className="text-xs sm:text-sm text-[#5C6478] mt-2 leading-relaxed font-body">
                       {item.summary?.[currentLang] || item.summary?.uz || ''}
                     </p>
