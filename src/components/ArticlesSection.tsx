@@ -1,8 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { Language } from '@/types/laboratory';
-import { BookOpen, Sparkles, ArrowRight, Award } from 'lucide-react';
+import { BookOpen, Sparkles, ArrowRight, Award, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface ArticlesSectionProps {
   currentLang: Language;
@@ -170,6 +170,114 @@ export const ArticlesSection: React.FC<ArticlesSectionProps> = ({
   currentLang,
   onOpenProjects,
 }) => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const startXRef = useRef(0);
+  const scrollLeftRef = useRef(0);
+  const dragDistanceRef = useRef(0);
+  const animationFrameRef = useRef<number | null>(null);
+
+  // Smooth continuous auto-scroll loop (60fps) with infinite wrap
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    let lastTimestamp = performance.now();
+    const speed = 35; // Pixels per second for smooth glide
+
+    const loop = (timestamp: number) => {
+      const delta = (timestamp - lastTimestamp) / 1000;
+      lastTimestamp = timestamp;
+
+      if (!isDragging && !isHovered && el) {
+        el.scrollLeft += speed * delta;
+
+        // Wrap around seamlessly
+        const half = el.scrollWidth / 2;
+        if (el.scrollLeft >= half) {
+          el.scrollLeft -= half;
+        } else if (el.scrollLeft <= 0) {
+          el.scrollLeft += half;
+        }
+      }
+
+      animationFrameRef.current = requestAnimationFrame(loop);
+    };
+
+    animationFrameRef.current = requestAnimationFrame(loop);
+
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
+  }, [isDragging, isHovered]);
+
+  // Mouse Drag Events
+  const onMouseDown = (e: React.MouseEvent) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setIsDragging(true);
+    startXRef.current = e.pageX - el.offsetLeft;
+    scrollLeftRef.current = el.scrollLeft;
+    dragDistanceRef.current = 0;
+  };
+
+  const onMouseMove = (e: React.MouseEvent) => {
+    const el = scrollRef.current;
+    if (!isDragging || !el) return;
+    e.preventDefault();
+    const x = e.pageX - el.offsetLeft;
+    const walk = (x - startXRef.current) * 1.5;
+    dragDistanceRef.current += Math.abs(walk);
+
+    let next = scrollLeftRef.current - walk;
+    const half = el.scrollWidth / 2;
+    if (next >= half) next -= half;
+    if (next < 0) next += half;
+    el.scrollLeft = next;
+  };
+
+  const onMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  // Touch Swipe Events for mobile
+  const onTouchStart = (e: React.TouchEvent) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setIsDragging(true);
+    startXRef.current = e.touches[0].pageX - el.offsetLeft;
+    scrollLeftRef.current = el.scrollLeft;
+    dragDistanceRef.current = 0;
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    const el = scrollRef.current;
+    if (!isDragging || !el) return;
+    const x = e.touches[0].pageX - el.offsetLeft;
+    const walk = (x - startXRef.current) * 1.5;
+    dragDistanceRef.current += Math.abs(walk);
+
+    let next = scrollLeftRef.current - walk;
+    const half = el.scrollWidth / 2;
+    if (next >= half) next -= half;
+    if (next < 0) next += half;
+    el.scrollLeft = next;
+  };
+
+  const onTouchEnd = () => {
+    setIsDragging(false);
+  };
+
+  // Arrow controls for manual click navigation
+  const scrollByAmount = useCallback((offset: number) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    el.scrollBy({ left: offset, behavior: 'smooth' });
+  }, []);
+
   const content = {
     uz: {
       tag: 'ILMIY NASHRLAR VA TADQIQOT LOYIHALARI',
@@ -192,7 +300,7 @@ export const ArticlesSection: React.FC<ArticlesSectionProps> = ({
       tickerTag: 'SCOPUS VA WEB OF SCIENCE NUFUSLI JURNALLARI',
       tickerTitle: 'Laboratoriya maqolalari chop etilgan yetakchi jurnallar',
       tickerDesc:
-        'Xalqaro Q1 va Q2 kvartildagi nufuzli jurnallar va monografiyalar muqovalari',
+        'Qo‘l bilan o‘ngga-chapga surishingiz yoki ustiga bosib maqolani to‘liq ko‘rishingiz mumkin',
     },
     ru: {
       tag: 'НАУЧНЫЕ ПУБЛИКАЦИИ И ИССЛЕДОВАТЕЛЬСКИЕ ПРОЕКТЫ',
@@ -215,7 +323,7 @@ export const ArticlesSection: React.FC<ArticlesSectionProps> = ({
       tickerTag: 'АВТОРИТЕТНЫЕ ЖУРНАЛЫ SCOPUS И WEB OF SCIENCE',
       tickerTitle: 'Ведущие журналы, в которых опубликованы статьи лаборатории',
       tickerDesc:
-        'Обложки престижных международных периодических изданий первого и второго квартилей (Q1/Q2)',
+        'Можно листать вручную влево и вправо или кликнуть для просмотра',
     },
     en: {
       tag: 'SCIENTIFIC PUBLICATIONS & RESEARCH PROJECTS',
@@ -238,7 +346,7 @@ export const ArticlesSection: React.FC<ArticlesSectionProps> = ({
       tickerTag: 'PRESTIGIOUS SCOPUS & WEB OF SCIENCE JOURNALS',
       tickerTitle: 'Leading Journals Publishing Our Research',
       tickerDesc:
-        'Official covers of high-impact Q1 & Q2 international periodicals and scientific monographs',
+        'Swipe or drag left and right to explore, or click to open publication details',
     },
   }[currentLang];
 
@@ -338,7 +446,7 @@ export const ArticlesSection: React.FC<ArticlesSectionProps> = ({
         </div>
       </div>
 
-      {/* SCOPUS & Web of Science Top Journals Continuous Infinite Marquee Ticker */}
+      {/* SCOPUS & Web of Science Top Journals Interactive Marquee Carousel (Draggable & Auto-motion) */}
       <div className="mt-8 pt-6 border-t border-[#E2E8F0]/80">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-4">
           <div>
@@ -354,36 +462,81 @@ export const ArticlesSection: React.FC<ArticlesSectionProps> = ({
             </p>
           </div>
 
-          <button
-            type="button"
-            onClick={onOpenProjects}
-            className="self-start sm:self-auto text-xs font-semibold text-[#108A54] hover:text-[#0C6B41] inline-flex items-center gap-1 group/btn cursor-pointer py-1"
-          >
-            <span>{content.actionBtn}</span>
-            <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-1" />
-          </button>
+          <div className="flex items-center gap-2 self-start sm:self-auto">
+            {/* Left & Right manual navigation buttons */}
+            <button
+              type="button"
+              onClick={() => scrollByAmount(-240)}
+              aria-label="Oldingi jurnallar"
+              className="w-8 h-8 rounded-lg bg-white border border-[#DDE2EF] text-[#0F2942] hover:bg-slate-100 active:scale-95 flex items-center justify-center transition-all cursor-pointer shadow-2xs"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollByAmount(240)}
+              aria-label="Keyingi jurnallar"
+              className="w-8 h-8 rounded-lg bg-white border border-[#DDE2EF] text-[#0F2942] hover:bg-slate-100 active:scale-95 flex items-center justify-center transition-all cursor-pointer shadow-2xs"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+
+            <button
+              type="button"
+              onClick={onOpenProjects}
+              className="text-xs font-semibold text-[#108A54] hover:text-[#0C6B41] inline-flex items-center gap-1 group/btn cursor-pointer py-1 ml-2"
+            >
+              <span>{content.actionBtn}</span>
+              <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-1" />
+            </button>
+          </div>
         </div>
 
-        {/* Infinite Carousel Container */}
-        <div className="relative w-full overflow-hidden rounded-2xl bg-gradient-to-r from-slate-50 via-white to-slate-50 border border-[#DDE2EF] p-3 sm:p-4 shadow-2xs">
+        {/* Interactive Infinite Carousel Container with Touch & Drag support */}
+        <div
+          className="relative w-full overflow-hidden rounded-2xl bg-gradient-to-r from-slate-50 via-white to-slate-50 border border-[#DDE2EF] p-3 sm:p-4 shadow-2xs select-none"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => {
+            setIsHovered(false);
+            setIsDragging(false);
+          }}
+        >
           {/* Left & Right Fade Overlays */}
           <div className="absolute left-0 top-0 bottom-0 w-10 sm:w-20 bg-gradient-to-r from-slate-50 via-slate-50/80 to-transparent z-10 pointer-events-none" />
           <div className="absolute right-0 top-0 bottom-0 w-10 sm:w-20 bg-gradient-to-l from-slate-50 via-slate-50/80 to-transparent z-10 pointer-events-none" />
 
-          {/* Marquee Track (Smooth Continuous Loop) */}
-          <div className="animate-marquee-infinite flex items-stretch gap-3.5 sm:gap-4 py-1">
+          {/* Draggable & Auto-scrolling Track */}
+          <div
+            ref={scrollRef}
+            onMouseDown={onMouseDown}
+            onMouseMove={onMouseMove}
+            onMouseUp={onMouseUp}
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+            className={`flex items-stretch gap-3.5 sm:gap-4 py-1 overflow-x-hidden ${
+              isDragging ? 'cursor-grabbing' : 'cursor-grab'
+            } scrollbar-none`}
+            style={{ WebkitOverflowScrolling: 'touch' }}
+          >
             {[...TOP_SCOPUS_WOS_JOURNALS, ...TOP_SCOPUS_WOS_JOURNALS].map((journal, idx) => (
               <div
                 key={`${journal.id}-${idx}`}
-                onClick={onOpenProjects}
+                onClick={() => {
+                  if (dragDistanceRef.current > 6) return;
+                  onOpenProjects();
+                }}
                 className="shrink-0 w-44 sm:w-48 p-3 rounded-xl bg-white border border-[#E2E8F0] hover:border-[#108A54] hover:shadow-md transition-all duration-300 group/card cursor-pointer flex flex-col justify-between"
               >
                 <div className="aspect-[3/4] w-full rounded-lg overflow-hidden bg-slate-50/80 border border-slate-100 p-1 flex items-center justify-center relative mb-2.5">
                   <img
                     src={journal.coverImage}
                     alt={journal.name}
-                    className="w-full h-full object-contain rounded-md group-hover/card:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-contain rounded-md group-hover/card:scale-105 transition-transform duration-300 pointer-events-none"
                     loading="lazy"
+                    onError={(e) => {
+                      e.currentTarget.src = '/images/journals/default-cover.webp';
+                    }}
                   />
                   {journal.quartile && (
                     <div className="absolute top-2 right-2 px-1.5 py-0.5 rounded-md bg-[#0F2942]/90 backdrop-blur-xs text-[10px] font-mono font-bold text-white shadow-xs">

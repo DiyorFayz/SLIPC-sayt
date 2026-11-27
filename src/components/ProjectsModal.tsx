@@ -355,21 +355,12 @@ export const ProjectsModal: React.FC<ProjectsModalProps> = ({
                                       }}
                                     />
                                   ) : (
-                                    <div className="w-full h-full rounded-md bg-gradient-to-br from-[#0F2942] to-[#1E3E62] text-white p-2.5 flex flex-col justify-between items-center text-center shadow-inner">
-                                      <div className="w-full flex items-center justify-between text-[9px] font-mono text-emerald-400 opacity-90">
-                                        <span>#{project.id}</span>
-                                        <span>{project.year}</span>
-                                      </div>
-                                      <div className="my-auto flex flex-col items-center gap-1">
-                                        <BookOpen className="w-6 h-6 text-emerald-400 stroke-[1.5]" />
-                                        <span className="text-[10px] font-bold line-clamp-3 leading-tight tracking-tight px-0.5">
-                                          {project.journal.split('.')[0]}
-                                        </span>
-                                      </div>
-                                      <div className="text-[9px] font-mono font-semibold px-1.5 py-0.5 rounded bg-white/10 text-slate-200 border border-white/10 w-full truncate">
-                                        {localizedDatabase}
-                                      </div>
-                                    </div>
+                                    <img
+                                      src="/images/journals/default-cover.webp"
+                                      alt="Springer Nature"
+                                      className="w-full h-full object-contain rounded-md p-1"
+                                      loading="lazy"
+                                    />
                                   )}
                                 </div>
                               </div>

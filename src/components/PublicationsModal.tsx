@@ -115,9 +115,27 @@ export const PublicationsModal: React.FC<PublicationsModalProps> = ({
               {LAB_PUBLICATIONS.map((pub) => {
                 const isExpanded = !!expandedAbstracts[pub.id];
                 return (
-                  <div key={pub.id} className="glass-card rounded-2xl p-5">
-                    <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-                      <div className="flex-1">
+                  <div key={pub.id} className="glass-card rounded-2xl p-4 sm:p-5 hover:border-[#108A54]/40 transition-all duration-300">
+                    <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-5">
+                      {/* Journal / Publisher Cover Image */}
+                      <div className="shrink-0 w-24 sm:w-28 self-center sm:self-start">
+                        <div className="rounded-xl overflow-hidden border border-[#DDE2EF] bg-white shadow-xs p-1">
+                          <div className="aspect-[3/4] relative flex items-center justify-center bg-slate-50 rounded-lg overflow-hidden">
+                            <img
+                              src="/images/journals/default-cover.webp"
+                              alt={pub.journal}
+                              className="w-full h-full object-contain p-1"
+                              loading="lazy"
+                            />
+                          </div>
+                        </div>
+                        <span className="text-[10px] font-mono text-[#8A91A3] text-center block mt-1 truncate px-1" title={pub.journal}>
+                          {pub.journal.split('(')[0]}
+                        </span>
+                      </div>
+
+                      {/* Main Information */}
+                      <div className="flex-1 min-w-0 w-full">
                         <div className="flex flex-wrap items-center gap-2 mb-2 text-xs font-mono text-[#5C6478]">
                           <span className="font-bold px-2.5 py-0.5 rounded-full bg-[#E3F1EC] text-[#12715A] uppercase">
                             Scopus {pub.quartile}
@@ -151,7 +169,7 @@ export const PublicationsModal: React.FC<PublicationsModalProps> = ({
                         </div>
                       </div>
 
-                      <div className="flex items-center sm:flex-col sm:items-end gap-2 shrink-0">
+                      <div className="flex items-center sm:flex-col sm:items-end gap-2 shrink-0 self-end sm:self-start">
                         <a
                           href={`https://doi.org/${pub.doi}`}
                           target="_blank"
