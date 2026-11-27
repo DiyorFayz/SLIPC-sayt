@@ -255,3 +255,24 @@ img[src*="certificate"] {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
+
+/* Smooth Infinite Marquee Carousel for Top Journals */
+@keyframes marquee-infinite-scroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-marquee-infinite {
+  display: flex;
+  width: max-content;
+  animation: marquee-infinite-scroll 42s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-infinite:hover {
+  animation-play-state: paused;
+}
