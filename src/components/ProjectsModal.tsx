@@ -35,6 +35,7 @@ export const ProjectsModal: React.FC<ProjectsModalProps> = ({
 }) => {
   const t = TRANSLATIONS[currentLang];
   const [searchQuery, setSearchQuery] = useState('');
+  const [failedImages, setFailedImages] = useState<Record<number, boolean>>({});
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -339,24 +340,43 @@ export const ProjectsModal: React.FC<ProjectsModalProps> = ({
                           className="glass-card rounded-2xl p-4 sm:p-5 border border-[#DDE2EF] hover:border-[#108A54]/50 transition-all shadow-xs hover:shadow-md bg-white/95 group"
                         >
                           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-5">
-                            {/* Journal Cover Image */}
-                            {project.coverImage && (
-                              <div className="shrink-0 w-28 sm:w-32 self-center sm:self-start">
-                                <div className="rounded-xl overflow-hidden border border-[#DDE2EF] bg-slate-50 shadow-xs group-hover:border-[#108A54]/40 group-hover:shadow-sm transition-all duration-300">
-                                  <div className="aspect-[3/4] relative flex items-center justify-center p-1.5 bg-white">
+                            {/* Journal Cover Image with robust fallback */}
+                            <div className="shrink-0 w-28 sm:w-32 self-center sm:self-start">
+                              <div className="rounded-xl overflow-hidden border border-[#DDE2EF] bg-slate-50 shadow-xs group-hover:border-[#108A54]/40 group-hover:shadow-sm transition-all duration-300">
+                                <div className="aspect-[3/4] relative flex items-center justify-center p-1.5 bg-white">
+                                  {project.coverImage && !failedImages[project.id] ? (
                                     <img
                                       src={project.coverImage}
                                       alt={project.journal}
                                       className="w-full h-full object-contain rounded-md group-hover:scale-105 transition-transform duration-300"
                                       loading="lazy"
+                                      onError={() => {
+                                        setFailedImages((prev) => ({ ...prev, [project.id]: true }));
+                                      }}
                                     />
-                                  </div>
+                                  ) : (
+                                    <div className="w-full h-full rounded-md bg-gradient-to-br from-[#0F2942] to-[#1E3E62] text-white p-2.5 flex flex-col justify-between items-center text-center shadow-inner">
+                                      <div className="w-full flex items-center justify-between text-[9px] font-mono text-emerald-400 opacity-90">
+                                        <span>#{project.id}</span>
+                                        <span>{project.year}</span>
+                                      </div>
+                                      <div className="my-auto flex flex-col items-center gap-1">
+                                        <BookOpen className="w-6 h-6 text-emerald-400 stroke-[1.5]" />
+                                        <span className="text-[10px] font-bold line-clamp-3 leading-tight tracking-tight px-0.5">
+                                          {project.journal.split('.')[0]}
+                                        </span>
+                                      </div>
+                                      <div className="text-[9px] font-mono font-semibold px-1.5 py-0.5 rounded bg-white/10 text-slate-200 border border-white/10 w-full truncate">
+                                        {localizedDatabase}
+                                      </div>
+                                    </div>
+                                  )}
                                 </div>
-                                <span className="text-[10px] font-mono text-[#8A91A3] text-center block mt-1 truncate px-1" title={project.journal}>
-                                  {project.journal.split('.')[0]}
-                                </span>
                               </div>
-                            )}
+                              <span className="text-[10px] font-mono text-[#8A91A3] text-center block mt-1 truncate px-1" title={project.journal}>
+                                {project.journal.split('.')[0]}
+                              </span>
+                            </div>
 
                             {/* Main Card Content */}
                             <div className="flex-1 min-w-0 w-full">
